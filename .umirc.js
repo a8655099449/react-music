@@ -1,34 +1,30 @@
 /*
  * @Author: your name
  * @Date: 2020-12-10 10:00:22
- * @LastEditTime: 2020-12-10 15:36:05
+ * @LastEditTime: 2020-12-11 14:14:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \myapp\.umirc.ts
  */
 import { defineConfig } from 'umi';
+import routers from './src/config/router'
+
 
 export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
-
+  dynamicImport:{
+    
+  },
   routes: [
     {
       exact: false,
       path: '/',
       component: '@/layouts/index',
-      routes: [
-        {
-          exact: true, 
-          path: '/',
-          component: '@/pages/index/index',
-        },
-       
-      ],
+      routes: routers,
     },
-    { path: '/', component: '@/pages/index/index', title: '网易云音乐' },
-    // { component: '@/pages/404' },
-   
+
+    { component: '@/pages/404' },
   ],
 });

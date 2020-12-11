@@ -1,14 +1,16 @@
 import React from 'react';
+import NavBar from '../components/navBar/navBar'
+import Footer from '../components/footer/footer'
+
 
 function BasicLayout(props) {
-  console.log('我被渲染了吗');
+  // console.log(props,NavBar);
   return (
     <div>
-      <h1>我来组成头部</h1>
+      {/* 头部导航 */}
+      <NavBar />
       {props.children}
-      <footer>
-        我是页面底部
-      </footer>
+      <Footer/>
     </div>
   );
 }

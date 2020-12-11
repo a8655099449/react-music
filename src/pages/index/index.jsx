@@ -1,12 +1,13 @@
 import React from 'react';
 import styles from './index.less';
+import TopNav from './components/topNav'
 
 export default () => {
-  console.log(styles);
+  // console.log(styles);
   
   return (
     <div>
-      <h1 className={styles.title}>Page hehe</h1>
+      <TopNav />
     </div>
   );
 }

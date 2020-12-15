@@ -1,7 +1,28 @@
-.top-bar{
-  height: 35px;
+.top-bar {
+  height          : 35px;
   background-color: var(--main-color);
-  line-height: 35px;
-  color: #fff;
+  line-height     : 35px;
+  color           : #fff;
 
+  .content {
+    display: flex;
+    align-items: center;
+  height          : 35px;
+
+  }
+
+  .nav-item {
+    padding    : 5px 10px;
+    height: 28px;
+    // height     : 35px;
+    // line-height: 35px;
+    display: flex;
+    align-items: center;
+    border-radius: 14px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #9b0909;
+    }
+  }
 }

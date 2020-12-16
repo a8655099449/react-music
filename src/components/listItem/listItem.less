@@ -1,3 +1,45 @@
-.list-item{
-  border: 1px solid #000;
+.list-item {
+  // border: 1px solid #eee;
+  cursor: pointer;
+
+  .img-warp {
+    position: relative;
+
+    .img-buttom-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 27px;
+      line-height: 27px;
+      background-color: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: space-between;
+      padding: 0 10px;
+      font-size: 12px;
+      span {
+        font-size: 12px;
+      }
+      i {
+        color: #cbcaca;
+      }
+      // .icon-erji{
+      // }
+    }
+
+    img {
+      width: 100%;
+      display: block;
+    }
+  }
+  .name-text {
+    line-height: 24px;
+    font-size: 14px;
+    margin: 10px 0px;
+  }
+  &:hover {
+    .name-text {
+      text-decoration: underline;
+    }
+  }
 }

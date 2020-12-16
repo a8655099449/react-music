@@ -7,16 +7,13 @@
  * @FilePath: \myapp\.umirc.ts
  */
 import { defineConfig } from 'umi';
-import routers from './src/config/router'
-
+import routers from './src/config/router';
 
 export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
-  dynamicImport:{
-    
-  },
+  dynamicImport: {},
   routes: [
     {
       exact: false,
@@ -28,3 +25,4 @@ export default defineConfig({
     { component: '@/pages/404' },
   ],
 });
+// "swiper": "^6.4.1",

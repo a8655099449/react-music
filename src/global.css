@@ -1,4 +1,6 @@
 @import './assets/css/iconfont.css';
+@import './assets/css/normalize.css';
+@import './assets/css/public.css';
 
 .click {
   user-select: none;

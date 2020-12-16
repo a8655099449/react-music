@@ -1,9 +1,16 @@
-.list-warp{
+.list-warp {
   display: flex;
   padding: 0 20px;
-  .list-item{
-    flex: 1;
+  // font-size:;
+  flex-wrap: wrap;
 
+  .list-item {
+    width: calc((100% - 60px) / 3);
+    margin-right: 30px;
+    margin-bottom: 10px;
 
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
   }
 }

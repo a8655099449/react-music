@@ -1,19 +1,33 @@
 .item-tit {
   padding: 20px;
   color: var(--text-color);
-  &>div {
-    height     : 35px;
+  & > div {
+    height: 35px;
     border-bottom: 2px solid var(--main-color);
     display: flex;
     align-items: center;
     line-height: 35px;
-    i{
+    i {
       color: var(--main-color);
       font-size: 20px;
       margin-right: 10px;
     }
-    .title-text{
+    .title-text {
       font-size: 20px;
+    }
+  }
+}
+.type-0 {
+}
+
+.item-tit.type-1 {
+  & > div {
+    border-bottom: 1px solid #cccccc;
+    i {
+      display: none;
+    }
+    .title-text {
+      font-size: 14px;
     }
   }
 }

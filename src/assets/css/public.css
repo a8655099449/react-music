@@ -1,0 +1,26 @@
+*,p,div {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.text-row-1 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.text-row-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  /*这个决定行数*/
+  overflow: hidden;
+}
+
+.text-row-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  /*这个决定行数*/
+  overflow: hidden;
+}

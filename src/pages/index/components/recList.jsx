@@ -2,11 +2,12 @@ import React from 'react';
 import ItemTitle from './itemTitle';
 
 import ListItem from '@/components/listItem/listItem';
-
+import { connect } from 'react-redux';
 import styles from './recList.less';
 // 推荐歌单
 class RecList extends React.Component {
   render() {
+    // console.log(this.props);
     let { recData } = this.props;
     let list = recData.creatives.map((item, index) => {
       let imgSrc = item.uiElement.image.imageUrl;
@@ -33,5 +34,8 @@ class RecList extends React.Component {
     );
   }
 }
+const stateToProps = state => ({
+  value: state.testData,
+});
 
-export default RecList;
+export default connect(stateToProps, null)(RecList);

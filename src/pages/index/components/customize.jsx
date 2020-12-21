@@ -21,14 +21,12 @@ class Customize extends React.Component {
     if (!baseData) {
       return null;
     }
-    let listItem = baseData.creatives[0];
     console.log(baseData);
     let title =
       baseData.uiElement.mainTitle.title +
       ' / ' +
       baseData.uiElement.subTitle.title;
-    let imgSrc =
-      'http://p1.music.126.net/hFEUlWo8k3ywaB6pnaD-WQ==/109951164192344939.jpg';
+
     let bigList = baseData.creatives;
 
     let listDom = bigList.map((item, index) => {
@@ -44,7 +42,7 @@ class Customize extends React.Component {
               ? item2.uiElement.subTitle.title
               : item2.uiElement.mainTitle.title;
             // console.log(item2.uiElement.subTitle);
-            console.log(item2.uiElement.mainTitle.title);
+            // console.log(item2.uiElement.mainTitle.title);
             // console.log(item2.resourceExtInfo.commentSimpleData);
             return (
               <div className={`${styles['list-item']}`} key={index2}>

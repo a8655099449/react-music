@@ -5,6 +5,15 @@ import styles from './customize.less';
 import Swiper from 'swiper';
 
 class Customize extends React.Component {
+  handleItemClick = item => {
+    console.log(item);
+    let songId = item.resourceExtInfo.songData.id;
+    let songName = item.resourceExtInfo.songData.name;
+
+    let singerName = item.resourceExtInfo.artists[0].name;
+
+    console.log({ singerName, songId, songName });
+  };
   render() {
     setTimeout(() => {
       new Swiper('.' + styles['swiper-container'], {
@@ -34,18 +43,21 @@ class Customize extends React.Component {
       return (
         <div className={`${styles['content']} swiper-slide`} key={index}>
           {item.resources.map((item2, index2) => {
-            // console.log(item2);
             let songName = item2.resourceExtInfo.songData.name;
             let artists = item2.resourceExtInfo.artists[0].name;
-            // let desc = item2.resourceExtInfo.commentSimpleData.content || '啊哈哈'
+
             let desc = item2.uiElement.subTitle
               ? item2.uiElement.subTitle.title
               : item2.uiElement.mainTitle.title;
-            // console.log(item2.uiElement.subTitle);
-            // console.log(item2.uiElement.mainTitle.title);
-            // console.log(item2.resourceExtInfo.commentSimpleData);
+
             return (
-              <div className={`${styles['list-item']}`} key={index2}>
+              <div
+                className={`${styles['list-item']}`}
+                key={index2}
+                onClick={() => {
+                  this.handleItemClick(item2);
+                }}
+              >
                 <div className={`${styles['img-warp']}`}>
                   <img src={item2.uiElement.image.imageUrl} alt="" />
                 </div>

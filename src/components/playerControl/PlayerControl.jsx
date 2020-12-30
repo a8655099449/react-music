@@ -7,8 +7,7 @@ import { getMusicDatail, getMusicUrl } from '@/api/api-music';
 // & 导入操作音量圆环的事件，由于事件过多，进行了拆分
 
 import SetVolume from './setVolume';
-
-// console.log('事件是',mousedownCircle);
+import event from '@/assets/js/event';
 
 let body = document.querySelector('body');
 let _this;
@@ -16,11 +15,13 @@ let _this;
 import { parseSongTime } from '@/assets/js/tool';
 
 class PlayerControl extends React.Component {
-  // handelCircleClick = () => {
-  //   console.log('我点击了');
-  // }
   constructor(props) {
     super(props);
+    // 订阅新歌
+    event.on('addNewSong', this.addNewSong);
+    event.on('addNewSong', this.addNewSong);
+    event.on('addNewSong', this.addNewSong);
+
     // this.handleSetVolumeEvent.mousedownCircle.bind(this)
   }
   progData = {
@@ -47,12 +48,12 @@ class PlayerControl extends React.Component {
       nowTime: '00:00',
     },
     isplay: false, // & 是否在播放
+    showSetVolume: false, // & 是否在播放
   };
   handleSetVolumeEvent = {
     screenY: null,
     // ^ 单击了圆环
     mousedownCircle: e => {
-      // console.log('圆环被点击',this.handleSetVolumeEvent.handleBodyMousemove);
       this.handleSetVolumeEvent.screenY = e.screenY;
       body.addEventListener(
         'mousemove',
@@ -65,25 +66,29 @@ class PlayerControl extends React.Component {
       // ^ 设置监听事件
     },
     // mousedownCircle: () => {
-    //   console.log('圆环被点击',this);
+
     // },
     handleBodyMousemove: e => {
-      // console.log('鼠标开始移动',this);
-      // console.log;
+      // console.log(this.state.volumeHeight);
       let volumeHeight = this.state.volumeHeight;
-      volumeHeight += this.handleSetVolumeEvent.screenY - e.screenY;
+      volumeHeight =
+        parseInt(volumeHeight) + this.handleSetVolumeEvent.screenY - e.screenY;
       this.handleSetVolumeEvent.screenY = e.screenY;
 
       if (volumeHeight > 93) volumeHeight = 93;
       if (volumeHeight < 0) volumeHeight = 0;
 
-      // console.log(volumeHeight);
       this.setState({ volumeHeight });
     },
     // ^ 鼠标松开 开始设置音量
     handleCirclemouseup: () => {
-      localStorage.setItem('volumeHeight', this.state.volumeHeight);
-      // console.log('鼠标松开',this);
+      let volumeHeight = parseInt(this.state.volumeHeight);
+      if (isNaN(volumeHeight) || volumeHeight > 93 || volumeHeight < 0) {
+        volumeHeight = 50;
+      }
+      this.palyer.volume = volumeHeight / 93;
+      localStorage.setItem('volumeHeight', volumeHeight);
+
       body.removeEventListener(
         'mousemove',
         this.handleSetVolumeEvent.handleBodyMousemove,
@@ -95,22 +100,33 @@ class PlayerControl extends React.Component {
     },
   };
   componentDidMount() {
-    this._getMusicDatail();
-    this._getMusicUrl();
+    this.getSongDataById();
     this.palyer = document.querySelector('#music-player');
+    console.log(event);
+
+    // & 设置初始的音量值
+    this.palyer.volume = this.state.volumeHeight / 93;
+
     // this.palyer.currentTime = 1
   }
+  async getSongDataById(id) {
+    if (id) this.state.songId = id;
+    await this._getMusicDatail();
+    await this._getMusicUrl();
+    // Promise.all([])
+  }
+
   // ^ 获得歌曲详情
   async _getMusicDatail() {
     let res = await getMusicDatail({
       ids: this.state.songId,
     });
-    console.log(res);
+
     let songData = this.state.songData;
     songData.singerName = res.songs[0].ar[0].name;
     songData.songName = res.songs[0].al.name;
     songData.songPic = res.songs[0].al.picUrl;
-    // console.log(songData);
+
     this.setState({ songData });
   }
   // ^ 获取歌曲的url
@@ -126,7 +142,6 @@ class PlayerControl extends React.Component {
     this.palyer.addEventListener('loadedmetadata', this.handlePlayerLoad);
     // & 监听音乐的下载进度
     this.palyer.addEventListener('progress', this.handleLoadMusic);
-    // console.table(songUrl);
   }
   // ^ 单击圆环事件
   handleCircleMouseDown = e => {
@@ -147,21 +162,20 @@ class PlayerControl extends React.Component {
 
     let songTime = this.state.songTime;
     songTime.maxTime = parseSongTime(this.palyer.duration);
-    // this.palyer.play()
+
     this.setState({ songTime });
   };
   handlePlayerPaly = () => {
-    console.log('音乐开始播放了');
+    this.setState({
+      isplay: true,
+    });
     // & 开始监听音乐播放进度变化
     // this.player.addEventListener('timeupdate',this.handleMusicChangeTimer)
     this.palyer.addEventListener('timeupdate', this.handleMusicChangeTimer);
   };
-  handleCirclemouseout = () => {
-    console.log('鼠标移出浏览器界面');
-  };
+  handleCirclemouseout = () => {};
   // ^ 播放进度发生变化
   handleMusicChangeTimer = () => {
-    // console.log('播放进度发生了变化');
     // &
     if (this.isCircleMove) return;
 
@@ -176,7 +190,6 @@ class PlayerControl extends React.Component {
   // ^ 圆环鼠标松开事件
   handleCirclemouseup = () => {
     // 把移动的事件删除了
-    // console.log(this);
     this.isCircleMove = false;
     // 把事件删除了
     body.removeEventListener('mousemove', this.handleBodyMousemove);
@@ -189,7 +202,6 @@ class PlayerControl extends React.Component {
   };
   // ^ 点击圆环后的鼠标移动事件
   handleBodyMousemove = e => {
-    // console.log();
     let bar3Right = this.state.bar3Right - (e.screenX - this.progData.screenX);
     this.progData.screenX = e.screenX;
     if (bar3Right <= 0) {
@@ -206,7 +218,6 @@ class PlayerControl extends React.Component {
     // & 设置播放的时间
     songTime.nowTime = parseSongTime(proportion * this.palyer.duration);
 
-    // console.log(bar3Right);
     this.setState({
       bar3Right,
       songTime,
@@ -215,7 +226,6 @@ class PlayerControl extends React.Component {
   // ^ 点击播放按钮 判断是否暂停
   handleClickPaly = () => {
     let isplay = !this.state.isplay;
-    // console.log('点击了播放',isPlay);
     if (isplay) {
       this.palyer.play();
     } else {
@@ -227,10 +237,20 @@ class PlayerControl extends React.Component {
     });
   };
   // ^ 音乐下载事件
-  handleLoadMusic = () => {
-    // console.log('正在下载');
-    // console.log(this.palyer.buffered);
+  handleLoadMusic = () => {};
+  // ^ 是否显示音乐条
+  handleVolumeShow = () => {
+    console.log('展示音乐条的事件');
+    let showSetVolume = !this.state.showSetVolume;
+    this.setState({ showSetVolume });
   };
+  addNewSong = async item => {
+    // console.log(item);
+    console.log('添加了新歌', item);
+    await this.getSongDataById(item.songId);
+    this.palyer.play();
+  };
+
   render() {
     return (
       <PlayerControlUi
@@ -245,6 +265,8 @@ class PlayerControl extends React.Component {
         songData={this.state.songData}
         handleSetVolumeEvent={this.handleSetVolumeEvent}
         volumeHeight={this.state.volumeHeight}
+        showSetVolume={this.state.showSetVolume}
+        handleVolumeShow={this.handleVolumeShow}
       />
     );
   }

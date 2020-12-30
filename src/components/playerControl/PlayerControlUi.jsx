@@ -13,9 +13,11 @@ export default props => {
     isplay,
     songTime,
     songData,
+    showSetVolume,
+    handleVolumeShow,
     handleSetVolumeEvent,
   } = props;
-
+  // console.log(showSetVolume);
   // console.log(handleSetVolumeEvent.mousedownCircle);
 
   // let songDom = ()
@@ -24,6 +26,9 @@ export default props => {
   };
   let volumeStyle = {
     height: volumeHeight + 'px',
+  };
+  let setVolumeStyle = {
+    display: showSetVolume ? 'block' : 'none',
   };
   let palyBtn;
   // 是否在播放的标记
@@ -43,9 +48,16 @@ export default props => {
       ></div>
     );
   }
+  function boxClick(e) {
+    console.log('阻止事件的冒泡');
+    e.stopPropagation();
+    console.log(e.nativeEvent.stopImmediatePropagation);
+    e.nativeEvent.stopImmediatePropagation();
+  }
+
   // console.log(palyBtn.props.className);
   return (
-    <div className={`${styles['player-control']}`}>
+    <div className={`${styles['player-control']}`} id="control-mian">
       <div className={`${styles['content']} content-box`}>
         <audio src={songUrl} id="music-player"></audio>
         <div className={`${styles['control-box']}`}>
@@ -99,12 +111,15 @@ export default props => {
         </div>
         {/* 音量/播放模式/列表 */}
         <div className={`${styles['volume-warp']}`}>
-          <div className={`${styles['volume-bar']} ${styles['bg-bar']}`}></div>
+          <div
+            className={`${styles['volume-bar']} ${styles['bg-bar']}`}
+            onClick={handleVolumeShow}
+          ></div>
           <div className={`${styles['schema-bar']} ${styles['bg-bar']}`}></div>
           <div className={`${styles['menu-bar']} ${styles['bg-bar']}`}>1</div>
 
           {/* 设置音量的条 */}
-          <div className={`${styles['volume-setbar']}`}>
+          <div className={`${styles['volume-setbar']}`} style={setVolumeStyle}>
             <div className={`${styles['bg']} ${styles['bg-bar']}`}></div>
             <div
               className={`${styles['prop-bar']} ${styles['bg-bar']}`}

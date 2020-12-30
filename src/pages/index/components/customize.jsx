@@ -4,15 +4,16 @@ import React from 'react';
 import styles from './customize.less';
 import Swiper from 'swiper';
 
+import event from '@/assets/js/event';
+
 class Customize extends React.Component {
   handleItemClick = item => {
-    console.log(item);
     let songId = item.resourceExtInfo.songData.id;
     let songName = item.resourceExtInfo.songData.name;
 
     let singerName = item.resourceExtInfo.artists[0].name;
-
-    console.log({ singerName, songId, songName });
+    // event.emit('addNewSong')
+    event.emit('addNewSong', { singerName, songId, songName });
   };
   render() {
     setTimeout(() => {
@@ -30,7 +31,7 @@ class Customize extends React.Component {
     if (!baseData) {
       return null;
     }
-    console.log(baseData);
+    // console.log(baseData);
     let title =
       baseData.uiElement.mainTitle.title +
       ' / ' +
@@ -62,7 +63,7 @@ class Customize extends React.Component {
                   <img src={item2.uiElement.image.imageUrl} alt="" />
                 </div>
                 <div className={`${styles['desc']}`}>
-                  <div className={`${styles['song-title']}`}>
+                  <div className={`${styles['song-title']} text-row-2 `}>
                     {songName} <span>- {artists}</span>
                   </div>
                   <div className={`${styles['desc-bottom']} text-row-1`}>

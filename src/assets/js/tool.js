@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-29 11:54:49
- * @LastEditTime: 2020-12-29 14:15:43
+ * @LastEditTime: 2020-12-30 09:04:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \myapp\src\assets\js\tool.js
@@ -12,7 +12,7 @@ export function parseSongTime(time) {
   // @ts-ignore
   let min = parseInt(time / 60);
   min = min < 10 ? '0' + min : min;
-  let s = Math.ceil(time - min * 60);
+  let s = parseInt(time - min * 60);
   s = s < 10 ? '0' + s : s;
 
   return min + ':' + s;

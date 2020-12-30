@@ -12,7 +12,10 @@ export default props => {
     handleClickPaly,
     isplay,
     songTime,
+    handleClickLock,
     songData,
+    isLock,
+    defaultWarpClick,
     showSetVolume,
     handleVolumeShow,
     handleSetVolumeEvent,
@@ -32,6 +35,9 @@ export default props => {
   };
   let palyBtn;
   // 是否在播放的标记
+
+  let lockClass = isLock ? styles['locked'] : styles['unlock'];
+  let warpClass = isLock ? styles['warp-lock'] : styles['warp-unlock'];
   if (isplay) {
     palyBtn = (
       <div
@@ -48,16 +54,21 @@ export default props => {
       ></div>
     );
   }
-  function boxClick(e) {
-    console.log('阻止事件的冒泡');
-    e.stopPropagation();
-    console.log(e.nativeEvent.stopImmediatePropagation);
-    e.nativeEvent.stopImmediatePropagation();
-  }
 
   // console.log(palyBtn.props.className);
   return (
-    <div className={`${styles['player-control']}`} id="control-mian">
+    <div
+      className={`${styles['player-control']} ${warpClass} `}
+      id="control-mian"
+    >
+      <div className={`${styles['bg']} ${styles['bg-bar']}`}></div>
+      <div
+        className={`${styles['lock-warp']} ${lockClass} ${styles['bg-bar']}`}
+        onClick={handleClickLock}
+      >
+        <div className={`${styles['lock-bar']} ${styles['bg-bar']}`}></div>
+      </div>
+
       <div className={`${styles['content']} content-box`}>
         <audio src={songUrl} id="music-player"></audio>
         <div className={`${styles['control-box']}`}>
@@ -119,14 +130,19 @@ export default props => {
           <div className={`${styles['menu-bar']} ${styles['bg-bar']}`}>1</div>
 
           {/* 设置音量的条 */}
-          <div className={`${styles['volume-setbar']}`} style={setVolumeStyle}>
-            <div className={`${styles['bg']} ${styles['bg-bar']}`}></div>
+          <div
+            className={`${styles['volume-setbar']} volume-setbar-index`}
+            style={setVolumeStyle}
+          >
             <div
-              className={`${styles['prop-bar']} ${styles['bg-bar']}`}
+              className={`${styles['bg']} ${styles['bg-bar']} volume-setbar-index`}
+            ></div>
+            <div
+              className={`${styles['prop-bar']} ${styles['bg-bar']} volume-setbar-index`}
               style={volumeStyle}
             >
               <span
-                className={`${styles['volume-circle']} `}
+                className={`${styles['volume-circle']}  volume-setbar-index`}
                 onMouseDown={handleSetVolumeEvent.mousedownCircle}
               ></span>
             </div>

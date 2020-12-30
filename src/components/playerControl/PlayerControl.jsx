@@ -21,7 +21,6 @@ class PlayerControl extends React.Component {
     event.on('addNewSong', this.addNewSong);
     event.on('addNewSong', this.addNewSong);
     event.on('addNewSong', this.addNewSong);
-
     // this.handleSetVolumeEvent.mousedownCircle.bind(this)
   }
   progData = {
@@ -31,10 +30,11 @@ class PlayerControl extends React.Component {
   };
   isCircleMove = false;
   state = {
+    isLock: false, // 是否锁定
     bar3Right: 494, // & 音乐进度条长度
     volumeHeight: localStorage.getItem('volumeHeight') || 93, // & 音量长度
     // songId: 1425626819, // & 音乐的id
-    songId: 1367368790, // & 音乐的id
+    songId: null, // & 音乐的id
     songData: {
       singerName: '',
       songName: '',
@@ -100,12 +100,7 @@ class PlayerControl extends React.Component {
     },
   };
   componentDidMount() {
-    this.getSongDataById();
-    this.palyer = document.querySelector('#music-player');
-    console.log(event);
-
-    // & 设置初始的音量值
-    this.palyer.volume = this.state.volumeHeight / 93;
+    this.startInit();
 
     // this.palyer.currentTime = 1
   }
@@ -113,7 +108,22 @@ class PlayerControl extends React.Component {
     if (id) this.state.songId = id;
     await this._getMusicDatail();
     await this._getMusicUrl();
+    window.localStorage.setItem('palySongId', id);
+
     // Promise.all([])
+  }
+
+  // ^ 初始化
+  startInit() {
+    // & 获取播放器示例
+    this.palyer = document.querySelector('#music-player');
+    // & 设置初始的音量值
+    this.palyer.volume = this.state.volumeHeight / 93;
+    // & 检查本地是否存在历史的音乐记录
+    let songId = window.localStorage.getItem('palySongId');
+    if (songId) {
+      this.getSongDataById(songId);
+    }
   }
 
   // ^ 获得歌曲详情
@@ -158,13 +168,14 @@ class PlayerControl extends React.Component {
   };
   // ^  音乐加载好
   handlePlayerLoad = () => {
-    // ^ 获得音乐的长度
+    // & 获得音乐的长度
 
     let songTime = this.state.songTime;
     songTime.maxTime = parseSongTime(this.palyer.duration);
 
     this.setState({ songTime });
   };
+  // ^ 音乐开始播放
   handlePlayerPaly = () => {
     this.setState({
       isplay: true,
@@ -173,7 +184,7 @@ class PlayerControl extends React.Component {
     // this.player.addEventListener('timeupdate',this.handleMusicChangeTimer)
     this.palyer.addEventListener('timeupdate', this.handleMusicChangeTimer);
   };
-  handleCirclemouseout = () => {};
+  // handleCirclemouseout = () => {};
   // ^ 播放进度发生变化
   handleMusicChangeTimer = () => {
     // &
@@ -231,7 +242,6 @@ class PlayerControl extends React.Component {
     } else {
       this.palyer.pause();
     }
-
     this.setState({
       isplay,
     });
@@ -243,14 +253,34 @@ class PlayerControl extends React.Component {
     console.log('展示音乐条的事件');
     let showSetVolume = !this.state.showSetVolume;
     this.setState({ showSetVolume });
+    if (showSetVolume) {
+      body.addEventListener('click', this.handleBodyClickForSetVolume);
+    }
   };
+  // ^ 添加新歌
   addNewSong = async item => {
     // console.log(item);
-    console.log('添加了新歌', item);
+    // console.log('添加了新歌', item);
     await this.getSongDataById(item.songId);
     this.palyer.play();
   };
+  handleBodyClickForSetVolume = e => {
+    if (e.target.matches('.volume-setbar-index')) return;
+    this.setState({ showSetVolume: false });
+    body.removeEventListener('click', this.handleBodyClickForSetVolume);
+  };
 
+  // ^ 点击锁
+  handleClickLock = () => {
+    let isLock = !this.state.isLock;
+    console.log(isLock);
+    this.setState({ isLock });
+  };
+  defaultWarpClick = e => {
+    // console.log('添加的默认事件');
+    // // e.stopPropagation()
+    // e.nativeEvent.stopImmediatePropagation()
+  };
   render() {
     return (
       <PlayerControlUi
@@ -263,10 +293,13 @@ class PlayerControl extends React.Component {
         handleClickPaly={this.handleClickPaly}
         songTime={this.state.songTime}
         songData={this.state.songData}
+        isLock={this.state.isLock}
         handleSetVolumeEvent={this.handleSetVolumeEvent}
         volumeHeight={this.state.volumeHeight}
         showSetVolume={this.state.showSetVolume}
         handleVolumeShow={this.handleVolumeShow}
+        defaultWarpClick={this.defaultWarpClick}
+        handleClickLock={this.handleClickLock}
       />
     );
   }

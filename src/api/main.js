@@ -1,13 +1,13 @@
 /*
  * @Author: your name
  * @Date: 2020-12-08 15:31:42
- * @LastEditTime: 2020-12-08 15:57:10
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-12-16 20:43:20
+ * @LastEditors: kuangw
  * @Description: In User Settings Edit
- * @FilePath: \react-test\src\api\main.js
+ * @FilePath: \react-umi\src\api\main.js
  */
-import axios from 'axios'
-const baseURL = 'http://woai996.com:3000'
+import axios from 'axios';
+const baseURL = 'http://121.37.195.155:3000';
 
 function request(config) {
   const instance = axios.create({
@@ -15,23 +15,17 @@ function request(config) {
     baseURL,
     // 网络请求时间超时会自动断开
     timeout: 5000,
-  })
+  });
 
   // 响应拦截
   instance.interceptors.response.use(
-    (res) => {
-     
-      return res.data
+    res => {
+      return res.data;
     },
-    (err) => {
-    
-    }
-  )
+    err => {},
+  );
 
-  
-  return instance(config)
+  return instance(config);
 }
 
-
-
-export default request
+export default request;

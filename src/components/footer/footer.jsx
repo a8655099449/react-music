@@ -1,16 +1,24 @@
-import React from 'react'
+import React from 'react';
 
-class Footer extends React.Component {
+import styles from './footer.less';
 
-  render(){
+// class Footer extends React.Component {
 
-    return(
-      <div>
-        我是页面的底部
-      </div>
-    )
-  }
-}
+//   render(){
 
+//     return(
+//       <div>
+//         我是页面的底部
+//       </div>
+//     )
+//   }
+// }
+export default () => {
+  return (
+    <div className={`${styles['footer']}`}>
+      <div className={`${styles['warp']} content-box`}>我是底部</div>
+    </div>
+  );
+};
 
-export default Footer
+// export default Footer

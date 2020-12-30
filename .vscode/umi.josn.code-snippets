@@ -21,5 +21,22 @@
 			"import styles from './${1:$TM_FILENAME_BASE}.less';",
 		],
 		"description": "Log output to console"
-	}
+	},
+	"reactRender": {
+		// "scope": "javascript,typescript,jsx",
+		"prefix": "jsxCode2",
+		"body": [
+			"import React from 'react'\n",
+			"class ${1:$TM_FILENAME_BASE} extends React.Component {\n",
+			"\trender(){\n",
+			"\t\treturn(",
+			"\t\t\t<div>\n",
+			"\t\t\t</div>",
+			"\t\t)",
+			"\t}",
+			"}\n\n",
+			"export default ${1:$TM_FILENAME_BASE}\n",
+		],
+		"description": "react的组件代码片段"
+	},
 }

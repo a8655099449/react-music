@@ -38,3 +38,24 @@
   -webkit-line-clamp: 2; /*这个决定行数*/
   overflow: hidden;
 }
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+.btn-main {
+  background-color: #e41820;
+  /* background-color: var(--main-color); */
+  color: #fff;
+  border-radius: 4px;
+}
+.btn:hover {
+  opacity: 0.8;
+}
+input,
+button {
+  outline: none;
+}

@@ -4,6 +4,8 @@ import PlayerControlUi from './PlayerControlUi';
 
 import { getMusicDatail, getMusicUrl } from '@/api/api-music';
 
+import { message } from 'antd';
+
 // & 导入操作音量圆环的事件，由于事件过多，进行了拆分
 
 import SetVolume from './setVolume';
@@ -19,8 +21,7 @@ class PlayerControl extends React.Component {
     super(props);
     // 订阅新歌
     event.on('addNewSong', this.addNewSong);
-    event.on('addNewSong', this.addNewSong);
-    event.on('addNewSong', this.addNewSong);
+
     // this.handleSetVolumeEvent.mousedownCircle.bind(this)
   }
   progData = {
@@ -30,7 +31,7 @@ class PlayerControl extends React.Component {
   };
   isCircleMove = false;
   state = {
-    isLock: false, // 是否锁定
+    isLock: localStorage.getItem('lockState') === 'true' ? true : false, // 是否锁定
     bar3Right: 494, // & 音乐进度条长度
     volumeHeight: localStorage.getItem('volumeHeight') || 93, // & 音量长度
     // songId: 1425626819, // & 音乐的id
@@ -259,6 +260,10 @@ class PlayerControl extends React.Component {
   };
   // ^ 添加新歌
   addNewSong = async item => {
+    if (item.songId === this.state.songId) {
+      return message.info('歌曲已在播放列表');
+    }
+
     // console.log(item);
     // console.log('添加了新歌', item);
     await this.getSongDataById(item.songId);
@@ -274,6 +279,7 @@ class PlayerControl extends React.Component {
   handleClickLock = () => {
     let isLock = !this.state.isLock;
     console.log(isLock);
+    window.localStorage.setItem('lockState', isLock);
     this.setState({ isLock });
   };
   defaultWarpClick = e => {

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-30 09:53:02
- * @LastEditTime: 2020-12-30 17:28:37
+ * @LastEditTime: 2020-12-31 08:58:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \myapp\src\assets\js\event.js
@@ -76,7 +76,7 @@ class Event {
       this.subscribers[index].events.splice(onceIndex, 1);
     }
   }
-  // off要删除事件中的事件 ，如果是匿名函数则删除不了
+  //  off要删除事件中的事件 ，如果是匿名函数则删除不了
   off(funName, event) {
     if (typeof event !== 'function') return;
     let index1 = this.subscribers.findIndex(item => item.funName === funName);

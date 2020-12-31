@@ -5,11 +5,15 @@ import Banner from './components/banner';
 import Customize from './components/customize';
 import { getHomeData } from '@/api/api-home';
 import ItemTitle from './components/itemTitle';
+import LoginBar from './components/login-bar/loginBar';
 
+// console.log(loginBar);
 // 推荐歌单
 import RecList from './components/recList';
 
 class Index extends React.Component {
+  saveTime = 24 * 60 * 60;
+  // saveTime = 1
   state = {
     banners: [],
     contentList: [],
@@ -19,17 +23,22 @@ class Index extends React.Component {
     this._getHomeData();
   }
   async _getHomeData() {
-    let homeData = JSON.parse(localStorage.getItem('homeData'));
-    // let banners = JSON.parse(localStorage.getItem('banners'))
-
-    if (!homeData) {
+    let storeData = JSON.parse(localStorage.getItem('homeData'));
+    let nowTime = Date.parse(new Date()) / 1000;
+    let homeData;
+    // console.log(nowTime - (storeData.time + this.saveTime));
+    if (storeData && nowTime - (storeData.time + this.saveTime) < 0) {
+      homeData = storeData.homeData;
+    } else {
       let res = await getHomeData();
       homeData = res.data.blocks;
-      localStorage.setItem('homeData', JSON.stringify(homeData));
-
-      // banners = res.data.blocks[0].extInfo.banners
-      // localStorage.setItem('banners', JSON.stringify(banners))
+      let storeData = {
+        homeData,
+        time: nowTime,
+      };
+      localStorage.setItem('homeData', JSON.stringify(storeData));
     }
+
     // console.log(homeData);
     let banners = homeData[0].extInfo.banners;
     let recListData = homeData.find(
@@ -41,12 +50,9 @@ class Index extends React.Component {
     let sceneListData = homeData.find(
       i => i.blockCode === 'HOMEPAGE_BLOCK_OFFICIAL_PLAYLIST',
     );
-    // console.log(customizeData);
 
-    // console.log(recListData);
     let contentList = homeData.filter(i => i.uiElement);
-    // console.log(contentList);
-    // let item1 =
+
     this.setState({
       banners,
       contentList,
@@ -77,6 +83,7 @@ class Index extends React.Component {
             {contentList}
           </div>
           <div className={`${styles['right-content']}`}>
+            <LoginBar />
             <Customize baseData={this.state.customizeData} />
           </div>
         </div>

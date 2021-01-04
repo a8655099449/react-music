@@ -11,6 +11,8 @@ import LoginBar from './components/login-bar/loginBar';
 // 推荐歌单
 import RecList from './components/recList';
 
+import { connect } from 'react-redux';
+
 class Index extends React.Component {
   saveTime = 24 * 60 * 60;
   // saveTime = 1
@@ -63,6 +65,8 @@ class Index extends React.Component {
   }
 
   render() {
+    let { userInfo, isLogin } = this.props;
+    console.log({ userInfo, isLogin }, 'index');
     let contentList = this.state.contentList.map((item, index) => {
       return <ItemTitle title={item.uiElement} key={index} />;
     });
@@ -83,7 +87,7 @@ class Index extends React.Component {
             {contentList}
           </div>
           <div className={`${styles['right-content']}`}>
-            <LoginBar />
+            <LoginBar userInfo={userInfo} isLogin={isLogin} />
             <Customize baseData={this.state.customizeData} />
           </div>
         </div>
@@ -92,4 +96,26 @@ class Index extends React.Component {
   }
 }
 
-export default Index;
+function mapDispatchToProps(dispacth) {
+  return {
+    // setUserData: (data) => {
+    //   dispacth({
+    //     type: 'setUserInfo',
+    //     data
+    //   })
+    // },
+    // logout: () => {
+    //   dispacth({
+    //     type: 'logout',
+    //   })
+    // },
+  };
+}
+function mapStateToProps(state) {
+  return {
+    userInfo: state.userData,
+    isLogin: state.isLogin,
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Index);

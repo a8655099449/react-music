@@ -52,10 +52,17 @@
   color: #fff;
   border-radius: 4px;
 }
+.click{
+  cursor: pointer;
+}
+.click:hover,
 .btn:hover {
   opacity: 0.8;
 }
 input,
 button {
   outline: none;
+}
+button {
+  border: none;
 }

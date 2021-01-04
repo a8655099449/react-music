@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-12-08 15:31:42
- * @LastEditTime: 2020-12-16 20:43:20
- * @LastEditors: kuangw
+ * @LastEditTime: 2021-01-04 09:18:28
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \react-umi\src\api\main.js
  */
@@ -22,7 +22,9 @@ function request(config) {
     res => {
       return res.data;
     },
-    err => {},
+    err => {
+      throw err;
+    },
   );
 
   return instance(config);

@@ -1,11 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2020-12-29 11:54:49
- * @LastEditTime: 2020-12-30 09:04:01
+ * @LastEditTime: 2021-01-04 17:24:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \myapp\src\assets\js\tool.js
  */
+
+import { Modal } from 'antd';
+const { confirm } = Modal;
 
 export function parseSongTime(time) {
   // 计算分钟
@@ -16,4 +19,31 @@ export function parseSongTime(time) {
   s = s < 10 ? '0' + s : s;
 
   return min + ':' + s;
+}
+
+const modalDetfaultParams = {
+  title: '默认标题',
+  content: '默认内容',
+  okText: '确定',
+  cancelText: '取消',
+};
+
+export function showModal(params) {
+  for (const key in modalDetfaultParams) {
+    if (!params[key]) {
+      params[key] = modalDetfaultParams[key];
+    }
+  }
+
+  return new Promise((reslove, reject) => {
+    confirm({
+      ...params,
+      onOk() {
+        reslove();
+      },
+      onCancel() {
+        reject();
+      },
+    });
+  });
 }

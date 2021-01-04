@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-30 09:53:02
- * @LastEditTime: 2020-12-31 08:58:08
+ * @LastEditTime: 2021-01-04 11:25:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \myapp\src\assets\js\event.js

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-21 10:18:51
- * @LastEditTime: 2020-12-21 10:27:47
+ * @LastEditTime: 2021-01-04 14:48:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \myapp\src\store\reduer.js
@@ -12,8 +12,30 @@ const defaultState = {
     name: 'zhangsan',
     age: '19',
   },
+  userData: null,
+  isLogin: false,
 };
 
 export default (state = defaultState, action) => {
+  // console.log(action);
+  // ^ 设置用户信息
+
+  // ^ 退出登录
+
+  switch (action.type) {
+    case 'setUserInfo':
+      state.userData = action.data;
+      state.isLogin = true;
+      break;
+
+    case 'logout':
+      state.userData = null;
+      state.isLogin = false;
+      break;
+
+    default:
+      break;
+  }
+
   return { ...state };
 };

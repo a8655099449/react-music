@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './PlayerControl.less';
+import PlayList from './PlayListUi';
 
 export default props => {
   let {
@@ -15,10 +16,12 @@ export default props => {
     handleClickLock,
     songData,
     isLock,
+    listShow,
     defaultWarpClick,
     showSetVolume,
     handleVolumeShow,
     handleSetVolumeEvent,
+    handleListShow,
   } = props;
   // console.log(showSetVolume);
   // console.log(handleSetVolumeEvent.mousedownCircle);
@@ -70,6 +73,7 @@ export default props => {
       </div>
 
       <div className={`${styles['content']} content-box`}>
+        <PlayList listShow={listShow} handleListShow={handleListShow} />
         <audio src={songUrl} id="music-player"></audio>
         <div className={`${styles['control-box']}`}>
           <div
@@ -127,7 +131,12 @@ export default props => {
             onClick={handleVolumeShow}
           ></div>
           <div className={`${styles['schema-bar']} ${styles['bg-bar']}`}></div>
-          <div className={`${styles['menu-bar']} ${styles['bg-bar']}`}>1</div>
+          <div
+            className={`${styles['menu-bar']} ${styles['bg-bar']}`}
+            onClick={handleListShow}
+          >
+            1
+          </div>
 
           {/* 设置音量的条 */}
           <div

@@ -2,13 +2,15 @@ import React from 'react';
 import styles from './Login.less';
 import { message } from 'antd';
 
-import { userLogin } from '../../api/api-user';
+import { userLogin, getUserLevel } from '../../api/api-user';
 
 import event from '@/assets/js/event';
 
 import { connect } from 'react-redux';
 
-import { USER_DATA } from '@/config/localKey';
+import { USER_DATA, COOKIE } from '@/config/localKey';
+
+import { disbledBodyScroll, bodyScroll } from '@/assets/js/tool';
 
 class Login extends React.Component {
   state = {
@@ -22,6 +24,7 @@ class Login extends React.Component {
     // console.log(event);
   }
   showLogin = () => {
+    disbledBodyScroll();
     this.setState({
       isSHow: true,
     });
@@ -39,6 +42,7 @@ class Login extends React.Component {
     }
   };
   handleLogin = async () => {
+    event.emit('showLoading');
     // console.log();
     let { acc, pwd } = this.state;
     let time = Date.parse(new Date()) / 1000;
@@ -46,9 +50,21 @@ class Login extends React.Component {
       let res = await userLogin({
         phone: acc,
         password: pwd,
+        time,
       });
+
       if (res && res.code === 200) {
+        // let level = await getUserLevel()
+        // console.log(level);
+        // return
         let userData = res.profile;
+
+        localStorage.setItem(COOKIE, res.cookie);
+        let level = await getUserLevel();
+        // console.log(level);
+        if (level.code === 200) {
+          userData.level = level.data;
+        }
         localStorage.setItem(
           USER_DATA,
           JSON.stringify({
@@ -56,24 +72,38 @@ class Login extends React.Component {
             time,
           }),
         );
-
         this.props.setUserData(userData);
         setTimeout(() => {
-          this.setState({ isSHow: false });
+          this.closeBar();
         }, 500);
-        return message.success('登录成功');
+        event.emit('hideLoading');
+        message.success('登录成功');
+        return;
       }
+      event.emit('hideLoading');
       message.error('账号或密码错误');
     } catch (error) {
-      console.log(error);
+      // console.log(error, '错误信息');
+      event.emit('hideLoading');
       message.error('账号或密码错误');
+      return;
     }
   };
   closeBar = () => {
+    bodyScroll();
     this.setState({
       isSHow: false,
     });
   };
+  async getUserLevel(userData) {
+    try {
+      console.log(level);
+    } catch (error) {
+      console.dir(error);
+      message.error('获取等级失败了');
+    }
+  }
+
   render() {
     // console.log(this.props);
     if (!this.state.isSHow) {

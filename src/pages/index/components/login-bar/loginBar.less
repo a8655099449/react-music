@@ -1,10 +1,10 @@
 .login {
   background: url('//s2.music.126.net/style/web2/img/index/index.png?e2e66894606115d89f1bf442d2b1f7b1')
     no-repeat;
-  background-position: 0 0;
-  height: 147px;
+  background-position: 0 -330px;
+  height: 210px;
   background-size: 166%;
-  padding: 30px;
+  padding: 20px;
   color: #666666;
   font-size: 14px;
 
@@ -15,4 +15,92 @@
     margin: auto;
     margin-top: 20px;
   }
+
+  .top {
+    display: flex;
+  }
+
+  .left {
+    width: 86px;
+    background-color: #fff;
+    border: 1px solid #dadada;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 86px;
+    margin-right: 10px;
+
+    img {
+      width: 80px;
+      height: 80px;
+    }
+  }
+
+  .right {
+    // width;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
+  .level-box {
+    // margin-top            : 5px;
+    display: flex;
+    height: 17px;
+    width: 40px;
+    // justify-content    : end;
+    line-height: 17px;
+
+    background-position: -130px -64px;
+    padding-left: 26px;
+    font-size: 12px;
+    color: #999999;
+
+    span {
+      background-position: -192px -64px;
+      // padding-left       : 3px;
+      // padding-right      : 3px;
+      display: block;
+      width: 16px;
+    }
+  }
+
+  .qd-btn {
+    width: 100px;
+    height: 31px;
+    background-color: #3080cc;
+    color: #fff;
+    border-radius: 4px;
+  }
+}
+
+.fans {
+  display: flex;
+  margin-top: 20px;
+
+  .item {
+    border-right: 1px solid #e4e4e4;
+    padding-right: 20px;
+    margin-right: 20px;
+    color: #666666;
+    cursor: pointer;
+    &:hover {
+      color: #0c73c2;
+    }
+
+    &:last-child {
+      border-right: none;
+    }
+
+    div {
+      &:nth-child(1) {
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+.public-bg {
+  background: url('//s2.music.126.net/style/web2/img/icon2.png?44f2fce70cd5f842467ff801f47bea45')
+    no-repeat 0 9999px;
 }

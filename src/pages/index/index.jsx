@@ -32,6 +32,7 @@ class Index extends React.Component {
     if (storeData && nowTime - (storeData.time + this.saveTime) < 0) {
       homeData = storeData.homeData;
     } else {
+      console.log('准备发送请求');
       let res = await getHomeData();
       homeData = res.data.blocks;
       let storeData = {
@@ -66,7 +67,7 @@ class Index extends React.Component {
 
   render() {
     let { userInfo, isLogin } = this.props;
-    console.log({ userInfo, isLogin }, 'index');
+    // console.log({ userInfo, isLogin }, 'index');
     let contentList = this.state.contentList.map((item, index) => {
       return <ItemTitle title={item.uiElement} key={index} />;
     });

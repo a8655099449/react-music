@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-29 11:54:49
- * @LastEditTime: 2021-01-04 17:24:00
+ * @LastEditTime: 2021-01-05 11:25:57
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \myapp\src\assets\js\tool.js
@@ -46,4 +46,16 @@ export function showModal(params) {
       },
     });
   });
+}
+
+export function disbledBodyScroll() {
+  document.documentElement.style.overflow = 'hidden';
+  document.body.style.position = 'fixed';
+  document.body.style.top = '0px';
+  document.body.style.width = '100%';
+}
+
+export function bodyScroll() {
+  document.documentElement.style.overflowY = 'scroll';
+  document.body.style.position = 'static';
 }

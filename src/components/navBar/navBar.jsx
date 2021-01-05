@@ -12,10 +12,12 @@ import { USER_DATA } from '@/config/localKey';
 
 import { navList, userList } from './data';
 
+import { userLogout, getUserLevel, getUserBindData } from '@/api/api-user';
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.getLocalUserData();
+    // console.log(userLogout);
   }
   state = {
     navList,
@@ -26,20 +28,16 @@ class NavBar extends React.Component {
     history.push(item.path);
   };
   getLocalUserData() {
-    // return console.log(this.props);
     let userData = localStorage.getItem(USER_DATA);
     if (!userData) return;
     userData = JSON.parse(userData);
     this.props.setUserData(userData.userData);
-
-    // console.log(userData);
   }
   handleLoginClick() {
     event.emit('showLogin');
   }
 
   handleUserListCick(item) {
-    // console.log(item);
     // ^ 退出登录
     if (item.tit === '退出') {
       showModal({
@@ -48,14 +46,12 @@ class NavBar extends React.Component {
       }).then(() => {
         localStorage.setItem(USER_DATA, '');
         this.props.logout();
+        userLogout();
       });
     }
   }
   render() {
-    console.log(this.props);
-
     let { isLogin, userInfo } = this.props;
-    // console.log({isLogin,setUserData,userData});
     let navlistContent = this.state.navList.map((item, index) => {
       let className =
         index === this.state.activeIndex
@@ -74,8 +70,6 @@ class NavBar extends React.Component {
       );
     });
 
-    // console.log(userInfo);
-
     let userDom;
 
     if (isLogin) {
@@ -87,7 +81,6 @@ class NavBar extends React.Component {
           <div className={`${styles['detail-list']}`}>
             {userList.map((item, index) => {
               let itemStyle = { backgroundPosition: item.postion };
-              // console.log(itemStyle);
               return (
                 <div
                   className={`${styles['list-item']}`}

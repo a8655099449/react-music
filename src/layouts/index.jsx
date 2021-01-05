@@ -4,6 +4,8 @@ import Footer from '../components/footer/footer';
 import PlayerControl from '../components/playerControl/PlayerControl';
 import Login from '../components/login/Login';
 
+import Loading from '@/components/loading/Loading';
+
 import styles from './index.less';
 
 // 引入redux相关的内容
@@ -22,6 +24,7 @@ function BasicLayout(props) {
         <Footer />
         <PlayerControl />
         <Login />
+        <Loading />
       </Provider>
     </div>
   );

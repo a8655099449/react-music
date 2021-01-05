@@ -50,6 +50,7 @@ class PlayerControl extends React.Component {
     },
     isplay: false, // & 是否在播放
     showSetVolume: false, // & 是否在播放
+    listShow: true, // & 是否展示歌曲列表
   };
   handleSetVolumeEvent = {
     screenY: null,
@@ -287,6 +288,12 @@ class PlayerControl extends React.Component {
     // // e.stopPropagation()
     // e.nativeEvent.stopImmediatePropagation()
   };
+
+  handleListShow = () => {
+    let listShow = !this.state.listShow;
+    this.setState({ listShow });
+  };
+
   render() {
     return (
       <PlayerControlUi
@@ -303,9 +310,11 @@ class PlayerControl extends React.Component {
         handleSetVolumeEvent={this.handleSetVolumeEvent}
         volumeHeight={this.state.volumeHeight}
         showSetVolume={this.state.showSetVolume}
+        listShow={this.state.listShow}
         handleVolumeShow={this.handleVolumeShow}
         defaultWarpClick={this.defaultWarpClick}
         handleClickLock={this.handleClickLock}
+        handleListShow={this.handleListShow}
       />
     );
   }

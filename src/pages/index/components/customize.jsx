@@ -8,6 +8,7 @@ import event from '@/assets/js/event';
 
 class Customize extends React.Component {
   handleItemClick = item => {
+    console.log(item);
     let songId = item.resourceExtInfo.songData.id;
     let songName = item.resourceExtInfo.songData.name;
 

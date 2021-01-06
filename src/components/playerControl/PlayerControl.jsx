@@ -2,7 +2,7 @@ import React from 'react';
 // import styles from './PlayerControl.less';
 import PlayerControlUi from './PlayerControlUi';
 
-import { getMusicDatail, getMusicUrl } from '@/api/api-music';
+import { getMusicDatail, getMusicUrl, getMusicLyric } from '@/api/api-music';
 
 import { message } from 'antd';
 
@@ -10,6 +10,8 @@ import { message } from 'antd';
 
 import SetVolume from './setVolume';
 import event from '@/assets/js/event';
+
+import { PLAY_SONG_NAME } from '@/config/localKey';
 
 let body = document.querySelector('body');
 let _this;
@@ -50,7 +52,10 @@ class PlayerControl extends React.Component {
     },
     isplay: false, // & 是否在播放
     showSetVolume: false, // & 是否在播放
-    listShow: true, // & 是否展示歌曲列表
+    listShow: false, // & 是否展示歌曲列表
+    songList: JSON.parse(localStorage.getItem(PLAY_SONG_NAME)) || [], // 播放音乐的列表
+    playMode: 2, // ^ 播放模式 0 列表循环 1 单曲循环 2 随机播放
+    lrcArr: [], // & 歌词数组
   };
   handleSetVolumeEvent = {
     screenY: null,
@@ -108,8 +113,14 @@ class PlayerControl extends React.Component {
   }
   async getSongDataById(id) {
     if (id) this.state.songId = id;
+    this.palyer.pause();
+    this.setState({
+      bar3Right: 494,
+    });
+
     await this._getMusicDatail();
     await this._getMusicUrl();
+    await this._getMusicLyric();
     window.localStorage.setItem('palySongId', id);
 
     // Promise.all([])
@@ -119,11 +130,36 @@ class PlayerControl extends React.Component {
   startInit() {
     // & 获取播放器示例
     this.palyer = document.querySelector('#music-player');
+    this.lyicsWarp = document.querySelector('#lyics-list-warp');
+
     // & 设置初始的音量值
     this.palyer.volume = this.state.volumeHeight / 93;
     // & 检查本地是否存在历史的音乐记录
     let songId = window.localStorage.getItem('palySongId');
+    // & 监听开始播放事件
+    this.palyer.addEventListener('play', this.handlePlayerPaly);
+    // & 开始监听元数据加载成功事件
+    this.palyer.addEventListener('loadedmetadata', this.handlePlayerLoad);
+    // & 监听音乐的下载进度
+    this.palyer.addEventListener('progress', this.handleLoadMusic);
+    // & 监听音乐的播放结束事件
+    this.palyer.addEventListener('ended', this.handlePlayEnd);
+
     if (songId) {
+      let songList = this.state.songList;
+      // console.log(songList);
+      songList.forEach(i => {
+        // console.log(i.songId , songId);
+        if (i.songId == songId) {
+          i.isPlay = true;
+        } else {
+          i.isPlay = false;
+        }
+      });
+      this.setState({
+        songList,
+      });
+
       this.getSongDataById(songId);
     }
   }
@@ -148,20 +184,51 @@ class PlayerControl extends React.Component {
     });
     let songUrl = res.data[0].url;
     this.setState({ songUrl });
-    // & 监听开始播放事件
-    this.palyer.addEventListener('play', this.handlePlayerPaly);
-    // & 开始监听元数据加载成功事件
-    this.palyer.addEventListener('loadedmetadata', this.handlePlayerLoad);
-    // & 监听音乐的下载进度
-    this.palyer.addEventListener('progress', this.handleLoadMusic);
   }
+  _getMusicLyric = async () => {
+    let res = await getMusicLyric({
+      id: this.state.songId,
+    });
+
+    if (res.code === 200) {
+      // console.log();
+      let lrcArr = res.lrc.lyric.split(/\n/);
+      // lrcArr.forEach(item => {
+      //   if (item) {
+      //     // console.log(item.split(']')[1]);
+      //     item = item.split(']')[1] || ''
+      //     console.log(item);
+      //   }
+      // })
+      // console.log(res);
+      // console.log(lrcArr.length);
+      //  let  regTime = /.\(.*).\.*?>/igsm
+      for (let i = 0; i < lrcArr.length; i++) {
+        let time = '';
+        let content = '';
+        let select = false;
+        if (lrcArr[i]) {
+          time = lrcArr[i].split(']')[0].split('[')[1];
+          // console.log(time.slice(0, 5));
+          time = time.slice(0, 5);
+          // let time = lrcArr[i].split(']')[0].split('[')
+          content = lrcArr[i].split(']')[1];
+        }
+        lrcArr[i] = { time, content, select };
+      }
+      this.setState({ lrcArr });
+
+      // console.log(lrcArr);
+    }
+    // console.log(res);
+  };
   // ^ 单击圆环事件
   handleCircleMouseDown = e => {
     this.isCircleMove = true;
     let circle = e.target;
     body.addEventListener('mousemove', this.handleBodyMousemove);
     body.addEventListener('mouseup', this.handleCirclemouseup);
-    body.addEventListener('mouseout', this.handleCirclemouseout);
+    // body.addEventListener('mouseout', this.handleCirclemouseout);
 
     this.progData.screenX = e.screenX;
     this.progData.left = circle.offsetLeft;
@@ -186,6 +253,13 @@ class PlayerControl extends React.Component {
     // this.player.addEventListener('timeupdate',this.handleMusicChangeTimer)
     this.palyer.addEventListener('timeupdate', this.handleMusicChangeTimer);
   };
+
+  // ^ 音乐播放结束
+  handlePlayEnd = () => {
+    console.log('播放结束了');
+    this.handleChangeNextSong();
+  };
+
   // handleCirclemouseout = () => {};
   // ^ 播放进度发生变化
   handleMusicChangeTimer = () => {
@@ -198,7 +272,25 @@ class PlayerControl extends React.Component {
     let bar3Right = 494 * (1 - this.palyer.currentTime / this.palyer.duration);
     // 计算进度条的位置
 
-    this.setState({ songTime, bar3Right });
+    // & 计算歌词的位置
+
+    // this.lyicsWarp.scrollTop = 40
+    let lrcArr = this.state.lrcArr;
+    let index = lrcArr.findIndex(item => item.time == songTime.nowTime);
+    if (index !== -1) {
+      lrcArr.forEach(item => (item.select = false));
+      lrcArr[index].select = true;
+      let count = index - 4;
+
+      if (count > 0) {
+        let scrollTop = this.lyicsWarp.scrollTop;
+        if (scrollTop < 58 * count) {
+          this.lyicsWarp.scrollTop = 58 * count;
+        }
+      }
+    }
+
+    this.setState({ songTime, bar3Right, lrcArr });
   };
   // ^ 圆环鼠标松开事件
   handleCirclemouseup = () => {
@@ -252,7 +344,7 @@ class PlayerControl extends React.Component {
   handleLoadMusic = () => {};
   // ^ 是否显示音乐条
   handleVolumeShow = () => {
-    console.log('展示音乐条的事件');
+    // console.log('展示音乐条的事件');
     let showSetVolume = !this.state.showSetVolume;
     this.setState({ showSetVolume });
     if (showSetVolume) {
@@ -261,12 +353,23 @@ class PlayerControl extends React.Component {
   };
   // ^ 添加新歌
   addNewSong = async item => {
-    if (item.songId === this.state.songId) {
+    // console.log(item);
+    let songList = this.state.songList;
+    let index = songList.findIndex(item2 => item.songId === item2.songId);
+
+    if (index !== -1) {
       return message.info('歌曲已在播放列表');
     }
-
-    // console.log(item);
-    // console.log('添加了新歌', item);
+    songList.forEach(i => {
+      i.isPlay = false;
+    });
+    songList.push({
+      ...item,
+      isPlay: true,
+    });
+    this.setState({ songList });
+    this.setLocalSongList(songList);
+    // return
     await this.getSongDataById(item.songId);
     this.palyer.play();
   };
@@ -279,7 +382,7 @@ class PlayerControl extends React.Component {
   // ^ 点击锁
   handleClickLock = () => {
     let isLock = !this.state.isLock;
-    console.log(isLock);
+    // console.log(isLock);
     window.localStorage.setItem('lockState', isLock);
     this.setState({ isLock });
   };
@@ -293,13 +396,58 @@ class PlayerControl extends React.Component {
     let listShow = !this.state.listShow;
     this.setState({ listShow });
   };
+  setLocalSongList = data => {
+    localStorage.setItem(PLAY_SONG_NAME, JSON.stringify(data));
+  };
+  getLocalSongList = () => {
+    let data = localStorage.getItem(PLAY_SONG_NAME) ?? [];
+    return data;
+  };
+  changePlayMode = () => {
+    let playMode = this.state.playMode;
+    playMode++;
+    if (playMode > 2) {
+      playMode = 0;
+    }
+    this.setState({
+      playMode,
+    });
+  };
+  // ^ 点击下一首
+  handleChangeNextSong = () => {
+    let songList = this.state.songList;
+    let index = songList.findIndex(i => i.isPlay);
+    index++;
+    if (index === songList.length) {
+      index = 0;
+    }
+    this.changeSongForList(index);
+  };
+  // ^ 点击上一首
+  handleChangeProvSong = () => {
+    let songList = this.state.songList;
+    let index = songList.findIndex(i => i.isPlay);
+    index--;
+    if (index < 0) {
+      index = songList.length - 1;
+    }
+    this.changeSongForList(index);
+  };
+  changeSongForList = async index => {
+    let songList = this.state.songList;
+    songList.forEach(item => (item.isPlay = false));
+    songList[index].isPlay = true;
+    this.setState({
+      songList,
+    });
+    await this.getSongDataById(songList[index].songId);
+    this.palyer.play();
+  };
 
   render() {
     return (
       <PlayerControlUi
         handelCircleClick={this.handelCircleClick}
-        handleCircleMouseDown={this.handleCircleMouseDown}
-        handleCirclemouseup={this.handleCirclemouseup}
         bar3Right={this.state.bar3Right}
         isplay={this.state.isplay}
         songUrl={this.state.songUrl}
@@ -310,11 +458,19 @@ class PlayerControl extends React.Component {
         handleSetVolumeEvent={this.handleSetVolumeEvent}
         volumeHeight={this.state.volumeHeight}
         showSetVolume={this.state.showSetVolume}
+        lrcArr={this.state.lrcArr}
         listShow={this.state.listShow}
+        songList={this.state.songList}
+        playMode={this.state.playMode}
         handleVolumeShow={this.handleVolumeShow}
         defaultWarpClick={this.defaultWarpClick}
         handleClickLock={this.handleClickLock}
         handleListShow={this.handleListShow}
+        handleChangeNextSong={this.handleChangeNextSong}
+        handleChangeProvSong={this.handleChangeProvSong}
+        changePlayMode={this.changePlayMode}
+        handleCircleMouseDown={this.handleCircleMouseDown}
+        handleCirclemouseup={this.handleCirclemouseup}
       />
     );
   }

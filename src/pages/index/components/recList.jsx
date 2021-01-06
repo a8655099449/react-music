@@ -9,11 +9,15 @@ class RecList extends React.Component {
   render() {
     // console.log(this.props);
     let { recData } = this.props;
+
+    // console.log(recData.creatives);
+
     let list = recData.creatives.map((item, index) => {
       let imgSrc = item.uiElement.image.imageUrl;
       let titleName = item.uiElement.mainTitle.title;
       let playCount = item.resources[0].resourceExtInfo.playCount;
       // console.log(playCount);
+      // console.log(item);
       return (
         <ListItem
           className={`${styles['list-item']}`}

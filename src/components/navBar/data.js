@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-04 17:09:16
- * @LastEditTime: 2021-01-04 17:11:00
+ * @LastEditTime: 2021-01-06 17:33:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \myapp\src\components\navBar\data.js
@@ -10,7 +10,7 @@
 export const navList = [
   {
     name: '发现音乐',
-    path: '/',
+    path: '/home',
   },
   {
     name: '我的音乐',

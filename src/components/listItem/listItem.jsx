@@ -1,6 +1,7 @@
 import React from 'react';
 // 歌单小单元
 import styles from './listItem.less';
+import { history } from 'umi';
 
 class ListItem extends React.Component {
   parsePlayCount(num) {
@@ -15,6 +16,14 @@ class ListItem extends React.Component {
     }
     return parseInt(num / 100000000) + ' 亿';
   }
+  goPage = () => {
+    history.push({
+      pathname: '/playlist',
+      query: {
+        id: 'b',
+      },
+    });
+  };
 
   render() {
     let clsName = this.props.className || '';
@@ -25,7 +34,10 @@ class ListItem extends React.Component {
     let playCount = this.parsePlayCount(this.props.playCount);
 
     return (
-      <div className={`${styles['list-item']} ${clsName}`}>
+      <div
+        className={`${styles['list-item']} ${clsName}`}
+        onClick={this.goPage}
+      >
         <div className={`${styles['img-warp']}`}>
           <img src={imgSrc} alt="" />
           <div className={`${styles['img-buttom-bar']}`}>

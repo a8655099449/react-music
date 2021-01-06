@@ -52,7 +52,7 @@
   color: #fff;
   border-radius: 4px;
 }
-.click{
+.click {
   cursor: pointer;
 }
 .click:hover,
@@ -65,4 +65,14 @@ button {
 }
 button {
   border: none;
+}
+.page-content {
+  border: 1px solid var(--boder-color);
+  background-color: #fff;
+  /* height: 100%; */
+  min-height: calc(100vh - 70px - 173px);
+}
+ul,
+li {
+  list-style: none;
 }

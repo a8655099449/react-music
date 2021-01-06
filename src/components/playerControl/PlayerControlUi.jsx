@@ -17,10 +17,16 @@ export default props => {
     songData,
     isLock,
     listShow,
+    songList,
     defaultWarpClick,
     showSetVolume,
     handleVolumeShow,
+    handleChangeProvSong,
+    handleChangeNextSong,
     handleSetVolumeEvent,
+    playMode,
+    changePlayMode,
+    lrcArr,
     handleListShow,
   } = props;
   // console.log(showSetVolume);
@@ -36,8 +42,36 @@ export default props => {
   let setVolumeStyle = {
     display: showSetVolume ? 'block' : 'none',
   };
-  let palyBtn;
+  let palyBtn, playModeDom;
   // 是否在播放的标记
+
+  // & 设置播放模式
+
+  if (playMode === 0) {
+    playModeDom = (
+      <div
+        className={`${styles['schema-bar']} ${styles['bg-bar']}`}
+        title="列表循环"
+        onClick={changePlayMode}
+      ></div>
+    );
+  } else if (playMode === 1) {
+    playModeDom = (
+      <div
+        className={`${styles['schema-bar']} ${styles['once-bar']} ${styles['bg-bar']}`}
+        title="单曲循环"
+        onClick={changePlayMode}
+      ></div>
+    );
+  } else {
+    playModeDom = (
+      <div
+        className={`${styles['schema-bar']} ${styles['random-bar']} ${styles['bg-bar']}`}
+        title="随机播放"
+        onClick={changePlayMode}
+      ></div>
+    );
+  }
 
   let lockClass = isLock ? styles['locked'] : styles['unlock'];
   let warpClass = isLock ? styles['warp-lock'] : styles['warp-unlock'];
@@ -47,12 +81,14 @@ export default props => {
         onClick={handleClickPaly}
         className={`${styles['center']} ${styles['bg-bar']} ${styles['pause']}`}
         style={{ fontSize: '32px' }}
+        title="播放/暂停"
       ></div>
     );
   } else {
     palyBtn = (
       <div
         onClick={handleClickPaly}
+        title="播放/暂停"
         className={`${styles['center']} ${styles['bg-bar']}`}
       ></div>
     );
@@ -73,15 +109,25 @@ export default props => {
       </div>
 
       <div className={`${styles['content']} content-box`}>
-        <PlayList listShow={listShow} handleListShow={handleListShow} />
+        <PlayList
+          listShow={listShow}
+          handleListShow={handleListShow}
+          songList={songList}
+          lrcArr={lrcArr}
+          songName={songData.songName}
+        />
         <audio src={songUrl} id="music-player"></audio>
         <div className={`${styles['control-box']}`}>
           <div
-            className={`${styles['left']} click iconfont  icon-xiayishou`}
+            className={`${styles['left']}  ${styles['bg-bar']}`}
+            title="上一首"
+            onClick={handleChangeProvSong}
           ></div>
           {palyBtn}
           <div
-            className={`${styles['right']}  click iconfont iconfont  icon-xiayishou`}
+            className={`${styles['right']} ${styles['bg-bar']}`}
+            onClick={handleChangeNextSong}
+            title="下一首"
           ></div>
         </div>
         <div className={`${styles['music-box']}`}>
@@ -130,12 +176,12 @@ export default props => {
             className={`${styles['volume-bar']} ${styles['bg-bar']}`}
             onClick={handleVolumeShow}
           ></div>
-          <div className={`${styles['schema-bar']} ${styles['bg-bar']}`}></div>
+          {playModeDom}
           <div
             className={`${styles['menu-bar']} ${styles['bg-bar']}`}
             onClick={handleListShow}
           >
-            1
+            {songList.length}
           </div>
 
           {/* 设置音量的条 */}

@@ -2,20 +2,9 @@ import React from 'react';
 // 歌单小单元
 import styles from './listItem.less';
 import { history } from 'umi';
+import { parsePlayCount } from '@/assets/js/tool';
 
 class ListItem extends React.Component {
-  parsePlayCount(num) {
-    num = parseInt(num);
-
-    if (num <= 10000) {
-      return num;
-    }
-
-    if (num > 10000 && num < 99999999) {
-      return parseInt(num / 10000) + ' 万';
-    }
-    return parseInt(num / 100000000) + ' 亿';
-  }
   goPage = () => {
     history.push({
       pathname: '/playlist',
@@ -31,7 +20,7 @@ class ListItem extends React.Component {
       this.props.imgSrc ||
       'http://p1.music.126.net/i_JX_JOoE6VH_jg0vRsyhg==/109951165159078349.jpg?param=140y140';
     let titleName = this.props.titleName || '默认标题';
-    let playCount = this.parsePlayCount(this.props.playCount);
+    let playCount = parsePlayCount(this.props.playCount);
 
     return (
       <div

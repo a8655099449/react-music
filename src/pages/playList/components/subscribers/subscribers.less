@@ -1,0 +1,18 @@
+.subscribers-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  margin-bottom: 20px;
+
+  .list-item {
+    width: calc((100% - 30px) / 4);
+    margin-right: 10px;
+    margin-bottom: 10px;
+    img {
+      width: 100%;
+    }
+    &:nth-child(4n) {
+      margin-right: 0;
+    }
+  }
+}

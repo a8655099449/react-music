@@ -23,7 +23,7 @@ class Loading extends React.Component {
   };
   render() {
     let { isShow } = this.state;
-    console.log(isShow);
+    // console.log(isShow);
     if (isShow) {
       return <div className={`${styles['loading']}`}>loading ....</div>;
     }

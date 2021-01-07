@@ -59,3 +59,15 @@ export function bodyScroll() {
   document.documentElement.style.overflowY = 'scroll';
   document.body.style.position = 'static';
 }
+export function parsePlayCount(num) {
+  num = parseInt(num);
+
+  if (num <= 10000) {
+    return num;
+  }
+
+  if (num > 10000 && num < 99999999) {
+    return parseInt(num / 10000) + ' 万';
+  }
+  return parseInt(num / 100000000) + ' 亿';
+}

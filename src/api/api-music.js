@@ -60,5 +60,19 @@ export function getSongListDetail(params) {
   return request({
     url: '/playlist/detail',
     params,
+    iscookie: true,
+  });
+}
+/**
+ * ^ 获取推荐歌单
+ * @param {
+ *  id => 歌单id
+ * }
+ */
+
+export function getSongListRecommentByListId(params) {
+  return request({
+    url: '/related/playlist',
+    params,
   });
 }

@@ -1,6 +1,7 @@
 @import './assets/css/iconfont.css';
 @import './assets/css/normalize.css';
 @import './assets/css/public.css';
+@import '//at.alicdn.com/t/font_2074202_v7gkvov6oer.css';
 
 .click {
   user-select: none;
@@ -75,4 +76,37 @@ button {
 ul,
 li {
   list-style: none;
+}
+
+
+
+/* 设置滚动条宽度 */
+.public-scrolll::-webkit-scrollbar {
+  width: 5px;
+  background-color: #FFf;
+
+}
+/* 设置中间的小快 */
+
+.public-scrolll::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #eee;
+}
+/* 设置滚动区背景 */
+.public-scrolll::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background-color: #FFf;
+}
+
+.auto-img{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.underline{
+  cursor: pointer;
+  
+}
+.underline:hover{
+  text-decoration: underline;
 }

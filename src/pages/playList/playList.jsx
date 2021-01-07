@@ -19,10 +19,12 @@ class playList extends React.Component {
 
     let params = props.location.query;
     // console.log(params);
+    this.listId = params.id || 3124642208;
+    this.init();
   }
 
-  listId = 3136952023;
-  componentDidMount() {
+  listId = 3124642208;
+  init() {
     this._getSongListDetail();
     this._getSongListRecommentByListId();
   }
@@ -104,7 +106,7 @@ class playList extends React.Component {
             commentCount={this.state.commentCount}
           />
 
-          <SongList />
+          <SongList tracks={this.state.tracks} />
         </div>
 
         <div className={`${styles['right-content']}`}>

@@ -33,7 +33,11 @@ class PlayerControl extends React.Component {
   };
   isCircleMove = false;
   state = {
-    isLock: localStorage.getItem('lockState') === 'true' ? true : false, // 是否锁定
+    isLock: !localStorage.getItem('lockState')
+      ? true
+      : localStorage.getItem('lockState') === 'true'
+      ? true
+      : false, // 是否锁定
     bar3Right: 494, // & 音乐进度条长度
     volumeHeight: localStorage.getItem('volumeHeight') || 93, // & 音量长度
     // songId: 1425626819, // & 音乐的id

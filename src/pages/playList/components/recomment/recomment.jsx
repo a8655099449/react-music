@@ -4,7 +4,7 @@ import BaseTitle from '@/components/baseTitle/baseTitle';
 
 export default props => {
   let { recommentList = [] } = props;
-  console.log(recommentList);
+  // console.log(recommentList);
   return (
     <div>
       <BaseTitle title="相关推荐" />

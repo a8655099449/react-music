@@ -5,16 +5,17 @@ import { history } from 'umi';
 import { parsePlayCount } from '@/assets/js/tool';
 
 class ListItem extends React.Component {
-  goPage = () => {
+  goPage = id => {
     history.push({
       pathname: '/playlist',
       query: {
-        id: 'b',
+        id,
       },
     });
   };
 
   render() {
+    let { listId = 3124642208 } = this.props;
     let clsName = this.props.className || '';
     let imgSrc =
       this.props.imgSrc ||
@@ -25,7 +26,9 @@ class ListItem extends React.Component {
     return (
       <div
         className={`${styles['list-item']} ${clsName}`}
-        onClick={this.goPage}
+        onClick={() => {
+          this.goPage(listId);
+        }}
       >
         <div className={`${styles['img-warp']}`}>
           <img src={imgSrc} alt="" />

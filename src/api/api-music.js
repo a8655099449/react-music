@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2020-12-21 17:56:36
- * @LastEditTime: 2021-01-06 17:43:46
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-01-07 21:54:20
+ * @LastEditors: kuangw
  * @Description: In User Settings Edit
- * @FilePath: \myapp\src\api\api-music.js
+ * @FilePath: \react-umi\src\api\api-music.js
  */
 
 import request from './main';
@@ -74,5 +74,6 @@ export function getSongListRecommentByListId(params) {
   return request({
     url: '/related/playlist',
     params,
+    iscookie: true,
   });
 }

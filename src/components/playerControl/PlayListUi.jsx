@@ -2,7 +2,16 @@ import React from 'react';
 import styles from './PlayerControl.less';
 
 export default props => {
-  let { listShow, handleListShow, songList, lrcArr, songName } = props;
+  let {
+    listShow,
+    handleListShow,
+    songList,
+    lrcArr,
+    songName,
+    palyListSong,
+    deleteOneSongForList,
+    deleteAllSongForList,
+  } = props;
   if (!songList) {
     songList = [];
   }
@@ -21,14 +30,24 @@ export default props => {
               <div className={`${styles['arrow']}`}>
                 <i style={arrowStyle}></i>
               </div>
-              <div className={`${styles['song-name']} text-row-1`}>
+              <div
+                className={`${styles['song-name']} text-row-1`}
+                onClick={() => {
+                  palyListSong(item);
+                }}
+              >
                 {item.songName}
               </div>
               <div className={`${styles['handleList']}`}>
                 <i className={`${styles['icon-1']}`}></i>
                 <i className={`${styles['icon-2']}`}></i>
                 <i className={`${styles['icon-3']}`}></i>
-                <i className={`${styles['icon-4']}`}></i>
+                <i
+                  className={`${styles['icon-4']}`}
+                  onClick={() => {
+                    deleteOneSongForList(item);
+                  }}
+                ></i>
               </div>
               <div className={`${styles['singer-name']} text-row-1`}>
                 {item.singerName}
@@ -81,7 +100,7 @@ export default props => {
               <div>
                 <i className={`${styles['col-bar']}`}></i> 收藏全部
               </div>
-              <div>
+              <div onClick={deleteAllSongForList}>
                 <i className={`${styles['clear-bar']}`}></i> 清除
               </div>
             </div>

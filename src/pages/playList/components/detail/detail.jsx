@@ -11,10 +11,10 @@ export default props => {
     creator,
     coverImgUrl,
     tags,
-
     subscribedCount,
     shareCount,
     commentCount,
+    playList,
   } = props;
   if (!isrequest) {
     return <div>加载中....</div>;
@@ -46,7 +46,10 @@ export default props => {
         <div className={`${styles['btn-box']}`}>
           {/* 播放 */}
 
-          <div className={`${styles['btn-item']} ${styles['play']} btn play`}>
+          <div
+            className={`${styles['btn-item']} ${styles['play']} btn play`}
+            onClick={playList}
+          >
             <i className={`iconfont icon-ziyuan`}></i> 播放
           </div>
           {/* 收藏 */}

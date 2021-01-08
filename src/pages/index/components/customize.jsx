@@ -13,18 +13,15 @@ class Customize extends React.Component {
     let songName = item.resourceExtInfo.songData.name;
 
     let singerName = item.resourceExtInfo.artists[0].name;
+    let dt = item.resourceExtInfo.songData.duration;
+
     // event.emit('addNewSong')
-    event.emit('addNewSong', { singerName, songId, songName });
+    event.emit('addNewSong', { singerName, songId, songName, dt });
   };
   render() {
     setTimeout(() => {
       new Swiper('.' + styles['swiper-container'], {
         slidesPerView: 'auto',
-        // spaceBetween: 20,
-        // pagination: {
-        //   el: '.swiper-pagination',
-        //   clickable: true,
-        // },
       });
     }, 100);
     // console.log(t  his.props)

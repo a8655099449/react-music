@@ -11,8 +11,8 @@ const routers = [
   {
     exact: true,
     path: '/',
-    component: '@/pages/playList/playList',
-    title: '歌单',
+    component: '@/pages/index/index',
+    title: '网易云音乐',
   },
   {
     exact: true,

@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './PlayerControl.less';
 import PlayList from './PlayListUi';
+import { showModal } from '@/assets/js/tool';
 
 export default props => {
   let {
@@ -19,6 +20,7 @@ export default props => {
     listShow,
     songList,
     defaultWarpClick,
+    deleteAllSongForList,
     showSetVolume,
     handleVolumeShow,
     handleChangeProvSong,
@@ -28,6 +30,8 @@ export default props => {
     changePlayMode,
     lrcArr,
     handleListShow,
+    palyListSong,
+    deleteOneSongForList,
   } = props;
   // console.log(showSetVolume);
   // console.log(handleSetVolumeEvent.mousedownCircle);
@@ -112,6 +116,9 @@ export default props => {
         <PlayList
           listShow={listShow}
           handleListShow={handleListShow}
+          palyListSong={palyListSong}
+          deleteOneSongForList={deleteOneSongForList}
+          deleteAllSongForList={deleteAllSongForList}
           songList={songList}
           lrcArr={lrcArr}
           songName={songData.songName}

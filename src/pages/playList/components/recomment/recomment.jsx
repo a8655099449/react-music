@@ -3,7 +3,7 @@ import styles from './recomment.less';
 import BaseTitle from '@/components/baseTitle/baseTitle';
 
 export default props => {
-  let { recommentList = [] } = props;
+  let { recommentList = [], changeList } = props;
   // console.log(recommentList);
   return (
     <div>
@@ -25,7 +25,12 @@ export default props => {
                 />
               </div>
               <div className={`${styles['desc']}`}>
-                <div className={`${styles['name']} text-row-1 underline`}>
+                <div
+                  className={`${styles['name']} text-row-1 underline`}
+                  onClick={() => {
+                    changeList(item);
+                  }}
+                >
                   {item.name}
                 </div>
                 <div className={`${styles['creater']}  text-row-1`}>

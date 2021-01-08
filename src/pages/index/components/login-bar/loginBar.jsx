@@ -11,14 +11,12 @@ export default props => {
   let dom;
   if (isLogin) {
     let level = userInfo.level.level ?? 3;
+    console.log(userInfo);
     dom = (
       <div className={`${styles['islogin-warp']}`}>
         <div className={`${styles['top']}`}>
           <div className={`${styles['left']}`}>
-            <img
-              src="//p4.music.126.net/QT9btmDJG8EKYqDONkDVnw==/19046839928133356.jpg"
-              alt=""
-            />
+            <img src={userInfo.avatarUrl} alt="" />
           </div>
           <div className={`${styles['right']}`}>
             <div className={`${styles['name-box']}`}>{userInfo.nickname}</div>

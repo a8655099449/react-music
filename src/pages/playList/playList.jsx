@@ -12,6 +12,8 @@ import Subscribers from './components/subscribers/subscribers';
 import Recomment from './components/recomment/recomment';
 import Download from './components/download/download';
 import SongList from './components/songList/songList';
+import event from '@/assets/js/event';
+import { history } from 'umi';
 
 class playList extends React.Component {
   constructor(props) {
@@ -50,7 +52,7 @@ class playList extends React.Component {
       id: this.listId,
     });
     if (res.code === 200) {
-      console.log(res);
+      // console.log(res);
       let {
         tags,
         subscribers,
@@ -90,6 +92,31 @@ class playList extends React.Component {
       this.setState({ recommentList });
     }
   };
+  // ^ 播放整个列表
+  playList = () => {
+    let list = this.state.tracks.map(item => {
+      return {
+        songName: item.name,
+        singerName: item.ar[0].name,
+        songId: item.id,
+        dt: item.dt,
+      };
+    });
+    event.emit('addPlayList', list);
+  };
+  // ^ 更换歌单
+
+  changeList = item => {
+    // console.log(item);
+    this.listId = item.id;
+    this.init();
+    history.push({
+      pathname: '/playlist',
+      query: {
+        id: item.id,
+      },
+    });
+  };
   render() {
     return (
       <div className={`${styles['content']} content-box page-content`}>
@@ -104,14 +131,21 @@ class playList extends React.Component {
             subscribedCount={this.state.subscribedCount}
             shareCount={this.state.shareCount}
             commentCount={this.state.commentCount}
+            playList={this.playList}
           />
 
-          <SongList tracks={this.state.tracks} />
+          <SongList
+            tracks={this.state.tracks}
+            playCount={this.state.playCount}
+          />
         </div>
 
         <div className={`${styles['right-content']}`}>
           <Subscribers subscribers={this.state.subscribers} />
-          <Recomment recommentList={this.state.recommentList} />
+          <Recomment
+            recommentList={this.state.recommentList}
+            changeList={this.changeList}
+          />
           <Download />
         </div>
       </div>

@@ -16,9 +16,7 @@ class RecList extends React.Component {
       let imgSrc = item.uiElement.image.imageUrl;
       let titleName = item.uiElement.mainTitle.title;
       let playCount = item.resources[0].resourceExtInfo.playCount;
-      console.log(item);
-      // console.log(playCount);
-      // console.log(item);
+
       return (
         <ListItem
           className={`${styles['list-item']}`}

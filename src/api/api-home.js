@@ -12,6 +12,6 @@ import request from './main';
 export function getHomeData() {
   return request({
     url: '/homepage/block/page',
-    iscookie: false,
+    // iscookie: true,
   });
 }

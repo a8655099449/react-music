@@ -6,6 +6,7 @@ import Customize from './components/customize';
 import { getHomeData } from '@/api/api-home';
 import ItemTitle from './components/itemTitle';
 import LoginBar from './components/login-bar/loginBar';
+import NewDVD from './components/newDVD/newDVD';
 
 // console.log(loginBar);
 // 推荐歌单
@@ -84,7 +85,9 @@ class Index extends React.Component {
           <div className={`${styles['left-contet']}`}>
             {recListDom}
             {sceneListData}
-            {contentList}
+            <NewDVD />
+
+            {/* {contentList} */}
           </div>
           <div className={`${styles['right-content']}`}>
             <LoginBar userInfo={userInfo} isLogin={isLogin} />

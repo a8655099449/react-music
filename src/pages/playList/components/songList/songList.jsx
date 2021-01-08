@@ -5,18 +5,18 @@ import { parseSongTime } from '@/assets/js/tool';
 let listHead = ['', '歌曲标题', '时长', '歌手', '专辑'];
 
 export default props => {
-  let { tracks = [] } = props;
+  let { tracks = [], playCount } = props;
 
-  console.log(tracks);
+  // console.log(tracks);
 
   return (
     <div className={`${styles['song-list']}`}>
       <div className={`${styles['head']}`}>
         <div className={`${styles['left']}`}>
-          歌曲列表 <span>30首歌</span>
+          歌曲列表 <span>{tracks.length}首歌</span>
         </div>
         <div className={`${styles['right']}`}>
-          播放: <span>10603479</span> 次
+          播放: <span>{playCount}</span> 次
         </div>
       </div>
 
@@ -49,7 +49,6 @@ export default props => {
                 <i className="iconfont icon-ziyuan"></i>
               </div>
               <div className={`${styles['item']} text-row-1 underline`}>
-                {' '}
                 {item.name} <span>{zj}</span>
               </div>
               <div className={`${styles['item']}`}>{time}</div>

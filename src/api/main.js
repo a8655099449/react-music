@@ -20,7 +20,7 @@ function request(config) {
     // 公用的网络请求路径
     baseURL,
     // 网络请求时间超时会自动断开
-    timeout: 5000,
+    timeout: 10000,
     withCredentials: false,
     // withCredentials: true,
   });

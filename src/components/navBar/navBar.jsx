@@ -50,6 +50,9 @@ class NavBar extends React.Component {
       });
     }
   }
+  goHome = () => {
+    history.push('/');
+  };
   render() {
     let { isLogin, userInfo } = this.props;
     let navlistContent = this.state.navList.map((item, index) => {
@@ -111,7 +114,7 @@ class NavBar extends React.Component {
     return (
       <header className={styles['nav-bar']}>
         <div className={styles['content']}>
-          <div className={styles['log-box']} href="/">
+          <div className={styles['log-box']} onClick={this.goHome}>
             <img src="//photo.tuituisoft.com/picgo/20210104113130.png" alt="" />
             不，是网抑云
           </div>

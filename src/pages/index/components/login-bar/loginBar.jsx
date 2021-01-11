@@ -11,7 +11,7 @@ export default props => {
   let dom;
   if (isLogin) {
     let level = userInfo.level.level ?? 3;
-    console.log(userInfo);
+    // console.log(userInfo);
     dom = (
       <div className={`${styles['islogin-warp']}`}>
         <div className={`${styles['top']}`}>

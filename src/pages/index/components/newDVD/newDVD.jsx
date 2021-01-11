@@ -3,7 +3,9 @@ import ItemTitle from '../itemTitle';
 import swiper from 'swiper';
 import styles from './newDVD.less';
 
-export default () => {
+export default props => {
+  let { newDVDs } = props;
+  console.log(newDVDs);
   let list = [1, 2, 3, 4, 5, 2, 2, 2, 2, 2];
   setTimeout(() => {
     new swiper('.' + styles['listwarp'], {

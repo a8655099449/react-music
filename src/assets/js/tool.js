@@ -71,3 +71,25 @@ export function parsePlayCount(num) {
   }
   return parseInt(num / 100000000) + ' 亿';
 }
+
+export function setLocalData(key, data) {
+  let time = Date.parse(new Date()) / 1000;
+  // console.log(key, data);
+  let localdata = {
+    data,
+    time,
+  };
+  window.localStorage.setItem(key, JSON.stringify(localdata));
+}
+
+export function getLocalData(key, time = 0) {
+  let nowtime = Date.parse(new Date()) / 1000;
+  let data = JSON.parse(window.localStorage.getItem(key));
+
+  console.log(data);
+
+  if ((data && time && nowtime - time > data.time) || (data && time === 0)) {
+    return data.data;
+  }
+  return false;
+}

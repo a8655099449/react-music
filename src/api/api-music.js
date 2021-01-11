@@ -77,3 +77,17 @@ export function getSongListRecommentByListId(params) {
     iscookie: true,
   });
 }
+/**
+ * ^ 获取【新碟上架】
+ * @param {
+ *  id => 歌单id
+ * }
+ */
+
+export function getNewDVD(params) {
+  return request({
+    url: '/top/album',
+    params,
+    iscookie: true,
+  });
+}

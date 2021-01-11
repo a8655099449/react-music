@@ -193,7 +193,7 @@ class PlayerControl extends React.Component {
     let res = await getMusicDatail({
       ids: this.state.songId,
     });
-    console.log(res);
+    // console.log(res);
     let songData = this.state.songData;
     songData.singerName = res.songs[0].ar[0].name;
     songData.songName = res.songs[0].name;

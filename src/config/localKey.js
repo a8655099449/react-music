@@ -14,3 +14,5 @@ export const HOME_DATA = 'HOME_DATA';
 export const COOKIE = 'COOKIE';
 export const PLAY_SONG_NAME = 'PLAY_SONG_NAME';
 export const NOW_PLAY_ID = 'NOW_PLAY_ID';
+
+export const NEW_DVDS = 'NEW_DVDS';

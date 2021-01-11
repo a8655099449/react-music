@@ -4,9 +4,13 @@ import TopNav from './components/topNav';
 import Banner from './components/banner';
 import Customize from './components/customize';
 import { getHomeData } from '@/api/api-home';
+import { getNewDVD } from '@/api/api-music';
 import ItemTitle from './components/itemTitle';
 import LoginBar from './components/login-bar/loginBar';
 import NewDVD from './components/newDVD/newDVD';
+import { NEW_DVDS, HOME_DATA } from '@/config/localKey';
+
+import { setLocalData, getLocalData } from '@/assets/js/tool';
 
 // console.log(loginBar);
 // 推荐歌单
@@ -21,12 +25,37 @@ class Index extends React.Component {
     banners: [],
     contentList: [],
     recListData: null,
+    newDVDs: [],
+    // recListData: [],
+    // customizeData: [],
+    // sceneListData: [],
   };
   componentDidMount() {
     this._getHomeData();
+    this._getNewDVD();
   }
+  async _getNewDVD() {
+    // console.log(getNewDVD);
+    // return
+    let newDVDs = getLocalData(NEW_DVDS, this.saveTime) || [];
+    return;
+    if (newDVDs.length === 0) {
+      console.log('-1-');
+      let res = await getNewDVD({
+        // limit: 30,
+        // offset: 0,
+        // type: 'hot',
+      });
+      newDVDs = res.weekData;
+      setLocalData(NEW_DVDS, newDVDs);
+    }
+
+    console.log('-2-', newDVDs);
+    this.setState({ newDVDs });
+  }
+
   async _getHomeData() {
-    let storeData = JSON.parse(localStorage.getItem('homeData'));
+    let storeData = JSON.parse(localStorage.getItem(HOME_DATA));
     let nowTime = Date.parse(new Date()) / 1000;
     let homeData;
     // console.log(nowTime - (storeData.time + this.saveTime));
@@ -39,7 +68,7 @@ class Index extends React.Component {
         homeData,
         time: nowTime,
       };
-      localStorage.setItem('homeData', JSON.stringify(storeData));
+      localStorage.setItem(HOME_DATA, JSON.stringify(storeData));
     }
 
     // console.log(homeData);
@@ -85,7 +114,7 @@ class Index extends React.Component {
           <div className={`${styles['left-contet']}`}>
             {recListDom}
             {sceneListData}
-            <NewDVD />
+            <NewDVD newDVDs={this.state.newDVDs} />
 
             {/* {contentList} */}
           </div>

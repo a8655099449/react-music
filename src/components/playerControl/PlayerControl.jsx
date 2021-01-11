@@ -16,7 +16,7 @@ import { PLAY_SONG_NAME, NOW_PLAY_ID } from '@/config/localKey';
 
 let body = document.querySelector('body');
 
-import { parseSongTime } from '@/assets/js/tool';
+import { parseSongTime, parseLaric } from '@/assets/js/tool';
 
 class PlayerControl extends React.Component {
   constructor(props) {
@@ -46,8 +46,7 @@ class PlayerControl extends React.Component {
     songData: {
       singerName: '',
       songName: '',
-      songPic:
-        'http://s4.music.126.net/style/web2/img/default/default_album.jpg',
+      songPic: '//s4.music.126.net/style/web2/img/default/default_album.jpg',
     },
     songUrl: '',
     songTime: {
@@ -217,25 +216,11 @@ class PlayerControl extends React.Component {
 
     if (res.code === 200) {
       if (res.nolyric) {
-        // this.setState({ lrcArr:[] });
         return;
       }
       // console.log();
-      let lrcArr = res.lrc.lyric.split(/\n/);
+      let lrcArr = parseLaric(res.lrc.lyric);
 
-      for (let i = 0; i < lrcArr.length; i++) {
-        let time = '';
-        let content = '';
-        let select = false;
-        if (lrcArr[i]) {
-          time = lrcArr[i].split(']')[0].split('[')[1];
-
-          time = time.slice(0, 5);
-
-          content = lrcArr[i].split(']')[1];
-        }
-        lrcArr[i] = { time, content, select };
-      }
       this.setState({ lrcArr });
 
       // console.log(lrcArr);

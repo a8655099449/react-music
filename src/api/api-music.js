@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-21 17:56:36
- * @LastEditTime: 2021-01-07 21:54:20
+ * @LastEditTime: 2021-01-12 07:22:09
  * @LastEditors: kuangw
  * @Description: In User Settings Edit
  * @FilePath: \react-umi\src\api\api-music.js
@@ -89,5 +89,46 @@ export function getNewDVD(params) {
     url: '/top/album',
     params,
     iscookie: true,
+  });
+}
+
+/**
+ * ^ 获取【歌曲评价】
+ * @param {
+ *  id => 歌单id
+ * }
+ */
+
+export function getMusicComment(params) {
+  return request({
+    url: '/comment/music',
+    params,
+  });
+}
+/**
+ * ^ 获取【根据歌曲id获得歌单推荐】
+ * @param {
+ *  id => 歌单id
+ * }
+ */
+
+export function getPlayListForSongID(params) {
+  return request({
+    url: '/simi/playlist',
+    params,
+  });
+}
+
+/**
+ * ^ 获取【获得相似歌曲】
+ * @param {
+ *  id => 歌单id
+ * }
+ */
+
+export function getSimiSong(params) {
+  return request({
+    url: '/simi/song',
+    params,
   });
 }

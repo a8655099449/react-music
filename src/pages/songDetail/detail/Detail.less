@@ -1,0 +1,94 @@
+//
+
+.detail-content {
+  display: flex;
+  .img-box {
+    width: 198px;
+    height: 198px;
+    position: relative;
+    margin-right: 20px;
+    .bg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background: url('//s2.music.126.net/style/web2/img/ie6/singlecover.png?a4fc6388f5fbbad516b2e9aad14a71a7')
+        no-repeat 0 0;
+      background-size: 100% 100%;
+    }
+    img {
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 130px;
+    }
+  }
+  .desc-box {
+    width: calc(100% - 220px);
+    .name {
+      display: flex;
+      align-items: center;
+    }
+    .tag {
+      width: 54px;
+      height: 24px;
+      background: url('//s2.music.126.net/style/web2/img/icon.png?0d4364ba000cabf416a4321305212173')
+        no-repeat 0 -463px;
+      margin-right: 10px;
+    }
+    .name-text {
+      font-size: 24px;
+    }
+    .singer {
+      margin: 5px;
+      color: #999999;
+      span {
+        color: #0c73c2;
+      }
+    }
+    .btn-box {
+      height: 31px;
+      display: flex;
+      margin-top: 15px;
+      justify-content: space-between;
+      .btn-item {
+        border-radius: 4px;
+        background-color: #f4f4f4;
+        border: 1px solid #c3c3c3;
+        padding: 0 5px;
+        font-size: 12px;
+        line-height: 31px;
+        justify-content: start;
+        i {
+          font-size: 14px;
+          margin-right: 3px;
+        }
+      }
+      .btn-item.play {
+        background-color: #1f7ac5;
+        color: #fff;
+        border: none;
+        padding: 0 20px;
+      }
+    }
+  }
+  .geci-list {
+    height: 150px;
+    overflow-y: scroll;
+    margin-top: 50px;
+    color: #333333;
+    li {
+      margin: 10px;
+    }
+  }
+  .gx-men {
+    text-align: right;
+    span {
+      color: #0c73c2;
+      margin-left: 10px;
+    }
+  }
+}

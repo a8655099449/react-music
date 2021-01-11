@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2020-12-29 11:54:49
- * @LastEditTime: 2021-01-05 11:25:57
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-01-12 06:48:41
+ * @LastEditors: kuangw
  * @Description: In User Settings Edit
- * @FilePath: \myapp\src\assets\js\tool.js
+ * @FilePath: \react-umi\src\assets\js\tool.js
  */
 
 import { Modal } from 'antd';
@@ -86,10 +86,27 @@ export function getLocalData(key, time = 0) {
   let nowtime = Date.parse(new Date()) / 1000;
   let data = JSON.parse(window.localStorage.getItem(key));
 
-  console.log(data);
-
-  if ((data && time && nowtime - time > data.time) || (data && time === 0)) {
+  if ((data && time && nowtime - time < data.time) || (data && time === 0)) {
     return data.data;
   }
   return false;
+}
+
+export function parseLaric(str) {
+  let lrcArr = str.split(/\n/);
+
+  for (let i = 0; i < lrcArr.length; i++) {
+    let time = '';
+    let content = '';
+    let select = false;
+    if (lrcArr[i]) {
+      time = lrcArr[i].split(']')[0].split('[')[1];
+
+      time = time.slice(0, 5);
+
+      content = lrcArr[i].split(']')[1];
+    }
+    lrcArr[i] = { time, content, select };
+  }
+  return lrcArr;
 }

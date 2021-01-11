@@ -5,7 +5,6 @@ import styles from './newDVD.less';
 
 export default props => {
   let { newDVDs } = props;
-  console.log(newDVDs);
   let list = [1, 2, 3, 4, 5, 2, 2, 2, 2, 2];
   setTimeout(() => {
     new swiper('.' + styles['listwarp'], {
@@ -21,22 +20,21 @@ export default props => {
       <div className={`${styles['content']}`}>
         <div className={`${styles['listwarp']}  swiper-container `}>
           <div className={`${styles['listbox']}  swiper-wrapper `}>
-            {list.map((item, index) => {
+            {newDVDs.map((item, index) => {
               return (
                 <div
                   className={`${styles['dvd-item']} swiper-slide`}
                   key={index}
                 >
                   <div className={`${styles['bg']}`}>
-                    <img
-                      src="//p1.music.126.net/LOekHheOMDpdjuXrXWjfJg==/109951165483194861.jpg?param=177y177"
-                      alt=""
-                    />
+                    <img src={item.picUrl} alt={item.name} />
                   </div>
                   <p className={`${styles['dvd-name']} text-row-1`}>
-                    狼殿下 影视原声碟P
+                    {item.name}
                   </p>
-                  <p className={`${styles['singer']} text-row-1`}>群星</p>
+                  <p className={`${styles['singer']} text-row-1`}>
+                    {item.artists[0].name}
+                  </p>
                 </div>
               );
             })}

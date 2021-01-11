@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2020-12-11 10:02:03
- * @LastEditTime: 2021-01-06 17:28:08
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-01-11 21:05:28
+ * @LastEditors: kuangw
  * @Description: In User Settings Edit
- * @FilePath: \myapp\src\config\router.js
+ * @FilePath: \react-umi\src\config\router.js
  */
 
 const routers = [
@@ -31,6 +31,12 @@ const routers = [
     path: '/playlist',
     component: '@/pages/playList/playList',
     title: '歌单',
+  },
+  {
+    exact: true,
+    path: '/songdetail',
+    component: '@/pages/songDetail/songDetail',
+    title: '歌曲详情',
   },
 ];
 

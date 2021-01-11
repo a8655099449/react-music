@@ -19,7 +19,7 @@ import RecList from './components/recList';
 import { connect } from 'react-redux';
 
 class Index extends React.Component {
-  saveTime = 24 * 60 * 60;
+  saveTime = 60 * 24 * 60;
   // saveTime = 1
   state = {
     banners: [],
@@ -38,37 +38,24 @@ class Index extends React.Component {
     // console.log(getNewDVD);
     // return
     let newDVDs = getLocalData(NEW_DVDS, this.saveTime) || [];
-    return;
     if (newDVDs.length === 0) {
-      console.log('-1-');
-      let res = await getNewDVD({
-        // limit: 30,
-        // offset: 0,
-        // type: 'hot',
-      });
+      let res = await getNewDVD();
       newDVDs = res.weekData;
       setLocalData(NEW_DVDS, newDVDs);
     }
 
-    console.log('-2-', newDVDs);
     this.setState({ newDVDs });
   }
 
   async _getHomeData() {
-    let storeData = JSON.parse(localStorage.getItem(HOME_DATA));
-    let nowTime = Date.parse(new Date()) / 1000;
-    let homeData;
+    // let storeData = JSON.parse(localStorage.getItem(HOME_DATA));
+    // let nowTime = Date.parse(new Date()) / 1000;
+    let homeData = getLocalData(HOME_DATA, this.saveTime) || [];
     // console.log(nowTime - (storeData.time + this.saveTime));
-    if (storeData && nowTime - (storeData.time + this.saveTime) < 0) {
-      homeData = storeData.homeData;
-    } else {
+    if (homeData.length == 0) {
       let res = await getHomeData();
       homeData = res.data.blocks;
-      let storeData = {
-        homeData,
-        time: nowTime,
-      };
-      localStorage.setItem(HOME_DATA, JSON.stringify(storeData));
+      setLocalData(HOME_DATA, homeData);
     }
 
     // console.log(homeData);

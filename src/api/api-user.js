@@ -1,13 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2021-01-04 08:54:00
- * @LastEditTime: 2021-01-05 10:53:55
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-01-11 21:03:53
+ * @LastEditors: kuangw
  * @Description: In User Settings Edit
- * @FilePath: \myapp\src\api\api-user.js
+ * @FilePath: \react-umi\src\api\api-user.js
  */
 import request from './main';
-import { COOKIE } from '@/config/localKey';
 
 // ^ 用户登录
 export function userLogin(data) {

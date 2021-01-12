@@ -2,13 +2,20 @@ import React from 'react';
 import styles from './Detail.less';
 
 export default props => {
-  let { songData, commentCount, lrcMen, lrcArr } = props;
-  // console.log(lrcArr);
+  let { songData, commentCount, lrcMen, lrcArr, clickPlay } = props;
   if (!songData) {
     return <div>loading</div>;
   }
-  // console.log(songData);
-
+  let lrcMenDom;
+  if (!lrcMen.nickname) {
+    lrcMenDom = null;
+  } else {
+    lrcMenDom = (
+      <div className={`${styles['gx-men']} `}>
+        贡献歌词: <span className="underline">{lrcMen.nickname}</span>
+      </div>
+    );
+  }
   return (
     <div className={`${styles['detail-content']}`}>
       <div className={`${styles['img-box']}`} title={songData.name}>
@@ -32,7 +39,10 @@ export default props => {
         </div>
 
         <div className={`${styles['btn-box']}`}>
-          <div className={`${styles['btn-item']} ${styles['play']} btn play`}>
+          <div
+            className={`${styles['btn-item']} ${styles['play']} btn play`}
+            onClick={clickPlay}
+          >
             <i className={`iconfont icon-ziyuan`}></i> 播放
           </div>
           {/* 收藏 */}
@@ -60,9 +70,7 @@ export default props => {
               return <li key={index}> {item.content} </li>;
             })}
           </ul>
-          <div className={`${styles['gx-men']} underline`}>
-            贡献歌词: <span className="underline">{lrcMen.nickname}</span>
-          </div>
+          {lrcMenDom}
         </div>
       </div>
     </div>

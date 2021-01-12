@@ -3,6 +3,7 @@ import ItemTitle from './itemTitle';
 import React from 'react';
 import styles from './customize.less';
 import Swiper from 'swiper';
+import { history } from 'umi';
 
 import event from '@/assets/js/event';
 
@@ -10,7 +11,17 @@ class Customize extends React.Component {
   handleItemClick = item => {
     console.log(item);
     let songId = item.resourceExtInfo.songData.id;
-    let songName = item.resourceExtInfo.songData.name;
+    if (item.resourceType === 'song') {
+      history.push({
+        pathname: '/songdetail',
+        query: {
+          songId,
+        },
+      });
+    }
+    return;
+    // let songId = item.resourceExtInfo.songData.id;
+    // let songName = item.resourceExtInfo.songData.name;
 
     let singerName = item.resourceExtInfo.artists[0].name;
     let dt = item.resourceExtInfo.songData.duration;

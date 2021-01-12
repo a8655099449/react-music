@@ -4,7 +4,7 @@ import BaseTitle from '@/components/baseTitle/baseTitle';
 
 export default props => {
   let { recPlayList, goPlayList } = props;
-  console.log(recPlayList);
+  // console.log(recPlayList);
   return (
     <div className={`${styles['rec-playlist']}`}>
       <BaseTitle title="包含这首歌的歌单" />

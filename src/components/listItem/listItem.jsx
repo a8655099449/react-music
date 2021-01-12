@@ -36,11 +36,11 @@ class ListItem extends React.Component {
             <div>
               <i className={`iconfont icon-erji`}>
                 {' '}
-                <span>{playCount}</span>{' '}
-              </i>{' '}
+                <span>{playCount}</span>
+              </i>
             </div>
             <div>
-              <i className={`iconfont icon-ziyuan`}></i>{' '}
+              <i className={`iconfont icon-ziyuan`}></i>
             </div>
           </div>
         </div>

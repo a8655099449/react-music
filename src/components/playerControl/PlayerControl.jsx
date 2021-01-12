@@ -4,7 +4,7 @@ import PlayerControlUi from './PlayerControlUi';
 
 import { getMusicDatail, getMusicUrl, getMusicLyric } from '@/api/api-music';
 
-import { message } from 'antd';
+import { message, notification } from 'antd';
 import { showModal } from '@/assets/js/tool';
 
 // & 导入操作音量圆环的事件，由于事件过多，进行了拆分
@@ -356,26 +356,40 @@ class PlayerControl extends React.Component {
     }
   };
   // ^ 添加新歌
-  addNewSong = async item => {
+  addNewSong = async (item, type = 'playSong') => {
     // console.log(item);
+    // return console.log(type);
     let songList = this.state.songList;
     let index = songList.findIndex(item2 => item.songId === item2.songId);
 
     if (index !== -1) {
-      return this.palyListSong(item);
+      if (type === 'playSong') {
+        // console.log('-');
+        notification.open({
+          message: `开始播放【${item.songName}】`,
+        });
+        this.palyListSong(item);
+      }
+      return;
     }
-    songList.forEach(i => {
-      i.isPlay = false;
-    });
     songList.push({
       ...item,
-      isPlay: true,
+      isPlay: false,
     });
     this.setState({ songList });
     this.setLocalSongList(songList);
     // return
-    await this.getSongDataById(item.songId);
-    this.palyer.play();
+    if (type === 'playSong') {
+      notification.open({
+        message: `开始播放【${item.songName}】`,
+      });
+      await this.getSongDataById(item.songId);
+      this.palyer.play();
+      return;
+    }
+    notification.open({
+      message: `已添加至播放列表`,
+    });
   };
   // ^ 播放列表加入一个歌单
   addPlayList = list => {
@@ -449,7 +463,10 @@ class PlayerControl extends React.Component {
   };
   // ^ 点击列表中的某一首歌
   palyListSong = async item => {
-    if (item.songId == this.state.songId) return;
+    if (item.songId == this.state.songId) {
+      this.palyer.play();
+      return;
+    }
     this.getSongDataById(item.songId, true);
   };
   // ^ 删除列表中的一首歌
@@ -500,8 +517,7 @@ class PlayerControl extends React.Component {
     let songData = {
       singerName: '',
       songName: '',
-      songPic:
-        'http://s4.music.126.net/style/web2/img/default/default_album.jpg',
+      songPic: '//s4.music.126.net/style/web2/img/default/default_album.jpg',
     };
     let bar3Right = 494;
     let songUrl = '';

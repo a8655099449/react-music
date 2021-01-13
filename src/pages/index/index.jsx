@@ -9,7 +9,6 @@ import ItemTitle from './components/itemTitle';
 import LoginBar from './components/login-bar/loginBar';
 import NewDVD from './components/newDVD/newDVD';
 import { NEW_DVDS, HOME_DATA } from '@/config/localKey';
-
 import { setLocalData, getLocalData } from '@/assets/js/tool';
 
 // console.log(loginBar);
@@ -17,6 +16,7 @@ import { setLocalData, getLocalData } from '@/assets/js/tool';
 import RecList from './components/recList';
 
 import { connect } from 'react-redux';
+import { mapStateToProps, mapDispatchToProps } from '@/store/public-map';
 
 class Index extends React.Component {
   saveTime = 60 * 24 * 60;
@@ -113,28 +113,6 @@ class Index extends React.Component {
       </div>
     );
   }
-}
-
-function mapDispatchToProps(dispacth) {
-  return {
-    // setUserData: (data) => {
-    //   dispacth({
-    //     type: 'setUserInfo',
-    //     data
-    //   })
-    // },
-    // logout: () => {
-    //   dispacth({
-    //     type: 'logout',
-    //   })
-    // },
-  };
-}
-function mapStateToProps(state) {
-  return {
-    userInfo: state.userData,
-    isLogin: state.isLogin,
-  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Index);

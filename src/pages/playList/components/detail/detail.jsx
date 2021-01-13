@@ -83,7 +83,7 @@ export default props => {
         </div>
         <div className={`${styles['desc-box']}`}>
           <div>介绍:</div>
-          <div className={`${styles['desc-content']} public-scrolll`}>
+          <div className={`${styles['desc-content']} public-scroll`}>
             <ul>
               {description.map((item, index) => {
                 return <li key={index}>{item}</li>;

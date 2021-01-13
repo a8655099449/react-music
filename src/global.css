@@ -1,7 +1,7 @@
 /* @import './assets/css/iconfont.css'; */
 @import './assets/css/normalize.css';
 @import './assets/css/public.css';
-@import '//at.alicdn.com/t/font_2074202_ycuh0dquai.css';
+@import '//at.alicdn.com/t/font_2074202_ed2ly8lqqd8.css';
 
 .click {
   user-select: none;
@@ -15,6 +15,7 @@
   --text-color: #333;
   --boder-color: #d3d3d3;
   --bg-color: #f5f5f5;
+  --link-color: #0c73c2;
 }
 .content-box {
   width: var(--content-width);
@@ -47,12 +48,7 @@
   cursor: pointer;
   user-select: none;
 }
-.btn-main {
-  background-color: #e41820;
-  /* background-color: var(--main-color); */
-  color: #fff;
-  border-radius: 4px;
-}
+
 .click {
   cursor: pointer;
 }
@@ -78,36 +74,69 @@ li {
   list-style: none;
 }
 
-
-
 /* 设置滚动条宽度 */
-.public-scrolll::-webkit-scrollbar {
+.public-scroll::-webkit-scrollbar {
   width: 5px;
-  background-color: #FFf;
-
+  background-color: #fff;
 }
 /* 设置中间的小快 */
 
-.public-scrolll::-webkit-scrollbar-thumb {
+.public-scroll::-webkit-scrollbar-thumb {
   border-radius: 5px;
   background-color: #eee;
 }
 /* 设置滚动区背景 */
-.public-scrolll::-webkit-scrollbar-track {
+.public-scroll::-webkit-scrollbar-track {
   border-radius: 5px;
-  background-color: #FFf;
+  background-color: #fff;
 }
 
-.auto-img{
+.auto-img {
   width: 100%;
   height: 100%;
   display: block;
 }
-.underline{
+.underline {
   cursor: pointer;
   /* user-select: none; */
-  
 }
-.underline:hover{
+.underline:hover {
   text-decoration: underline;
+}
+textarea {
+  outline: none;
+  resize: none;
+}
+.turn {
+  display: block;
+  transform: rotate(-180deg);
+}
+
+.btn-blue {
+  border: 1px solid #3984ce;
+  background: linear-gradient(#4592db, #1f70c0);
+  color: #fff;
+  border-radius: 4px;
+
+}
+
+.btn-main {
+  background: linear-gradient(#ed212a, #be080d);
+  color: #fff;
+  border-radius: 4px;
+  border: 1px solid #bd0d13;
+}
+.btn-gray {
+  background: linear-gradient(#fcfcfc, #e8e8e8);
+  color: #000;
+  border-radius: 4px;
+  border: 1px solid #cccccc;
+  color: #666666;
+}
+.btn-disabled{
+  background: linear-gradient(#fcfcfc, #e8e8e8);
+  color: #000;
+  border-radius: 4px;
+  border: 1px solid #cccccc;
+  color: #cacaca;
 }

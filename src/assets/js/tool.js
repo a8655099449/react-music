@@ -10,6 +10,8 @@
 import { Modal } from 'antd';
 const { confirm } = Modal;
 
+// ^ 转换歌曲时长函数
+
 export function parseSongTime(time) {
   // 计算分钟
   // @ts-ignore
@@ -47,6 +49,7 @@ export function showModal(params) {
     });
   });
 }
+// ^ 隐藏页面滚动条函数
 
 export function disbledBodyScroll() {
   document.documentElement.style.overflow = 'hidden';
@@ -55,10 +58,15 @@ export function disbledBodyScroll() {
   document.body.style.width = '100%';
 }
 
+// ^ 显示页面滚动条函数
+
 export function bodyScroll() {
   document.documentElement.style.overflowY = 'scroll';
   document.body.style.position = 'static';
 }
+
+// ^ 单位转换函数(存)
+
 export function parsePlayCount(num) {
   num = parseInt(num);
 
@@ -71,6 +79,7 @@ export function parsePlayCount(num) {
   }
   return parseInt(num / 100000000) + ' 亿';
 }
+// ^ 本地数据缓存函数(存)
 
 export function setLocalData(key, data) {
   let time = Date.parse(new Date()) / 1000;
@@ -81,6 +90,7 @@ export function setLocalData(key, data) {
   };
   window.localStorage.setItem(key, JSON.stringify(localdata));
 }
+// ^ 本地数据缓存函数(取)
 
 export function getLocalData(key, time = 0) {
   let nowtime = Date.parse(new Date()) / 1000;
@@ -91,6 +101,7 @@ export function getLocalData(key, time = 0) {
   }
   return false;
 }
+// ^ 提取歌词函数
 
 export function parseLaric(str) {
   let lrcArr = str.split(/\n/);
@@ -109,4 +120,50 @@ export function parseLaric(str) {
     lrcArr[i] = { time, content, select };
   }
   return lrcArr;
+}
+
+// ^ 时间转换函数
+export function formatTime(date, fmt) {
+  //获取年份
+  if (/(y+)/.test(fmt)) {
+    let dateY = date.getFullYear() + '';
+    //RegExp.$1 在判断中出现过，且是括号括起来的，所以 RegExp.$1 就是 "yyyy"
+    fmt = fmt.replace(RegExp.$1, dateY.substr(4 - RegExp.$1.length));
+  }
+
+  //获取其他
+  let o = {
+    'M+': date.getMonth() + 1,
+    'd+': date.getDate(),
+    'h+': date.getHours(),
+    'm+': date.getMinutes(),
+    's+': date.getSeconds(),
+  };
+  for (const k in o) {
+    if (new RegExp(`(${k})`).test(fmt)) {
+      let str = o[k] + '';
+      fmt = fmt.replace(
+        RegExp.$1,
+        RegExp.$1.length == 1 ? str : ('00' + str).substr(str.length),
+        //
+      );
+    }
+  }
+  return fmt;
+}
+
+// ^ 生成数组
+
+/**
+ *
+ * @param {*} count  整数
+ */
+export function createArr(count) {
+  if (isNaN(count)) return [];
+  let arr = [];
+  for (let i = 0; i < count; i++) {
+    arr.push(i);
+  }
+
+  return arr;
 }

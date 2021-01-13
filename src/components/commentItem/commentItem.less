@@ -1,0 +1,69 @@
+.comment-item {
+  display: flex;
+  padding: 15px 0;
+  border-bottom: 1px dotted #cccccc;
+  &:last-child {
+    border-bottom: none;
+  }
+  .avatar {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+  }
+  .comment-content {
+    width: calc(100% - 65px);
+    .top {
+      span {
+        color: var(--link-color);
+      }
+    }
+    .bottom {
+      display: flex;
+      margin-top: 10px;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      line-height: 24px;
+      i {
+        color: var(--link-color);
+      }
+      .time {
+        color: #999999;
+        letter-spacing: 1px;
+      }
+      .center-line {
+        color: #bbb;
+        margin: 0 10px;
+      }
+    }
+  }
+  .reply {
+    border: 1px solid #dedede;
+    padding: 8px 19px;
+    margin-top: 10px;
+    background-color: #f4f4f4;
+    position: relative;
+    &::after {
+      position: absolute;
+      border: 5px solid transparent;
+      border-bottom-color: #dedede;
+      top: -10px;
+      left: 10px;
+      content: '';
+      z-index: 1;
+    }
+    &::before {
+      position: absolute;
+      border: 4px solid transparent;
+      // border-bottom-color: red;
+      border-bottom-color: #f4f4f4;
+      top: -7px;
+      left: 11px;
+      content: '';
+      z-index: 2;
+    }
+    .nick-name {
+      color: var(--link-color);
+    }
+  }
+}

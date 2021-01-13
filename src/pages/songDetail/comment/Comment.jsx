@@ -1,7 +1,26 @@
 import React from 'react';
 import styles from './Comment.less';
-import moduleName from '@';
+import CommentItem from '@/components/commentItem/commentItem';
+import BaseTitle from '@/components/baseTitle/baseTitle';
+import CommentInp from '@/components/CommentInp/CommentInp';
 
-export default () => {
-  return <div>Comment</div>;
+export default props => {
+  let { hotComments, commentCount, newComments } = props;
+
+  return (
+    <div>
+      <CommentInp commentCount={commentCount} />
+
+      {/* newComments */}
+      <BaseTitle title="精彩评论" />
+      {hotComments.map((item, index) => {
+        return <CommentItem item={item} key={index} />;
+      })}
+      <div style={{ height: '10px' }}></div>
+      <BaseTitle title="最新评论" />
+      {newComments.map((item, index) => {
+        return <CommentItem item={item} key={index} />;
+      })}
+    </div>
+  );
 };

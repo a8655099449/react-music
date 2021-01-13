@@ -5,13 +5,18 @@ import RecPlaylist from './recPlaylist/RecPlaylist';
 import SimiSong from './simiSong/SimiSong';
 import { history } from 'umi';
 import event from '@/assets/js/event';
+import Comment from './comment/Comment';
+import { connect } from 'react-redux';
+import { mapStateToProps, mapDispatchToProps } from '@/store/public-map';
+
+import Pagination from '@/components/Pagination/Pagination';
 
 import {
   getMusicDatail,
-  getMusicComment,
   getMusicLyric,
   getPlayListForSongID,
   getSimiSong,
+  getCommentNew,
 } from '@/api/api-music';
 import { parseLaric } from '@/assets/js/tool';
 
@@ -24,8 +29,9 @@ class songDetail extends React.Component {
   }
   songId = 411214279;
   limitData = {
-    limit: 20,
-    offset: 1,
+    pageNo: 1,
+    pageSize: 10,
+    type: 0,
   };
   state = {
     songData: null,
@@ -34,14 +40,21 @@ class songDetail extends React.Component {
     lrcMen: {},
     recPlayList: [],
     simiSongs: [],
+    hotComments: [],
+    lrcLen: 5,
+    isMore: false,
+    newComments: [],
+    seletPage: 1,
+    pageSize: 0,
   };
 
   init() {
     this._getMusicDatail();
-    this._getMusicComment();
+    this._getMusicHotComment();
     this._getMusicLyric();
     this._getPlayListForSongID();
     this._getSimiSong();
+    this._getMusicNewComment();
   }
   // ^ 获取歌曲详情
   async _getMusicDatail() {
@@ -62,6 +75,11 @@ class songDetail extends React.Component {
     }
   }
 
+  showMoreLrc = () => {
+    let isMore = !this.state.isMore;
+    let lrcLen = isMore ? this.state.lrcArr.length : 5;
+    this.setState({ lrcLen, isMore });
+  };
   unlisten = history.listen((location, action) => {
     // console.log(this);
     // console.log(action);
@@ -70,21 +88,50 @@ class songDetail extends React.Component {
       this.init();
     }
   });
-  // ^ 获取歌曲评论
+  // ^ 获取歌曲热门评论
 
-  async _getMusicComment() {
-    let res = await getMusicComment({
+  async _getMusicHotComment() {
+    let res = await getCommentNew({
       id: this.songId,
-      ...this.limitData,
+      sortType: 2,
+      pageNo: 1,
+      pageSize: 10,
+      type: 0,
     });
+    // console.log(res);
     if (res.code === 200) {
-      let commentCount = res.total;
-
+      let hotComments = res.data.comments;
+      let commentCount = res.data.totalCount;
       this.setState({
         commentCount,
+        hotComments,
       });
     }
   }
+
+  // ^ 获取最新评论
+  async _getMusicNewComment() {
+    let cursor = null;
+    let Comments = this.state.newComments;
+    if (this.limitData.pageNo > 1) {
+      cursor = Comments[Comments.length - 1].time;
+    }
+
+    let res = await getCommentNew({
+      id: this.songId,
+      sortType: 3,
+      cursor,
+      ...this.limitData,
+    });
+    if (res.code === 200) {
+      let newComments = res.data.comments;
+      // console.log(res.data.totalCount);
+      let pageSize = Math.ceil(res.data.totalCount / 30);
+      // console.log(pageSize);
+      this.setState({ newComments, pageSize });
+    }
+  }
+
   // ^ 获取歌词信息
   async _getMusicLyric() {
     let res = await getMusicLyric({
@@ -166,8 +213,20 @@ class songDetail extends React.Component {
     // return;
     event.emit('addNewSong', { singerName, songId, songName, dt });
   };
+  showLogin = () => {
+    event.emit('showLogin');
+  };
+  changePage = seletPage => {
+    if (seletPage <= 0 || seletPage > this.state.pageSize) return;
+    // return console.log(seletPage == this.select.seletPage);
+    if (seletPage == this.state.seletPage) return;
+    this.limitData.pageNo = seletPage;
+    this._getMusicNewComment();
+    this.setState({ seletPage });
+  };
 
   render() {
+    let { userInfo, isLogin } = this.props;
     return (
       <div className={`page-content content-box ${styles['content']}`}>
         <div className={`${styles['left-content']}`}>
@@ -176,7 +235,23 @@ class songDetail extends React.Component {
             commentCount={this.state.commentCount}
             lrcMen={this.state.lrcMen}
             lrcArr={this.state.lrcArr}
+            lrcLen={this.state.lrcLen}
+            isMore={this.state.isMore}
             clickPlay={this.clickPlay}
+            showMoreLrc={this.showMoreLrc}
+          />
+          <Comment
+            hotComments={this.state.hotComments}
+            commentCount={this.state.commentCount}
+            newComments={this.state.newComments}
+            isLogin={isLogin}
+            userInfo={userInfo}
+            showLogin={this.showLogin}
+          />
+          <Pagination
+            changePage={this.changePage}
+            seletPage={this.state.seletPage}
+            pageSize={this.state.pageSize}
           />
         </div>
         <div className={`${styles['right-content']}`}>
@@ -194,4 +269,4 @@ class songDetail extends React.Component {
   }
 }
 
-export default songDetail;
+export default connect(mapStateToProps, mapDispatchToProps)(songDetail);

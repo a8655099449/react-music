@@ -14,6 +14,7 @@ import Download from './components/download/download';
 import SongList from './components/songList/songList';
 import event from '@/assets/js/event';
 import { history } from 'umi';
+import CommentInp from '@/components/CommentInp/CommentInp';
 
 class playList extends React.Component {
   constructor(props) {
@@ -138,6 +139,7 @@ class playList extends React.Component {
             tracks={this.state.tracks}
             playCount={this.state.playCount}
           />
+          <CommentInp />
         </div>
 
         <div className={`${styles['right-content']}`}>

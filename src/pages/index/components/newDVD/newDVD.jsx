@@ -8,9 +8,9 @@ export default props => {
   let list = [1, 2, 3, 4, 5, 2, 2, 2, 2, 2];
   setTimeout(() => {
     new swiper('.' + styles['listwarp'], {
-      slidesPerView: 5,
-      spaceBetween: 30,
-      // slidesPerView: 'auto',
+      // slidesPerView: 5,
+      // spaceBetween: 30,
+      slidesPerView: 'auto',
     });
   }, 100);
 

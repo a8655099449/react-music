@@ -7,8 +7,9 @@ import event from '@/assets/js/event';
 import { showModal } from '@/assets/js/tool';
 
 import { Modal } from 'antd';
-const { confirm } = Modal;
+
 import { USER_DATA } from '@/config/localKey';
+import NavBarUi from './navBarUi';
 
 import { navList, userList } from './data';
 
@@ -22,22 +23,26 @@ class NavBar extends React.Component {
   state = {
     navList,
     activeIndex: 0,
+    sideBarShow: false,
   };
   handelNavChange = (item, activeIndex) => {
     this.setState({ activeIndex });
     history.push(item.path);
   };
-  getLocalUserData() {
+  getLocalUserData = () => {
     let userData = localStorage.getItem(USER_DATA);
     if (!userData) return;
     userData = JSON.parse(userData);
     this.props.setUserData(userData.userData);
-  }
+  };
   handleLoginClick() {
     event.emit('showLogin');
   }
-
-  handleUserListCick(item) {
+  handleShowSideBar = () => {
+    let sideBarShow = !this.state.sideBarShow;
+    this.setState({ sideBarShow });
+  };
+  handleUserListCick = item => {
     // ^ 退出登录
     if (item.tit === '退出') {
       showModal({
@@ -49,89 +54,26 @@ class NavBar extends React.Component {
         userLogout();
       });
     }
-  }
+  };
   goHome = () => {
     history.push('/');
   };
   render() {
     let { isLogin, userInfo } = this.props;
-    let navlistContent = this.state.navList.map((item, index) => {
-      let className =
-        index === this.state.activeIndex
-          ? `${styles['list-item']} click ${styles['active']}`
-          : styles['list-item'] + ' click';
-      return (
-        <div
-          className={className}
-          key={index}
-          onClick={() => {
-            this.handelNavChange(item, index);
-          }}
-        >
-          {item.name}
-        </div>
-      );
-    });
-
-    let userDom;
-
-    if (isLogin) {
-      let { avatarUrl } = userInfo;
-      userDom = (
-        <div className={`${styles['user-data']}`}>
-          <img src={avatarUrl} alt="头像" />
-
-          <div className={`${styles['detail-list']}`}>
-            {userList.map((item, index) => {
-              let itemStyle = { backgroundPosition: item.postion };
-              return (
-                <div
-                  className={`${styles['list-item']}`}
-                  key={index}
-                  onClick={() => {
-                    this.handleUserListCick(item);
-                  }}
-                >
-                  <i className={`${styles['icon-bg']}`} style={itemStyle}></i>
-                  {item.tit}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      );
-    } else {
-      userDom = (
-        <div
-          className={`${styles['login-bar']}`}
-          onClick={this.handleLoginClick}
-        >
-          登录
-        </div>
-      );
-    }
 
     return (
-      <header className={styles['nav-bar']}>
-        <div className={styles['content']}>
-          <div className={styles['log-box']} onClick={this.goHome}>
-            <img src="//photo.tuituisoft.com/picgo/20210104113130.png" alt="" />
-            不，是网抑云
-          </div>
-          <div className={styles['nav-list']}>{navlistContent}</div>
-          <div className={`${styles['right-box']}`}>
-            {/* 搜索框 */}
-            <div className={`${styles['search-box']}`}>
-              <i className={`iconfont icon-sousuo`}></i>
-              <input type="input" placeholder="搜索框" />
-            </div>
-            {/* 创作者中心 */}
-            <div className={`${styles['create-box']}`}>创作者中心</div>
-            {/* 用户信息  */}
-            <div className={`${styles['user']}`}>{userDom}</div>
-          </div>
-        </div>
-      </header>
+      <NavBarUi
+        handelNavChange={this.handelNavChange}
+        handleLoginClick={this.handleLoginClick}
+        handleUserListCick={this.handleUserListCick}
+        handleShowSideBar={this.handleShowSideBar}
+        goHome={this.goHome}
+        navList={this.state.navList}
+        activeIndex={this.state.activeIndex}
+        sideBarShow={this.state.sideBarShow}
+        isLogin={isLogin}
+        userInfo={userInfo}
+      />
     );
   }
 }

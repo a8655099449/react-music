@@ -1,18 +1,17 @@
 .top-bar {
-  height          : 35px;
+  height: 35px;
   background-color: var(--main-color);
-  line-height     : 35px;
-  color           : #fff;
+  line-height: 35px;
+  color: #fff;
 
   .content {
     display: flex;
     align-items: center;
-  height          : 35px;
-
+    height: 35px;
   }
 
   .nav-item {
-    padding    : 5px 10px;
+    padding: 5px 10px;
     height: 28px;
     // height     : 35px;
     // line-height: 35px;
@@ -24,5 +23,11 @@
     &:hover {
       background-color: #9b0909;
     }
+  }
+}
+
+@media (max-width: 900px) {
+  .top-bar {
+    display: none;
   }
 }

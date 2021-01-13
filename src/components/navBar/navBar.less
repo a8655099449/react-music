@@ -171,3 +171,48 @@
 :root {
   --navBg-color: #242424;
 }
+.min-bar {
+  display: none;
+  height: 44px;
+}
+.min-content {
+  display: none;
+}
+@media (max-width: 900px) {
+  .min-bar {
+    display: block;
+  }
+  .min-content {
+    display: flex;
+  }
+  .nav-bar {
+    height: 44px;
+    line-height: 44px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 20;
+    .content {
+      width: 100vw;
+      .nav-list {
+        display: none;
+      }
+    }
+    .right-box {
+      display: none;
+    }
+    .log-box {
+      display: none;
+    }
+  }
+}
+.side-bar {
+  // width: 50px;
+  padding: 0 10px;
+  // width: 100px;
+}
+.search-bar {
+  // width: calc(100% - 100px);
+  flex: 1;
+}

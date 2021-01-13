@@ -14,3 +14,18 @@
     }
   }
 }
+@media (max-width: 900px) {
+  .list-warp {
+    .list-item {
+      width: calc((100% - 20px) / 3);
+      margin-right: 10px;
+
+      img {
+        border-radius: 3px;
+      }
+      &:nth-child(3n) {
+        margin-right: 0;
+      }
+    }
+  }
+}

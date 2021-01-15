@@ -142,12 +142,12 @@ export default props => {
             <img src={songData.songPic} alt="" />
           </div>
           <div className={`${styles['muisc-desc']}`}>
-            <p className={`${styles['music-name']}`}>
+            <p className={`${styles['music-name']} text-row-1`}>
               {songData.songName}
               <span>{songData.singerName}</span>
             </p>
 
-            <div className={`${styles['progrss-bar']}`}>
+            <div className={`${styles['progrss-bar']}`} id="progrss-bar">
               <div className={`${styles['bar-1']} ${styles['bar-item']}`}></div>
               <div className={`${styles['bar-2']} ${styles['bar-item']}`}></div>
               <div
@@ -188,7 +188,7 @@ export default props => {
             className={`${styles['menu-bar']} ${styles['bg-bar']}`}
             onClick={handleListShow}
           >
-            {songList.length}
+            <span>{songList.length}</span>
           </div>
 
           {/* 设置音量的条 */}

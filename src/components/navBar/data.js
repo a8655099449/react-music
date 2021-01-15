@@ -10,11 +10,11 @@
 export const navList = [
   {
     name: '发现音乐',
-    path: '/home',
+    path: '/',
   },
   {
     name: '我的音乐',
-    path: 'profile',
+    path: '/profile',
   },
   {
     name: '朋友',
@@ -23,6 +23,29 @@ export const navList = [
   {
     name: '商城',
     path: '',
+  },
+];
+
+export const miniText = [
+  {
+    name: '主页',
+    path: '/',
+    icon: 'icon-home1',
+  },
+  {
+    name: '个人中心',
+    path: '/profile',
+    icon: 'icon-yonghu1',
+  },
+  {
+    name: '关于',
+    path: '/',
+    icon: 'icon-guanyu',
+  },
+  {
+    name: '退出登录',
+    path: null,
+    icon: 'icon-tuichudenglu',
   },
 ];
 export const userList = [

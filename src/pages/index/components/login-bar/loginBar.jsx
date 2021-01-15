@@ -25,7 +25,7 @@ export default props => {
               <span className={`${styles['public-bg']}`}></span>
               {/* <i></i> */}
             </div>
-            <div className={`${styles['qd-btn']} btn`}>签到</div>
+            <div className={`${styles['qd-btn']} btn btn-blue`}>签到</div>
           </div>
         </div>
         {/* 动态 关注 粉丝 */}

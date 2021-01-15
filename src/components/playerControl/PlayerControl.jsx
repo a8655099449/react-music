@@ -31,6 +31,7 @@ class PlayerControl extends React.Component {
     left: 0,
     progNum: 0,
     screenX: 0,
+    barWidth: 494,
   };
   isCircleMove = false;
   state = {
@@ -39,7 +40,7 @@ class PlayerControl extends React.Component {
       : localStorage.getItem('lockState') === 'true'
       ? true
       : false, // 是否锁定
-    bar3Right: 494, // & 音乐进度条长度
+    bar3Right: this.progData.barWidth, // & 音乐进度条长度
     volumeHeight: localStorage.getItem('volumeHeight') || 93, // & 音量长度
     // songId: 1425626819, // & 音乐的id
     songId: null, // & 音乐的id
@@ -80,7 +81,6 @@ class PlayerControl extends React.Component {
 
     // },
     handleBodyMousemove: e => {
-      // console.log(this.state.volumeHeight);
       let volumeHeight = this.state.volumeHeight;
       volumeHeight =
         parseInt(volumeHeight) + this.handleSetVolumeEvent.screenY - e.screenY;
@@ -119,11 +119,10 @@ class PlayerControl extends React.Component {
     if (id) this.state.songId = id;
     this.palyer.pause();
     this.setState({
-      bar3Right: 494,
+      bar3Right: this.progData.barWidth,
     });
     let songList = this.state.songList;
     let index = songList.findIndex(item => id == item.songId);
-    // console.log(index);
     if (index !== -1) {
       songList.forEach(item => (item.isPlay = false));
       songList[index].isPlay = true;
@@ -140,7 +139,13 @@ class PlayerControl extends React.Component {
 
     // Promise.all([])
   }
-
+  handleClictWidthChang = () => {
+    if (body.clientWidth < 900) {
+      this.progData.barWidth = 150;
+    } else {
+      this.progData.barWidth = 494;
+    }
+  };
   // ^ 初始化
   startInit() {
     // & 获取播放器示例
@@ -160,6 +165,7 @@ class PlayerControl extends React.Component {
     // & 监听音乐的播放结束事件
     this.palyer.addEventListener('ended', this.handlePlayEnd);
     this.palyer.addEventListener('timeupdate', this.handleMusicChangeTimer);
+    window.addEventListener('resize', this.handleClictWidthChang);
 
     // & 监听音乐的暂停事件
     this.palyer.addEventListener('pause', () => {
@@ -170,9 +176,7 @@ class PlayerControl extends React.Component {
 
     if (songId) {
       let songList = this.state.songList;
-      // console.log(songList);
       songList.forEach(i => {
-        // console.log(i.songId , songId);
         if (i.songId == songId) {
           i.isPlay = true;
         } else {
@@ -192,7 +196,6 @@ class PlayerControl extends React.Component {
     let res = await getMusicDatail({
       ids: this.state.songId,
     });
-    // console.log(res);
     let songData = this.state.songData;
     songData.singerName = res.songs[0].ar[0].name;
     songData.songName = res.songs[0].name;
@@ -218,14 +221,10 @@ class PlayerControl extends React.Component {
       if (res.nolyric) {
         return;
       }
-      // console.log();
       let lrcArr = parseLaric(res.lrc.lyric);
 
       this.setState({ lrcArr });
-
-      // console.log(lrcArr);
     }
-    // console.log(res);
   };
   // ^ 单击圆环事件
   handleCircleMouseDown = e => {
@@ -237,8 +236,8 @@ class PlayerControl extends React.Component {
 
     this.progData.screenX = e.screenX;
     this.progData.left = circle.offsetLeft;
-    // & 最小值 是-14 最大值是480 进度条的总值是494
-    this.progData.progNum = (circle.offsetLeft + 14) / 494;
+    // & 最小值 是-14 最大值是480 进度条的总值是this.progData.barWidth
+    this.progData.progNum = (circle.offsetLeft + 14) / this.progData.barWidth;
   };
   // ^  音乐加载好
   handlePlayerLoad = () => {
@@ -260,7 +259,6 @@ class PlayerControl extends React.Component {
 
   // ^ 音乐播放结束
   handlePlayEnd = () => {
-    // console.log('播放结束了');
     this.handleChangeNextSong();
   };
 
@@ -273,7 +271,9 @@ class PlayerControl extends React.Component {
     let songTime = this.state.songTime;
     songTime.nowTime = parseSongTime(this.palyer.currentTime);
     // & 计算圆环的位置
-    let bar3Right = 494 * (1 - this.palyer.currentTime / this.palyer.duration);
+    let bar3Right =
+      this.progData.barWidth *
+      (1 - this.palyer.currentTime / this.palyer.duration);
     // 计算进度条的位置
 
     // & 计算歌词的位置
@@ -306,7 +306,7 @@ class PlayerControl extends React.Component {
     body.removeEventListener('mouseout', this.handleCirclemouseout);
     // & 设置音乐的播放位置呢
     let bar3Right = this.state.bar3Right;
-    let proportion = 1 - bar3Right / 494;
+    let proportion = 1 - bar3Right / this.progData.barWidth;
     this.palyer.currentTime = proportion * this.palyer.duration;
   };
   // ^ 点击圆环后的鼠标移动事件
@@ -316,11 +316,11 @@ class PlayerControl extends React.Component {
     if (bar3Right <= 0) {
       bar3Right = 0;
     }
-    if (bar3Right >= 494) {
-      bar3Right = 494;
+    if (bar3Right >= this.progData.barWidth) {
+      bar3Right = this.progData.barWidth;
     }
-    // & 设置歌曲的位置 bar3Right 为 494 时歌曲进度为 0
-    let proportion = 1 - bar3Right / 494;
+    // & 设置歌曲的位置 bar3Right 为 this.progData.barWidth 时歌曲进度为 0
+    let proportion = 1 - bar3Right / this.progData.barWidth;
     // this.palyer.currentTime = proportion*this.palyer.duration
 
     let songTime = this.state.songTime;
@@ -348,7 +348,6 @@ class PlayerControl extends React.Component {
   handleLoadMusic = () => {};
   // ^ 是否显示音乐条
   handleVolumeShow = () => {
-    // console.log('展示音乐条的事件');
     let showSetVolume = !this.state.showSetVolume;
     this.setState({ showSetVolume });
     if (showSetVolume) {
@@ -357,14 +356,11 @@ class PlayerControl extends React.Component {
   };
   // ^ 添加新歌
   addNewSong = async (item, type = 'playSong') => {
-    // console.log(item);
-    // return console.log(type);
     let songList = this.state.songList;
     let index = songList.findIndex(item2 => item.songId === item2.songId);
 
     if (index !== -1) {
       if (type === 'playSong') {
-        // console.log('-');
         notification.open({
           message: `开始播放【${item.songName}】`,
         });
@@ -409,12 +405,10 @@ class PlayerControl extends React.Component {
   // ^ 点击锁
   handleClickLock = () => {
     let isLock = !this.state.isLock;
-    // console.log(isLock);
     window.localStorage.setItem('lockState', isLock);
     this.setState({ isLock });
   };
   defaultWarpClick = e => {
-    // console.log('添加的默认事件');
     // // e.stopPropagation()
     // e.nativeEvent.stopImmediatePropagation()
   };
@@ -519,7 +513,7 @@ class PlayerControl extends React.Component {
       songName: '',
       songPic: '//s4.music.126.net/style/web2/img/default/default_album.jpg',
     };
-    let bar3Right = 494;
+    let bar3Right = this.progData.barWidth;
     let songUrl = '';
     let isplay = false;
     this.palyer.pause();

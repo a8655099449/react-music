@@ -4,7 +4,7 @@ import React from 'react';
 import styles from './customize.less';
 import Swiper from 'swiper';
 import { history } from 'umi';
-
+import Image from '@/components/Image/Image';
 import event from '@/assets/js/event';
 
 class Customize extends React.Component {
@@ -20,14 +20,6 @@ class Customize extends React.Component {
       });
     }
     return;
-    // let songId = item.resourceExtInfo.songData.id;
-    // let songName = item.resourceExtInfo.songData.name;
-
-    let singerName = item.resourceExtInfo.artists[0].name;
-    let dt = item.resourceExtInfo.songData.duration;
-
-    // event.emit('addNewSong')
-    event.emit('addNewSong', { singerName, songId, songName, dt });
   };
   render() {
     setTimeout(() => {
@@ -69,7 +61,11 @@ class Customize extends React.Component {
                 }}
               >
                 <div className={`${styles['img-warp']}`}>
-                  <img src={item2.uiElement.image.imageUrl} alt="" />
+                  {/* <img /> */}
+                  <Image
+                    src={item2.uiElement.image.imageUrl + '?param=50y50'}
+                    alt={songName}
+                  />
                 </div>
                 <div className={`${styles['desc']}`}>
                   <div className={`${styles['song-title']} text-row-2 `}>

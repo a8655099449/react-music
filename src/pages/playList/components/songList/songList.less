@@ -90,3 +90,51 @@
     }
   }
 }
+
+@media (max-width: 900px) {
+  .warp {
+    & > .item {
+      &:nth-child(1) {
+        // width: nobn;
+        display: none;
+      }
+      &:nth-child(2) {
+        width: calc(100% - 81px - 89px);
+      }
+      &:nth-child(3) {
+        width: 81px;
+      }
+      &:nth-child(4) {
+        width: 89px;
+      }
+      &:nth-child(5) {
+        width: calc(100% - 273px - 89px - 81px - 75px);
+        display: none;
+      }
+    }
+  }
+  .song-list {
+    .list-warp {
+      .warp {
+        .item {
+          // user-select: none;
+          padding-left: 10px;
+          &:nth-child(1) {
+            display: none;
+            padding: 0 20px;
+            justify-content: space-between;
+            i {
+              color: #b2b2b2;
+            }
+          }
+          &:nth-child(2) {
+            span {
+              color: #aeaeae;
+              margin-left: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

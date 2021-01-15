@@ -105,3 +105,52 @@
     }
   }
 }
+.mini-btn {
+  display: none;
+}
+@media (max-width: 900px) {
+  .detail-content {
+    padding-bottom: 30px;
+    .img-box {
+      width: 150px;
+      height: 150px;
+      position: relative;
+      margin-right: 10px;
+
+      img {
+        width: 100px;
+      }
+    }
+    .desc-box {
+      width: calc(100% - 160px);
+      padding-top: 20px;
+
+      .tag {
+        display: none;
+      }
+      .name-text {
+        font-size: 16px;
+        font-weight: 550;
+      }
+      .btn-box {
+        display: none;
+      }
+      .geci {
+        display: none;
+      }
+      .mini-btn {
+        display: block;
+        line-height: 24px;
+        font-size: 12px;
+
+        .play {
+          width: 80px;
+          i {
+            font-size: 14px;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+}

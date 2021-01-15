@@ -9,7 +9,7 @@ import Comment from './comment/Comment';
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '@/store/public-map';
 
-import Pagination from '@/components/Pagination/Pagination';
+// import Pagination from '@/components/Pagination/Pagination';
 
 import {
   getMusicDatail,
@@ -46,6 +46,7 @@ class songDetail extends React.Component {
     newComments: [],
     seletPage: 1,
     pageSize: 0,
+    isReq: true,
   };
 
   init() {
@@ -74,15 +75,39 @@ class songDetail extends React.Component {
       });
     }
   }
+  componentDidMount() {
+    // document.querySelector('body').addEventListener('scroll', this.handleScroll);
+    let body = document.querySelector('body');
+    window.addEventListener('scroll', this.handleScroll);
+  }
+  handleScroll = () => {
+    clearTimeout(this.scrollTimer);
+    this.scrollTimer = setTimeout(() => {
+      let scrollHeight =
+        document.documentElement.scrollHeight || document.body.scrollHeight;
+      // 可见区域高度
+      let clientHeight =
+        window.innerHeight ||
+        document.documentElement.clientHeight ||
+        document.body.clientHeight;
+      // 滚动条顶部到浏览器顶部高度
+      let scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
 
+      if (clientHeight + scrollTop + 600 >= scrollHeight && !this.state.isReq) {
+        this.limitData.pageNo++;
+        this._getMusicNewComment();
+      }
+    }, 100);
+  };
   showMoreLrc = () => {
     let isMore = !this.state.isMore;
     let lrcLen = isMore ? this.state.lrcArr.length : 5;
     this.setState({ lrcLen, isMore });
   };
   unlisten = history.listen((location, action) => {
-    // console.log(this);
-    // console.log(action);
     if (location.pathname === '/songdetail' && location.query.songId) {
       this.songId = location.query.songId;
       this.init();
@@ -91,6 +116,7 @@ class songDetail extends React.Component {
   // ^ 获取歌曲热门评论
 
   async _getMusicHotComment() {
+    this.state.isReq = true;
     let res = await getCommentNew({
       id: this.songId,
       sortType: 2,
@@ -98,13 +124,15 @@ class songDetail extends React.Component {
       pageSize: 10,
       type: 0,
     });
-    // console.log(res);
     if (res.code === 200) {
+      this.state.isReq = false;
+
       let hotComments = res.data.comments;
       let commentCount = res.data.totalCount;
       this.setState({
         commentCount,
         hotComments,
+        isReq: false,
       });
     }
   }
@@ -112,9 +140,9 @@ class songDetail extends React.Component {
   // ^ 获取最新评论
   async _getMusicNewComment() {
     let cursor = null;
-    let Comments = this.state.newComments;
+    let newComments = this.state.newComments;
     if (this.limitData.pageNo > 1) {
-      cursor = Comments[Comments.length - 1].time;
+      cursor = newComments[newComments.length - 1].time;
     }
 
     let res = await getCommentNew({
@@ -124,10 +152,8 @@ class songDetail extends React.Component {
       ...this.limitData,
     });
     if (res.code === 200) {
-      let newComments = res.data.comments;
-      // console.log(res.data.totalCount);
+      newComments.push(...res.data.comments);
       let pageSize = Math.ceil(res.data.totalCount / 30);
-      // console.log(pageSize);
       this.setState({ newComments, pageSize });
     }
   }
@@ -138,8 +164,7 @@ class songDetail extends React.Component {
       id: this.songId,
     });
 
-    if (res.code === 200 && !res.nolyric) {
-      // console.log(res);
+    if (res.code === 200 && !res.nolyric && res.lrc) {
       let lrcArr = parseLaric(res.lrc.lyric);
       let lrcMen = {};
       if (res.lyricUser) {
@@ -178,8 +203,6 @@ class songDetail extends React.Component {
         break;
       case 'playSong':
       case 'addPlayList':
-        // console.log('播放音乐');
-        // console.log(item);
         let data = {
           singerName: item.artists[0].name,
           songId: item.id,
@@ -204,7 +227,6 @@ class songDetail extends React.Component {
   };
   // ^ 点击播放
   clickPlay = () => {
-    // console.log(this.songs);
     let songName = this.songs.name;
     let songId = this.songs.id;
     let singerName = this.songs.ar[0].name;
@@ -218,7 +240,6 @@ class songDetail extends React.Component {
   };
   changePage = seletPage => {
     if (seletPage <= 0 || seletPage > this.state.pageSize) return;
-    // return console.log(seletPage == this.select.seletPage);
     if (seletPage == this.state.seletPage) return;
     this.limitData.pageNo = seletPage;
     this._getMusicNewComment();
@@ -240,6 +261,18 @@ class songDetail extends React.Component {
             clickPlay={this.clickPlay}
             showMoreLrc={this.showMoreLrc}
           />
+
+          <div className="ismini">
+            <RecPlaylist
+              recPlayList={this.state.recPlayList}
+              goPlayList={this.goPlayList}
+            />
+            <SimiSong
+              simiSongs={this.state.simiSongs}
+              changeSongData={this.changeSongData}
+            />
+          </div>
+
           <Comment
             hotComments={this.state.hotComments}
             commentCount={this.state.commentCount}
@@ -248,13 +281,15 @@ class songDetail extends React.Component {
             userInfo={userInfo}
             showLogin={this.showLogin}
           />
-          <Pagination
-            changePage={this.changePage}
-            seletPage={this.state.seletPage}
-            pageSize={this.state.pageSize}
-          />
+          {/* <div className="isweb">
+            <Pagination
+              changePage={this.changePage}
+              seletPage={this.state.seletPage}
+              pageSize={this.state.pageSize}
+            />
+          </div> */}
         </div>
-        <div className={`${styles['right-content']}`}>
+        <div className={`${styles['right-content']} isweb`}>
           <RecPlaylist
             recPlayList={this.state.recPlayList}
             goPlayList={this.goPlayList}

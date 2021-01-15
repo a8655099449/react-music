@@ -1,0 +1,71 @@
+/* 设置滚动条宽度 */
+.public-scroll::-webkit-scrollbar {
+  width: 5px;
+  background-color: #fff;
+}
+/* 设置中间的小快 */
+
+.public-scroll::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #eee;
+}
+/* 设置滚动区背景 */
+.public-scroll::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+/* 设置滚动条宽度 */
+body::-webkit-scrollbar {
+  width: 5px;
+  background-color: #fff;
+}
+/* 设置中间的小快 */
+
+body::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: var(--main-color);
+}
+/* 设置滚动区背景 */
+body::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+
+.content-box {
+  width: var(--content-width);
+  margin: 0 auto;
+}
+
+.page-content {
+  border: 1px solid var(--boder-color);
+  background-color: #fff;
+  min-height: calc(100vh - 70px - 183px);
+}
+.ismini {
+  display: none;
+}
+.isweb {
+  display: block;
+}
+body{
+  background-color: #f1f1f1;
+}
+@media (max-width: 900px) {
+  .content-box {
+    width: 100vw;
+    border: none;
+  }
+  .ismini {
+    display: block;
+  }
+  .isweb {
+    display: none;
+  }
+  .page-content {
+    border: 1px solid var(--boder-color);
+    background-color: #fff;
+    min-height: calc(100vh - 44px - 0px);
+  }
+}

@@ -15,7 +15,9 @@ export default props => {
     handleUserListCick,
     handleLoginClick,
     handleShowSideBar,
+    handleChangeKeywords,
     sideBarShow,
+    searchKeywords,
   } = props;
 
   let navlistContent = navList.map((item, index) => {
@@ -81,6 +83,7 @@ export default props => {
             isLogin={isLogin}
             userInfo={userInfo}
             handleLoginClick={handleLoginClick}
+            handelNavChange={handelNavChange}
           />
           <div className={`${styles['side-bar']}`}>
             <div className={`${styles['icon-box']}`}>
@@ -105,7 +108,12 @@ export default props => {
             {/* 搜索框 */}
             <div className={`${styles['search-box']}`}>
               <i className={`iconfont icon-sousuo`}></i>
-              <input type="input" placeholder="搜索框" />
+              <input
+                type="input"
+                placeholder="搜索框"
+                value={searchKeywords}
+                onChange={handleChangeKeywords}
+              />
             </div>
             {/* 创作者中心 */}
             <div className={`${styles['create-box']}`}>创作者中心</div>

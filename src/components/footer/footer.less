@@ -1,5 +1,55 @@
 .footer {
   background-color: #f2f2f2;
   border-top: 1px solid #d3d3d3;
-  height: 173px;
+  // height: 173px;
+  text-align: center;
+  margin-top: 20px;
+  color: #666;
+  padding: 20px;
+  padding-bottom: 0;
+  .warp {
+    display: flex;
+    text-align: left;
+  }
+  .left {
+    width: 50%;
+    text-align: left;
+  }
+  .friend-link {
+    display: flex;
+    margin-bottom: 10px;
+    a {
+      display: flex;
+      align-items: center;
+      margin-right: 10px;
+      i {
+        margin-right: 5px;
+      }
+      img {
+        width: 20px;
+        margin-right: 5px;
+      }
+    }
+  }
+  .beian {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    img {
+      width: 20px;
+      margin-right: 5px;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .footer {
+    background-color: transparent;
+    border-top: 1px solid transparent;
+
+    .warp {
+      display: none;
+      // text-align: left;
+    }
+  }
 }

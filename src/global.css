@@ -1,12 +1,11 @@
 /* @import './assets/css/iconfont.css'; */
 @import './assets/css/normalize.css';
 @import './assets/css/public.css';
-@import '//at.alicdn.com/t/font_2074202_9rve4a2ufz.css';
+@import './assets/css/page.css';
+@import './assets/css/btn.css';
+@import '//at.alicdn.com/t/font_2074202_bzx6briubb.css';
 
-.click {
-  user-select: none;
-  cursor: pointer;
-}
+
 
 :root {
   --main-color: #c20c0c;
@@ -19,130 +18,8 @@
   --min-width: 900px;
   --dark-text-color:#d1d1d1;
 }
-.content-box {
-  width: var(--content-width);
-  margin: 0 auto;
-}
 
-@media (max-width: 900px) {
-  .content-box {
-    width: 100vw;
-  }
-}
-.fill {
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-}
 
-.text-row-1 {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.text-row-2 {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2; /*这个决定行数*/
-  overflow: hidden;
-}
 
-.btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  user-select: none;
-}
 
-.click {
-  cursor: pointer;
-}
-.click:hover,
-.btn:hover {
-  opacity: 0.8;
-}
-input,
-button {
-  outline: none;
-}
-button {
-  border: none;
-}
-.page-content {
-  border: 1px solid var(--boder-color);
-  background-color: #fff;
-  /* height: 100%; */
-  min-height: calc(100vh - 70px - 173px);
-}
-ul,
-li {
-  list-style: none;
-}
 
-/* 设置滚动条宽度 */
-.public-scroll::-webkit-scrollbar {
-  width: 5px;
-  background-color: #fff;
-}
-/* 设置中间的小快 */
-
-.public-scroll::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-  background-color: #eee;
-}
-/* 设置滚动区背景 */
-.public-scroll::-webkit-scrollbar-track {
-  border-radius: 5px;
-  background-color: #fff;
-}
-
-.auto-img {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-.underline {
-  cursor: pointer;
-  /* user-select: none; */
-}
-.underline:hover {
-  text-decoration: underline;
-}
-textarea {
-  outline: none;
-  resize: none;
-}
-.turn {
-  display: block;
-  transform: rotate(-180deg);
-}
-
-.btn-blue {
-  border: 1px solid #3984ce;
-  background: linear-gradient(#4592db, #1f70c0);
-  color: #fff;
-  border-radius: 4px;
-}
-
-.btn-main {
-  background: linear-gradient(#ed212a, #be080d);
-  color: #fff;
-  border-radius: 4px;
-  border: 1px solid #bd0d13;
-}
-.btn-gray {
-  background: linear-gradient(#fcfcfc, #e8e8e8);
-  color: #000;
-  border-radius: 4px;
-  border: 1px solid #cccccc;
-  color: #666666;
-}
-.btn-disabled {
-  background: linear-gradient(#fcfcfc, #e8e8e8);
-  color: #000;
-  border-radius: 4px;
-  border: 1px solid #cccccc;
-  color: #cacaca;
-}

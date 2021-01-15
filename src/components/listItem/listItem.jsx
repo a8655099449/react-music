@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './listItem.less';
 import { history } from 'umi';
 import { parsePlayCount } from '@/assets/js/tool';
+import Image from '@/components/Image/Image';
 
 class ListItem extends React.Component {
   goPage = id => {
@@ -15,23 +16,27 @@ class ListItem extends React.Component {
   };
 
   render() {
-    let { listId = 3124642208 } = this.props;
-    let clsName = this.props.className || '';
-    let imgSrc =
-      this.props.imgSrc ||
-      'http://p1.music.126.net/i_JX_JOoE6VH_jg0vRsyhg==/109951165159078349.jpg?param=140y140';
-    let titleName = this.props.titleName || '默认标题';
-    let playCount = parsePlayCount(this.props.playCount);
+    let {
+      listId = 3124642208,
+      imgWidth,
+      imgSrc,
+      titleName = 'loading',
+      className,
+      playCount = 0,
+    } = this.props;
+
+    playCount = parsePlayCount(this.props.playCount);
 
     return (
       <div
-        className={`${styles['list-item']} ${clsName}`}
+        className={`${styles['list-item']} ${className}`}
         onClick={() => {
           this.goPage(listId);
         }}
       >
         <div className={`${styles['img-warp']}`}>
-          <img src={imgSrc} alt="" />
+          {/* <img src={imgSrc} alt="" /> */}
+          <Image src={imgSrc + '?param=140y140'} />
           <div className={`${styles['img-buttom-bar']}`}>
             <div>
               <i className={`iconfont icon-erji`}>

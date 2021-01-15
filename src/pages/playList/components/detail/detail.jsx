@@ -40,7 +40,7 @@ export default props => {
           <span className={`${styles['creator-name']}`}>
             {creator.nickname}
           </span>
-          <span>2019-06-05 创建</span>
+          <span className={`${styles['creator-time']}`}>2019-06-05 创建</span>
         </div>
 
         <div className={`${styles['btn-box']}`}>
@@ -90,6 +90,11 @@ export default props => {
               })}
             </ul>
           </div>
+        </div>
+        <div className={`${styles['mini-desc']} text-row-2`}>
+          {description.map((item, index) => {
+            return <span key={index}>{item}</span>;
+          })}
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@
   color: #fff;
   user-select: none;
   transition: 0.5s;
+  z-index: 100;
 
   .bg {
     // background: url('') no-repeat ;
@@ -46,7 +47,8 @@
     .left {
       background-position: 0 -130px;
 
-      &:hover {
+      &:hover,
+      &:active {
         background-position: -30px -130px;
       }
     }
@@ -54,7 +56,8 @@
     .right {
       background-position: -80px -130px;
 
-      &:hover {
+      &:hover,
+      &:active {
         background-position: -110px -130px;
       }
     }
@@ -66,7 +69,8 @@
 
       background-position: 0 -204px;
 
-      &:hover {
+      &:hover,
+      &:active {
         background-position: -40px -204px;
       }
     }
@@ -74,7 +78,8 @@
     .center.pause {
       background-position: 0 -165px;
 
-      &:hover {
+      &:hover,
+      &:active {
         background-position: -40px -165px;
       }
     }
@@ -629,6 +634,63 @@
 
 @media (max-width: 900px) {
   .player-control {
-    display: none;
+    // display: none;
+    .music-box {
+      width: calc(100% - 80px - 130px);
+      .muisc-desc {
+        // width: 150px;
+        width: calc(100% - 54px);
+        max-width: 494px;
+      }
+      .music-img {
+        img {
+          border-radius: 50%;
+        }
+      }
+      .muisc-time-box {
+        display: none;
+      }
+      .progrss-bar {
+        display: none;
+      }
+      .music-name {
+        // display: ;
+        // margin-top: 10px;
+        font-size: 12px;
+        span {
+          display: block;
+          margin-left: 0;
+        }
+      }
+    }
+    .collect-box,
+    .volume-bar {
+      display: none;
+    }
+    // .music-name{}
+    .control-box {
+      // margin-right: 10px;
+      padding: 0 10px;
+      width: 130px;
+      margin-right: 0;
+      .left {
+        // display: none;
+      }
+      .right {
+        // display: none;
+      }
+    }
+    .volume-warp {
+      width: 70px;
+      margin-right: 10px;
+      padding: 0 10px;
+    }
+    .menu-bar {
+      // display: ;
+      width: 23px;
+      span {
+        display: none;
+      }
+    }
   }
 }

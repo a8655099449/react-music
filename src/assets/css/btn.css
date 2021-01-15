@@ -1,0 +1,42 @@
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+.btn:hover {
+  opacity: 0.8;
+}
+.click {
+  user-select: none;
+  cursor: pointer;
+}
+.btn-blue {
+  border: 1px solid #3984ce;
+  background: linear-gradient(#4592db, #1f70c0);
+  color: #fff;
+  border-radius: 4px;
+}
+
+.btn-main {
+  background: linear-gradient(#ed212a, #be080d);
+  color: #fff;
+  border-radius: 4px;
+  border: 1px solid #bd0d13;
+}
+.btn-gray {
+  background: linear-gradient(#fcfcfc, #e8e8e8);
+  color: #000;
+  border-radius: 4px;
+  border: 1px solid #cccccc;
+  color: #666666;
+}
+.btn-disabled {
+  background: linear-gradient(#fcfcfc, #e8e8e8);
+  color: #000;
+  border-radius: 4px;
+  border: 1px solid #cccccc;
+  color: #cacaca;
+}

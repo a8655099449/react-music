@@ -3,6 +3,7 @@ import NavBar from '../components/navBar/navBar';
 import Footer from '../components/footer/footer';
 import PlayerControl from '../components/playerControl/PlayerControl';
 import Login from '../components/login/Login';
+import BackTop from '../components/BackTop/BackTop';
 
 import Loading from '@/components/loading/Loading';
 
@@ -25,6 +26,7 @@ function BasicLayout(props) {
         <PlayerControl />
         <Login />
         <Loading />
+        <BackTop />
       </Provider>
     </div>
   );

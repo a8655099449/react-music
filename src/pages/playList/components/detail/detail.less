@@ -104,9 +104,66 @@
       overflow-y: scroll;
     }
   }
+  .mini-desc {
+    display: none;
+    font-size: 12px;
+    color: #999;
+    margin-top: 10px;
+  }
 }
 
 .bg1 {
   background: url('//s2.music.126.net/style/web2/img/icon.png?0d4364ba000cabf416a4321305212173')
     no-repeat 0 9999px;
+}
+
+@media (max-width: 900px) {
+  .detali {
+    .img-box {
+      width: 150px;
+      height: 150px;
+      margin-right: 10px;
+    }
+
+    .detali-text {
+      width: calc(100% - 160px);
+    }
+    .head {
+      // display: flex;
+      font-size: 16px;
+      font-weight: 600;
+      // line-height: 24px;
+      // margin-bottom: 10px;
+      .tag {
+        display: none;
+      }
+      .list-name {
+        width: 100%;
+      }
+    }
+    .creator {
+      .creator-name {
+      }
+      .avatar {
+        img {
+          border-radius: 50%;
+        }
+      }
+      .creator-time {
+        display: none;
+      }
+    }
+    .btn-box {
+      display: none;
+    }
+    .tag-box {
+      display: none;
+    }
+    .desc-box {
+      display: none;
+    }
+    .mini-desc {
+      display: -webkit-box;
+    }
+  }
 }

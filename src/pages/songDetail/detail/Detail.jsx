@@ -103,6 +103,14 @@ export default props => {
           {more}
           {lrcMenDom}
         </div>
+        <div className={`${styles['mini-btn']}`}>
+          <div
+            className={`${styles['play']} btn btn-blue `}
+            onClick={clickPlay}
+          >
+            <i className={`iconfont icon-ziyuan`}></i> 立即播放
+          </div>
+        </div>
       </div>
     </div>
   );

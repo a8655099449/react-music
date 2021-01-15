@@ -1,28 +1,21 @@
-// import React from 'react'
-import { dynamic } from 'umi';
+import React from 'react';
 
+import { connect } from 'react-redux';
+import { mapStateToProps, mapDispatchToProps } from '@/store/public-map';
 
-export default dynamic({
-  loader: async function() {
-    // 这里的注释 webpackChunkName 可以指导 webpack 将该组件 HugeA 以这个名字单独拆出去
-    // const { default: HugeA } = ;
-    return await import(/* webpackChunkName: "profile" */ './index');
-  },
-});
+import NotLogin from './components/NotLogin/NotLogin';
+import styles from './Profile.less';
 
-/* 
-class Profile extends React.Component {
+class Prfile extends React.Component {
+  render() {
+    let { userInfo, isLogin } = this.props;
 
-  render(){
-
-    return(
-      <div>
-        我是个人中心
+    return (
+      <div className={`${styles['classname']} page-content content-box`}>
+        <NotLogin />
       </div>
-    )
+    );
   }
 }
 
-
-export default Profile
- */
+export default connect(mapStateToProps, mapDispatchToProps)(Prfile);

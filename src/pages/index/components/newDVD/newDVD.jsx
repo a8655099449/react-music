@@ -2,7 +2,7 @@ import React from 'react';
 import ItemTitle from '../itemTitle';
 import swiper from 'swiper';
 import styles from './newDVD.less';
-
+import Image from '@/components/Image/Image';
 export default props => {
   let { newDVDs } = props;
   let list = [1, 2, 3, 4, 5, 2, 2, 2, 2, 2];
@@ -27,7 +27,10 @@ export default props => {
                   key={index}
                 >
                   <div className={`${styles['bg']}`}>
-                    <img src={item.picUrl} alt={item.name} />
+                    <Image
+                      src={item.picUrl + '?param=100y100'}
+                      alt={item.name}
+                    />
                   </div>
                   <p className={`${styles['dvd-name']} text-row-1`}>
                     {item.name}

@@ -12,6 +12,7 @@ import Subscribers from './components/subscribers/subscribers';
 import Recomment from './components/recomment/recomment';
 import Download from './components/download/download';
 import SongList from './components/songList/songList';
+import BtnWarp from './components/BtnWarp/BtnWarp';
 import event from '@/assets/js/event';
 import { history } from 'umi';
 import CommentInp from '@/components/CommentInp/CommentInp';
@@ -134,20 +135,33 @@ class playList extends React.Component {
             commentCount={this.state.commentCount}
             playList={this.playList}
           />
+          <div className="ismini">
+            <BtnWarp playList={this.playList} />
+          </div>
 
           <SongList
             tracks={this.state.tracks}
             playCount={this.state.playCount}
           />
+          <div className="ismini">
+            <Subscribers subscribers={this.state.subscribers} />
+            <Recomment
+              recommentList={this.state.recommentList}
+              changeList={this.changeList}
+            />
+          </div>
+
           <CommentInp />
         </div>
 
         <div className={`${styles['right-content']}`}>
-          <Subscribers subscribers={this.state.subscribers} />
-          <Recomment
-            recommentList={this.state.recommentList}
-            changeList={this.changeList}
-          />
+          <div className="isweb">
+            <Subscribers subscribers={this.state.subscribers} />
+            <Recomment
+              recommentList={this.state.recommentList}
+              changeList={this.changeList}
+            />
+          </div>
           <Download />
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './commentItem.less';
 import { formatTime } from '@/assets/js/tool';
+import Image from '@/components/Image/Image';
 
 export default props => {
   let { item } = props;

@@ -3,6 +3,7 @@ import styles from './songList.less';
 
 import { parseSongTime } from '@/assets/js/tool';
 let listHead = ['', '歌曲标题', '时长', '歌手', '专辑'];
+import { history } from 'umi';
 
 export default props => {
   let { tracks = [], playCount } = props;
@@ -48,7 +49,17 @@ export default props => {
                 {index + 1}
                 <i className="iconfont icon-ziyuan"></i>
               </div>
-              <div className={`${styles['item']} text-row-1 underline`}>
+              <div
+                className={`${styles['item']} text-row-1 underline`}
+                onClick={() => {
+                  history.push({
+                    pathname: '/songdetail',
+                    query: {
+                      songId: item.id,
+                    },
+                  });
+                }}
+              >
                 {item.name} <span>{zj}</span>
               </div>
               <div className={`${styles['item']}`}>{time}</div>

@@ -25,5 +25,5 @@ export default defineConfig({
     { component: '@/pages/404' },
   ],
   outputPath: '../static-music',
+  // publicPath:'/src/assets/'
 });
-// "swiper": "^6.4.1",

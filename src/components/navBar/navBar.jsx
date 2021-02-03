@@ -17,7 +17,6 @@ class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.getLocalUserData();
-    // console.log(userLogout);
   }
   state = {
     navList,
@@ -33,7 +32,6 @@ class NavBar extends React.Component {
     if (history.location.pathname == item.path) {
       return this.setState({ sideBarShow: false });
     }
-    // return console.log(item);
     this.setState({ activeIndex, sideBarShow: false });
     history.replace(item.path);
   };
@@ -49,7 +47,6 @@ class NavBar extends React.Component {
   handleChangeKeywords = e => {
     let searchKeywords = e.target.value;
     this.setState({ searchKeywords });
-    console.log(searchKeywords);
   };
   // ^ m端展示侧边栏
   handleShowSideBar = () => {
@@ -74,10 +71,7 @@ class NavBar extends React.Component {
     });
   };
   // ^ 监听理由变化
-  unlisten = history.listen((location, action) => {
-    console.log(location, action);
-    console.log(history);
-  });
+  unlisten = history.listen((location, action) => {});
   goHome = () => {
     history.push('/');
   };

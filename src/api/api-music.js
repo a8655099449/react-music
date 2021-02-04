@@ -86,7 +86,7 @@ export function getSongListRecommentByListId(params) {
 
 export function getNewDVD(params) {
   return request({
-    url: '/top/album',
+    url: '/album/newest',
     params,
     iscookie: true,
   });

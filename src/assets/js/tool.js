@@ -1,14 +1,9 @@
-/*
- * @Author: your name
- * @Date: 2020-12-29 11:54:49
- * @LastEditTime: 2021-01-12 06:48:41
- * @LastEditors: kuangw
- * @Description: In User Settings Edit
- * @FilePath: \react-umi\src\assets\js\tool.js
- */
-
 import { Modal } from 'antd';
 const { confirm } = Modal;
+
+import event from './event';
+
+import { SHOW_LOGIN, ADD_PLAY_LIST, ADD_NEW_SONG } from '../../config/eventKey';
 
 // ^ 转换歌曲时长函数
 
@@ -178,3 +173,20 @@ export const debounce = (fn, time) => {
     }, time);
   };
 };
+
+// ^ 展示登录窗口
+export const showLogin = () => event.emit(SHOW_LOGIN);
+
+/**
+ * ^ 添加整个歌单至播放器
+ * @param {*} list array
+ */
+
+export const addPlayList = list => event.emit(ADD_PLAY_LIST, list);
+
+/**
+ * ^ 添加一首歌到播放器
+ * @param {*} item Object 歌曲信息
+ */
+export const playNewSong = (item, type = 'playSong') =>
+  event.emit(ADD_NEW_SONG, item, type);

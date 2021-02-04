@@ -1,11 +1,9 @@
 import React from 'react';
 import styles from './commentItem.less';
 import { formatTime } from '@/assets/js/tool';
-import Image from '@/components/Image/Image';
 
 export default props => {
   let { item } = props;
-
   let time = formatTime(new Date(item.time), 'yyyy年MM月dd日');
   let replyContent = null;
   // ^ 展示评论的回复

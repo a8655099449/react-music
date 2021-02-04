@@ -44,3 +44,55 @@ export function getUserBindData(data) {
     iscookie: true,
   });
 }
+// ^ 获取用户详情信息
+
+// export function getUserBindData(data) {
+//   // console.log(data);
+//   return request({
+//     url: `/user/binding`,
+//     params: data,
+//     iscookie: true,
+//   });
+// }
+
+// ^ 获取用户登录状态
+
+export function getUserLoginStatus() {
+  // console.log(data);
+  return request({
+    url: `/login/status`,
+    iscookie: true,
+  });
+}
+
+// ^ 获取用户详情
+
+export function getUserDetailData(data) {
+  return request({
+    url: `/user/detail`,
+    params: data,
+    iscookie: true,
+  });
+}
+
+// ^ 获取用户信息 , 歌单，收藏，mv, dj 数量
+
+export function getUserSubcount() {
+  return request({
+    url: `/user/subcount`,
+    iscookie: true,
+  });
+}
+
+/**
+ * ^ 获取用户歌单
+ * @param {*} data uid 用户id
+ */
+
+export function getUserPlaylist(data) {
+  return request({
+    url: `/user/playlist`,
+    iscookie: true,
+    params: data,
+  });
+}

@@ -1,12 +1,10 @@
 import React from 'react';
 import styles from './loginBar.less';
 import event from '@/assets/js/event';
+import { showLogin } from '@/assets/js/tool';
 
 export default props => {
   let { userInfo, isLogin } = props;
-  function showLogin() {
-    event.emit('showLogin');
-  }
 
   let dom;
   if (isLogin) {

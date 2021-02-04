@@ -1,15 +1,14 @@
 import React from 'react';
-// import styles from './PlayerControl.less';
+
 import PlayerControlUi from './PlayerControlUi';
 
 import { getMusicDatail, getMusicUrl, getMusicLyric } from '@/api/api-music';
 
-import { message, notification } from 'antd';
+import { notification } from 'antd';
 import { showModal } from '@/assets/js/tool';
 
 // & 导入操作音量圆环的事件，由于事件过多，进行了拆分
 
-import SetVolume from './setVolume';
 import event from '@/assets/js/event';
 
 import { PLAY_SONG_NAME, NOW_PLAY_ID } from '@/config/localKey';
@@ -18,14 +17,14 @@ let body = document.querySelector('body');
 
 import { parseSongTime, parseLaric } from '@/assets/js/tool';
 
+import { ADD_PLAY_LIST, ADD_NEW_SONG } from '@/config/eventKey';
+
 class PlayerControl extends React.Component {
   constructor(props) {
     super(props);
     // 订阅新歌
-    event.on('addNewSong', this.addNewSong);
-    event.on('addPlayList', this.addPlayList);
-
-    // this.handleSetVolumeEvent.mousedownCircle.bind(this)
+    event.on(ADD_NEW_SONG, this.addNewSong);
+    event.on(ADD_PLAY_LIST, this.addPlayList);
   }
   progData = {
     left: 0,

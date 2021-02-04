@@ -18,7 +18,7 @@ import {
   getSimiSong,
   getCommentNew,
 } from '@/api/api-music';
-import { parseLaric } from '@/assets/js/tool';
+import { parseLaric, playNewSong } from '@/assets/js/tool';
 
 class songDetail extends React.Component {
   constructor(props) {
@@ -210,7 +210,7 @@ class songDetail extends React.Component {
           dt: item.duration,
         };
 
-        event.emit('addNewSong', data, type);
+        playNewSong(data, type);
         break;
     }
   };
@@ -233,7 +233,9 @@ class songDetail extends React.Component {
     let dt = this.songs.dt;
 
     // return;
-    event.emit('addNewSong', { singerName, songId, songName, dt });
+    // event.emit('addNewSong', { singerName, songId, songName, dt });
+
+    playNewSong({ singerName, songId, songName, dt });
   };
   showLogin = () => {
     event.emit('showLogin');

@@ -16,8 +16,9 @@ import store from '../store';
 
 function BasicLayout(props) {
   // console.log(props,NavBar);
+  console.log(props);
   return (
-    <div>
+    <>
       <Provider store={store}>
         {/* 头部导航 */}
         <NavBar />
@@ -28,7 +29,7 @@ function BasicLayout(props) {
         <Loading />
         <BackTop />
       </Provider>
-    </div>
+    </>
   );
 }
 

@@ -87,12 +87,11 @@
 	},
 	"imptool": {
 		// "scope": "javascript,typescript,jsx",
-		"prefix": "media",
+		"prefix": "imptool",
 		"body": [
 			"import { ${1:toolname} } from '@/assets/js/tool';",
-	
 		],
-		"description": "媒体查询"
+		"description": "导入工具函数"
 	},
-	
+
 }

@@ -11,7 +11,7 @@ const baseURL = 'http://121.37.195.155:3000';
 import { COOKIE } from '@/config/localKey';
 
 function request(config) {
-  if (config.iscookie) {
+  if (config.iscookie && localStorage.getItem(COOKIE)) {
     let cookiestr = `cookie=${localStorage.getItem(COOKIE)}`;
     let flag = /=/.test(config.url) ? '&' : '?';
     config.url += `${flag}${cookiestr}`;

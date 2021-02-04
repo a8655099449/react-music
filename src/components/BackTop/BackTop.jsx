@@ -23,7 +23,7 @@ export default () => {
       BackTopDom.style.bottom = '-100px';
     }
 
-    document.body.scrollTo;
+    // document.body.scrollTo;
     // console.log(scrolltop, clientHeight);
   }
   function handleScrollto(e) {

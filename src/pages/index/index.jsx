@@ -39,12 +39,8 @@ class Index extends React.Component {
     // return
     let newDVDs = getLocalData(NEW_DVDS, this.saveTime) || [];
     if (newDVDs.length === 0) {
-      let res = await getNewDVD({
-        limit: 20,
-        offset: 0,
-        type: 'hot',
-      });
-      newDVDs = res.weekData;
+      let res = await getNewDVD();
+      newDVDs = res.albums;
       setLocalData(NEW_DVDS, newDVDs);
     }
 

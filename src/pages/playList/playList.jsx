@@ -13,9 +13,10 @@ import Recomment from './components/recomment/recomment';
 import Download from './components/download/download';
 import SongList from './components/songList/songList';
 import BtnWarp from './components/BtnWarp/BtnWarp';
-import event from '@/assets/js/event';
 import { history } from 'umi';
 import CommentInp from '@/components/CommentInp/CommentInp';
+
+import { addPlayList } from '@/assets/js/tool';
 
 class playList extends React.Component {
   constructor(props) {
@@ -104,7 +105,7 @@ class playList extends React.Component {
         dt: item.dt,
       };
     });
-    event.emit('addPlayList', list);
+    addPlayList(list);
   };
   // ^ 更换歌单
 

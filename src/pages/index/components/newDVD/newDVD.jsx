@@ -1,18 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ItemTitle from '../itemTitle';
 import swiper from 'swiper';
 import styles from './newDVD.less';
 import Image from '@/components/Image/Image';
 export default props => {
   let { newDVDs } = props;
-  let list = [1, 2, 3, 4, 5, 2, 2, 2, 2, 2];
-  setTimeout(() => {
+
+  useEffect(() => {
     new swiper('.' + styles['listwarp'], {
-      // slidesPerView: 5,
-      // spaceBetween: 30,
       slidesPerView: 'auto',
     });
-  }, 100);
+  }, [newDVDs]);
 
   return (
     <div className={`${styles['new-dvd']}`}>

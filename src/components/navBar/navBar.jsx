@@ -11,7 +11,14 @@ import NavBarUi from './navBarUi';
 
 import { navList, userList } from './data';
 
-import { userLogout, getUserLevel, getUserBindData } from '@/api/api-user';
+import { showLogin } from '@/assets/js/tool';
+
+import {
+  userLogout,
+  getUserLevel,
+  getUserBindData,
+  getUserLoginStatus,
+} from '@/api/api-user';
 import { searchMultiple } from '@/api/api-search';
 class NavBar extends React.Component {
   constructor(props) {
@@ -35,14 +42,22 @@ class NavBar extends React.Component {
     this.setState({ activeIndex, sideBarShow: false });
     history.replace(item.path);
   };
-  getLocalUserData = () => {
+  getLocalUserData = async () => {
     let userData = localStorage.getItem(USER_DATA);
     if (!userData) return;
+
     userData = JSON.parse(userData);
+    // ^ 获取用户登录状态
+    let res = await getUserLoginStatus();
+    if (res.code == 200) {
+      let tokenJsonStr = JSON.parse(res.bindings[1].tokenJsonStr);
+      // console.log(tokenJsonStr);
+    }
+
     this.props.setUserData(userData.userData);
   };
   handleLoginClick() {
-    event.emit('showLogin');
+    showLogin();
   }
   handleChangeKeywords = e => {
     let searchKeywords = e.target.value;

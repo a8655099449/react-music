@@ -9,6 +9,7 @@ import event from '@/assets/js/event';
 import { connect } from 'react-redux';
 
 import { USER_DATA, COOKIE } from '@/config/localKey';
+import { SHOW_LOGIN, SHOW_LOADING, HIDE_LOADING } from '@/config/eventKey';
 
 import { disbledBodyScroll, bodyScroll } from '@/assets/js/tool';
 
@@ -20,7 +21,7 @@ class Login extends React.Component {
   };
   constructor(props) {
     super(props);
-    event.on('showLogin', this.showLogin);
+    event.on(SHOW_LOGIN, this.showLogin);
     // console.log(event);
   }
   showLogin = () => {
@@ -42,7 +43,7 @@ class Login extends React.Component {
     }
   };
   handleLogin = async () => {
-    event.emit('showLoading');
+    event.emit(SHOW_LOADING);
     // console.log();
     let { acc, pwd } = this.state;
     let time = Date.parse(new Date()) / 1000;
@@ -76,15 +77,15 @@ class Login extends React.Component {
         setTimeout(() => {
           this.closeBar();
         }, 500);
-        event.emit('hideLoading');
+        event.emit(HIDE_LOADING);
         message.success('登录成功');
         return;
       }
-      event.emit('hideLoading');
+      event.emit(HIDE_LOADING);
       message.error('账号或密码错误');
     } catch (error) {
       // console.log(error, '错误信息');
-      event.emit('hideLoading');
+      event.emit(HIDE_LOADING);
       message.error('账号或密码错误');
       return;
     }
@@ -95,14 +96,6 @@ class Login extends React.Component {
       isSHow: false,
     });
   };
-  async getUserLevel(userData) {
-    try {
-      console.log(level);
-    } catch (error) {
-      console.dir(error);
-      message.error('获取等级失败了');
-    }
-  }
 
   render() {
     // console.log(this.props);

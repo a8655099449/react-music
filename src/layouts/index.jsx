@@ -16,7 +16,7 @@ import store from '../store';
 
 function BasicLayout(props) {
   // console.log(props,NavBar);
-  console.log(props);
+  // console.log(props);
   return (
     <>
       <Provider store={store}>

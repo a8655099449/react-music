@@ -16,3 +16,4 @@ export const PLAY_SONG_NAME = 'PLAY_SONG_NAME';
 export const NOW_PLAY_ID = 'NOW_PLAY_ID';
 
 export const NEW_DVDS = 'NEW_DVDS';
+export const PROFILE_PALYLIST_ID = 'PROFILE_PALYLIST_ID';

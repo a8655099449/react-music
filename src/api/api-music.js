@@ -1,12 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2020-12-21 17:56:36
- * @LastEditTime: 2021-01-12 07:22:09
- * @LastEditors: kuangw
- * @Description: In User Settings Edit
- * @FilePath: \react-umi\src\api\api-music.js
- */
-
 import request from './main';
 
 /**
@@ -33,6 +24,7 @@ export function getMusicUrl(params) {
   return request({
     url: '/song/url',
     params,
+    iscookie: true,
   });
 }
 /**

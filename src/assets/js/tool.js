@@ -119,6 +119,11 @@ export function parseLaric(str) {
 
 // ^ 时间转换函数
 export function formatTime(date, fmt) {
+  // 判断date是不是时间戳
+  if (typeof date == 'number') {
+    date = new Date(date);
+  }
+
   //获取年份
   if (/(y+)/.test(fmt)) {
     let dateY = date.getFullYear() + '';

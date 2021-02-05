@@ -111,7 +111,7 @@ class PlayerControl extends React.Component {
   };
   componentDidMount() {
     this.startInit();
-
+    // console.log('组件创建了');
     // this.palyer.currentTime = 1
   }
   async getSongDataById(id, play = false) {
@@ -538,7 +538,21 @@ class PlayerControl extends React.Component {
     await this.getSongDataById(songList[index].songId);
     this.palyer.play();
   };
+  componentWillUnmount() {
+    this.palyer.removeEventListener('play', this.handlePlayerPaly);
+    // & 开始监听元数据加载成功事件
+    this.palyer.removeEventListener('loadedmetadata', this.handlePlayerLoad);
+    // & 监听音乐的下载进度
+    this.palyer.removeEventListener('progress', this.handleLoadMusic);
+    // & 监听音乐的播放结束事件
+    this.palyer.removeEventListener('ended', this.handlePlayEnd);
+    this.palyer.removeEventListener('timeupdate', this.handleMusicChangeTimer);
+    window.removeEventListener('resize', this.handleClictWidthChang);
+    body.removeEventListener('mousemove', this.handleBodyMousemove);
+    body.removeEventListener('mouseup', this.handleCirclemouseup);
 
+    this.palyer = null;
+  }
   render() {
     return (
       <PlayerControlUi

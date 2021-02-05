@@ -1,0 +1,140 @@
+.song-list {
+  margin-top: 20px;
+  .head {
+    display: flex;
+    justify-content: space-between;
+    line-height: 35px;
+    .left {
+      font-size: 20px;
+      display: flex;
+      // align-items: center;
+      span {
+        color: #555;
+        font-size: 14px;
+        margin-left: 10px;
+        margin-top: 3px;
+      }
+    }
+    .right {
+      span {
+        color: var(--main-color);
+        margin: 0 3px;
+      }
+    }
+  }
+
+  .list-head {
+    display: flex;
+    line-height: 35px;
+    border: 1px solid #d9d9d9;
+    border-top: 2px solid var(--main-color);
+    border-bottom: 1px solid #cccccc;
+    background-color: #f8f8f8;
+    .head-item {
+      border-right: 1px solid #dadada;
+      padding-left: 10px;
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+  .list-warp {
+    border: 1px solid #d9d9d9;
+    border-top: none;
+    .warp {
+      background-color: #f7f7f7;
+      line-height: 30px;
+      cursor: pointer;
+      &:nth-child(2n) {
+        background-color: #fff;
+      }
+      .item {
+        // user-select: none;
+        padding-left: 10px;
+        &:nth-child(1) {
+          display: flex;
+          padding: 0 20px;
+          justify-content: space-between;
+          i {
+            color: #b2b2b2;
+          }
+        }
+        &:nth-child(2) {
+          span {
+            color: #aeaeae;
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.warp {
+  display: flex;
+  & > .item {
+    &:nth-child(1) {
+      width: 75px;
+    }
+    &:nth-child(2) {
+      width: 273px;
+    }
+    &:nth-child(3) {
+      width: 81px;
+    }
+    &:nth-child(4) {
+      width: 89px;
+    }
+    &:nth-child(5) {
+      width: calc(100% - 273px - 89px - 81px - 75px);
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .warp {
+    & > .item {
+      &:nth-child(1) {
+        // width: nobn;
+        display: none;
+      }
+      &:nth-child(2) {
+        width: calc(100% - 81px - 89px);
+      }
+      &:nth-child(3) {
+        width: 81px;
+      }
+      &:nth-child(4) {
+        width: 89px;
+      }
+      &:nth-child(5) {
+        width: calc(100% - 273px - 89px - 81px - 75px);
+        display: none;
+      }
+    }
+  }
+  .song-list {
+    .list-warp {
+      .warp {
+        .item {
+          // user-select: none;
+          padding-left: 10px;
+          &:nth-child(1) {
+            display: none;
+            padding: 0 20px;
+            justify-content: space-between;
+            i {
+              color: #b2b2b2;
+            }
+          }
+          &:nth-child(2) {
+            span {
+              color: #aeaeae;
+              margin-left: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

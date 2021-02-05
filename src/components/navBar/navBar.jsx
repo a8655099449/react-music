@@ -31,6 +31,13 @@ class NavBar extends React.Component {
     sideBarShow: false,
     searchKeywords: '',
   };
+  componentDidMount() {
+    if (history.location.pathname == '/profile') {
+      this.setState({
+        activeIndex: 1,
+      });
+    }
+  }
   handelNavChange = (item, activeIndex) => {
     if (item.name == '退出登录') {
       this.handleUserLogout();
@@ -73,6 +80,9 @@ class NavBar extends React.Component {
     if (item.tit === '退出') {
       return this.handleUserLogout();
     }
+    if (item.tit === '我的主页') {
+      return history.push('/profile');
+    }
   };
   // ^ 瑞出登录
   handleUserLogout = () => {
@@ -86,7 +96,9 @@ class NavBar extends React.Component {
     });
   };
   // ^ 监听理由变化
-  unlisten = history.listen((location, action) => {});
+  // unlisten = history.listen((location, action) => {
+  //   console.log(location,action);
+  // });
   goHome = () => {
     history.push('/');
   };

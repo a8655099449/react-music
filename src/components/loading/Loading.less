@@ -17,10 +17,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  --color1: #98e8a6;
-  --color2: #abdae0;
+  --color1: #c20c0c;
+  --color2: rgba(194, 12, 12, 0.6);
   width: 100%;
   height: 100%;
+  position: relative;
+  p {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 40%;
+    color: #999;
+  }
 }
 
 .loading3 {
@@ -69,4 +77,11 @@
     margin: -15px 0;
     background: var(--color2);
   }
+}
+
+.loading-page3 {
+  // display: flex;
+  height: calc(100vh - 100px);
+  width: 100vw;
+  // display;
 }

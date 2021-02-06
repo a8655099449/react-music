@@ -11,6 +11,7 @@ export default () => {
         <span></span>
         <span></span>
       </div>
+      <p>加载中...</p>
     </div>
   );
 };

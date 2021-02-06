@@ -13,7 +13,9 @@ export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
-  dynamicImport: {},
+  dynamicImport: {
+    loading: '@/components/loading/Loading3.jsx',
+  },
   routes: [
     {
       exact: false,
@@ -25,5 +27,19 @@ export default defineConfig({
     { component: '@/pages/404' },
   ],
   outputPath: '../static-music',
+
+  // plugins: [
+  //   // ref: https://umijs.org/plugin/umi-plugin-react.html
+  //   [
+  //     'umi-plugin-react',
+  //     {
+  //       dynamicImport: {
+  //         loadingComponent: './src/components/loading/Loading2.jsx',
+
+  //       },
+  //     },
+  //   ],
+  // ],
+
   // publicPath:'/src/assets/'
 });

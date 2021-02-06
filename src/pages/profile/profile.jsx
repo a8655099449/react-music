@@ -10,7 +10,9 @@ import { getSongListDetail } from '@/api/api-music';
 import NotLogin from './components/NotLogin/NotLogin';
 import SideBar from './components/sideBar/SideBar';
 import PlayListContent from './components/PlayListContent/PlayListContent';
+import MiniUi from './components/MiniUi/MiniUi';
 import { PROFILE_PALYLIST_ID } from '@/config/localKey';
+import Loading3 from '@/components/loading/Loading3';
 
 const SelectType = [
   {
@@ -32,9 +34,9 @@ const SelectType = [
 ];
 
 const Profile = props => {
-  let { userInfo, isLogin } = props;
-  // console.log(userInfo);
+  let { userInfo, isLogin, isH5 } = props;
 
+  // console.log(userInfo);
   if (!isLogin) {
     return (
       <div className={`page-content content-box`}>
@@ -42,6 +44,7 @@ const Profile = props => {
       </div>
     );
   }
+
   let uid = userInfo.userId;
   let [subcountData, setSubcount] = useState(null);
   let [userCreatePlaylist, setUserCreatePlaylist] = useState([]);
@@ -65,6 +68,7 @@ const Profile = props => {
     if (params.id == playListDetail.id) return;
     _getSongListDetail(params.id);
   };
+  // ^ 请求歌单
   const _getUserPlaylist = async () => {
     let res = await getUserPlaylist({ uid });
     // console.log(res);
@@ -78,7 +82,7 @@ const Profile = props => {
       localStorage.getItem(PROFILE_PALYLIST_ID) || userCreatePlaylist[0].id;
     _getSongListDetail(id);
   };
-
+  // ^ 请求歌单详情
   const _getSongListDetail = async id => {
     localStorage.setItem(PROFILE_PALYLIST_ID, id);
     let listRes = await getSongListDetail({ id });
@@ -87,6 +91,22 @@ const Profile = props => {
     setplayListDetail(listRes.playlist);
   };
   let selectId = playListDetail ? playListDetail.id : 0;
+
+  useEffect(() => {
+    init();
+  }, []);
+  // ^ 如果是移动端 渲染移动端页面
+  if (isH5) {
+    return (
+      <div className={`page-content content-box`}>
+        <MiniUi
+          userInfo={userInfo}
+          userCollectPlaylist={userCollectPlaylist}
+          userCreatePlaylist={userCreatePlaylist}
+        />
+      </div>
+    );
+  }
 
   let rightContent;
   switch (sideSelectType) {
@@ -97,11 +117,6 @@ const Profile = props => {
     default:
       break;
   }
-
-  useEffect(() => {
-    init();
-  }, []);
-
   return (
     <div className={`page-content content-box ${styles['wrap']}`}>
       <div className={`${styles['left-content']} public-scroll`}>

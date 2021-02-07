@@ -7,7 +7,7 @@ import {
   getSongListDetail,
   getSongListRecommentByListId,
 } from '@/api/api-music';
-import Detail from './components/detail/detail';
+import Detail from '@/components/playListDetail/Detail';
 import Subscribers from './components/subscribers/subscribers';
 import Recomment from './components/recomment/recomment';
 import Download from './components/download/download';
@@ -16,7 +16,7 @@ import BtnWarp from './components/BtnWarp/BtnWarp';
 import { history } from 'umi';
 import CommentInp from '@/components/CommentInp/CommentInp';
 
-import { addPlayList } from '@/assets/js/tool';
+import { addPlayList, scrollTopTo } from '@/assets/js/tool';
 
 class playList extends React.Component {
   constructor(props) {
@@ -30,6 +30,7 @@ class playList extends React.Component {
 
   listId = 3124642208;
   init() {
+    scrollTopTo(0);
     this._getSongListDetail();
     this._getSongListRecommentByListId();
   }
@@ -47,6 +48,7 @@ class playList extends React.Component {
     shareCount: 0,
     commentCount: 0,
     recommentList: [],
+    playListData: null,
   };
 
   // ^ 获取歌单详情
@@ -56,31 +58,12 @@ class playList extends React.Component {
     });
     if (res.code === 200) {
       // console.log(res);
-      let {
-        tags,
-        subscribers,
-        name,
-        description,
-        creator,
-        coverImgUrl,
-        tracks,
-        playCount,
-        subscribedCount,
-        shareCount,
-        commentCount,
-      } = res.playlist;
+
+      let playListData = res.playlist;
+      let tracks = playListData.tracks;
       this.setState({
-        tags,
-        subscribers,
-        name,
-        description,
-        creator,
-        coverImgUrl,
         tracks,
-        playCount,
-        subscribedCount,
-        shareCount,
-        commentCount,
+        playListData,
         isrequest: true,
       });
     }
@@ -124,18 +107,7 @@ class playList extends React.Component {
     return (
       <div className={`${styles['content']} content-box page-content`}>
         <div className={`${styles['left-content']}`}>
-          <Detail
-            tags={this.state.tags}
-            name={this.state.name}
-            description={this.state.description}
-            creator={this.state.creator}
-            coverImgUrl={this.state.coverImgUrl}
-            isrequest={this.state.isrequest}
-            subscribedCount={this.state.subscribedCount}
-            shareCount={this.state.shareCount}
-            commentCount={this.state.commentCount}
-            playList={this.playList}
-          />
+          <Detail data={this.state.playListData} />
           <div className="ismini">
             <BtnWarp playList={this.playList} />
           </div>

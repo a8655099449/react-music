@@ -50,28 +50,6 @@
     display: flex;
     align-items: center;
 
-    .search-box {
-      height: 32px;
-      width: 170px;
-      background-color: #fff;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      padding: 0 10px;
-
-      i {
-        width: 20px;
-        font-size: 20px;
-        color: #000;
-      }
-
-      input {
-        border: none;
-        color: #000;
-        width: calc(100% - 20px);
-      }
-    }
-
     .create-box {
       height: 32px;
       border-radius: 16px;
@@ -121,6 +99,48 @@
         border-radius: 15px;
       }
     }
+  }
+}
+
+.search-box {
+  height: 32px;
+  width: 170px;
+  background-color: #fff;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  position: relative;
+  i {
+    width: 20px;
+    font-size: 20px;
+    color: #000;
+    transition: 0.5s;
+  }
+  .serach-content {
+    position: absolute;
+    z-index: 120;
+    left: 0;
+    box-sizing: border-box;
+    border: 1px solid #bebebe;
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 4px 7px #555;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+    width: 300px;
+    top: 40px;
+    min-height: 300px;
+  }
+
+  input {
+    border: none;
+    color: #000;
+    width: calc(100% - 20px);
+  }
+
+  [type='input']:focus + i {
+    color: var(--main-color);
+    font-size: 24px;
   }
 }
 
@@ -195,6 +215,8 @@
     z-index: 20;
     .content {
       width: 100vw;
+      display: none;
+
       .nav-list {
         display: none;
       }

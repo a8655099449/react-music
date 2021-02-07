@@ -119,11 +119,11 @@ export function parseLaric(str) {
 
 // ^ 时间转换函数
 export function formatTime(date, fmt) {
+  if (!date) return 'is not time';
   // 判断date是不是时间戳
   if (typeof date == 'number') {
     date = new Date(date);
   }
-
   //获取年份
   if (/(y+)/.test(fmt)) {
     let dateY = date.getFullYear() + '';
@@ -185,6 +185,15 @@ export const showLogin = () => event.emit(SHOW_LOGIN);
 /**
  * ^ 添加整个歌单至播放器
  * @param {*} list array
+ * 
+ * {
+    singerName, 
+    songId,
+    songName,
+    dt,
+  }
+ * 
+ * 
  */
 
 export const addPlayList = list => event.emit(ADD_PLAY_LIST, list);
@@ -195,3 +204,10 @@ export const addPlayList = list => event.emit(ADD_PLAY_LIST, list);
  */
 export const playNewSong = (item, type = 'playSong') =>
   event.emit(ADD_NEW_SONG, item, type);
+
+export const scrollTopTo = top => {
+  window.scrollTo({
+    behavior: 'smooth',
+    top: top,
+  });
+};

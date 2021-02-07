@@ -83,7 +83,11 @@
 .nav-bar {
   display: flex;
   margin-bottom: 20px;
-  position: relative;
+  position: sticky;
+  top: 44px;
+  background-color: #fbf9f9;
+  padding: 10px 0;
+  z-index: 10;
   div {
     text-align: center;
     flex: 1;
@@ -96,10 +100,18 @@
   .active-line {
     height: 6px;
     position: absolute;
-    bottom: 0;
+    bottom: 5px;
     left: 56px;
     width: 60px;
     border-radius: 3px;
     background-color: rgba(228, 68, 79, 0.5);
+    transition: 0.5s;
   }
 }
+// .nav-bar.position-top {
+//   position: fixed;
+//   left: 0;
+//   right: 0;
+//   top: 44px;
+
+// }

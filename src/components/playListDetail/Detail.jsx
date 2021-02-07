@@ -35,6 +35,12 @@ export default props => {
     createTime,
     // playList = [],
   } = data;
+  // console.log(creator);
+  if (!creator) {
+    console.log(creator, data);
+    return null;
+  }
+
   createTime = formatTime(createTime, 'yyyy-MM-dd');
   description = description ? description.split(/\n/) : [];
   subscribedCount = parsePlayCount(subscribedCount);
@@ -77,9 +83,7 @@ export default props => {
             <i className={`iconfont icon-shoucang1`}></i> （{subscribedCount}）
           </div>
           {/* 转发 */}
-          <div className={`${styles['btn-item']} btn`}>
-            <i className={`iconfont icon-zhuanfafasong-3`}></i>（{shareCount}）
-          </div>
+          {/* 9 */}
           {/* 下载 */}
           <div className={`${styles['btn-item']} btn`}>
             <i className={`iconfont icon-xiazai`}></i> （下载）

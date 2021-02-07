@@ -6,8 +6,9 @@
     border-bottom: 2px solid var(--main-color);
     display: flex;
     align-items: center;
+    justify-content: space-between;
     line-height: 35px;
-    i {
+    .left-ui i {
       color: var(--main-color);
       font-size: 20px;
       margin-right: 10px;
@@ -17,17 +18,22 @@
     }
   }
 }
-.type-0 {
-}
 
+.left-ui {
+  display: flex;
+  align-items: center;
+  width: calc(100% - 80px);
+}
 .item-tit.type-1 {
   & > div {
     border-bottom: 1px solid #cccccc;
-    i {
-      display: none;
+    .left-ui i {
+      // display: none;
+      color: #000;
     }
     .title-text {
       font-size: 14px;
+      width: calc(100% - 50px);
     }
   }
 }

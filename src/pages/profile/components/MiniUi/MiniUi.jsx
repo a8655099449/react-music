@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { debounce } from '@/assets/js/tool';
+import { debounce, scrollTopTo } from '@/assets/js/tool';
 
 import styles from './MiniUi.less';
 import UserInfo from './UserInfo';
@@ -8,7 +8,7 @@ import MiniListItem from './MiniListItem';
 
 export default props => {
   let { userInfo, userCollectPlaylist, userCreatePlaylist } = props;
-  let [navBarLeft, setNavBarLeft] = useState(56);
+  let [scrolltop, setScrolltop] = useState(0);
   let likeListItem = {};
 
   const counterEl = useRef(null);
@@ -24,34 +24,33 @@ export default props => {
     offsetTops = [playlisDom[0].offsetTop, playlisDom[1].offsetTop];
   }
 
-  // console.log(counterEl.current);
   const handleScroll = debounce(() => {
-    console.log('--');
+    // console.log('--', offsetTops);
     let scrolltop =
       window.pageYOffset ||
       document.documentElement.scrollTop ||
       document.body.scrollTop;
     if (!offsetTops || offsetTops.length <= 0) return;
-
-    console.log(navBarLeft);
-    if (scrolltop > offsetTops[1] && navBarLeft == 56) {
-      return setNavBarLeft(200);
-    }
-    if (scrolltop < offsetTops[1] && navBarLeft == 200) {
-      console.log(navBarLeft);
-      setNavBarLeft(56);
-    }
+    setScrolltop(scrolltop);
   }, 500);
+
   useEffect(() => {
+    if (!offsetTops) return;
+    // setTimeout(() => {
+    // }, 0);
+    window.removeEventListener('scroll', handleScroll);
     window.addEventListener('scroll', handleScroll);
-    // window.addEventListener('scroll', ()=>{console.log(1);})
-  }, []);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [offsetTops]);
   return (
     <div className={`${styles['mini-ui']}`} ref={counterEl}>
       <UserInfo userInfo={userInfo} />
       <LikeList likeListItem={likeListItem} />
 
-      <Navbar />
+      <Navbar scrolltop={scrolltop} offsetTops={offsetTops} />
       <CreateList list={userCreatePlaylist} text="创建" />
       <CreateList list={userCollectPlaylist} text="收藏" />
     </div>
@@ -84,12 +83,45 @@ const CreateList = props => {
 };
 
 const Navbar = props => {
+  let { scrolltop, offsetTops } = props;
+  //  style={{left:navBarLeft}}
+  console.log(scrolltop, offsetTops[1]);
+
+  let [left, setLeft] = useState(16);
+  useEffect(() => {
+    if (!offsetTops || scrolltop < offsetTops[1] - 100) {
+      setLeft(16);
+    } else {
+      setLeft(66.5);
+    }
+  }, [scrolltop]);
+  let className;
+  if (scrolltop > 200) {
+    className = styles['position-top'];
+  }
   return (
-    <div className={`${styles['nav-bar']}`}>
-      <div>创建歌单</div>
+    <div className={`${styles['nav-bar']} ${className}`}>
+      <div
+        onClick={() => {
+          setLeft(16);
+          scrollTopTo(offsetTops[0] - 100);
+        }}
+      >
+        创建歌单
+      </div>
       <span></span>
-      <div>收藏歌单</div>
-      <div className={`${styles['active-line']}`}></div>
+      <div
+        onClick={() => {
+          scrollTopTo(offsetTops[1] - 100);
+          setLeft(66.5);
+        }}
+      >
+        收藏歌单
+      </div>
+      <div
+        className={`${styles['active-line']}`}
+        style={{ left: left + '%' }}
+      ></div>
     </div>
   );
 };

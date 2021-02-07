@@ -9,6 +9,8 @@ import Comment from './comment/Comment';
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '@/store/public-map';
 
+import { scrollTopTo } from '@/assets/js/tool';
+
 // import Pagination from '@/components/Pagination/Pagination';
 
 import {
@@ -56,6 +58,7 @@ class songDetail extends React.Component {
     this._getPlayListForSongID();
     this._getSimiSong();
     this._getMusicNewComment();
+    scrollTopTo(0);
   }
   // ^ 获取歌曲详情
   async _getMusicDatail() {
@@ -76,9 +79,10 @@ class songDetail extends React.Component {
     }
   }
   componentDidMount() {
-    // document.querySelector('body').addEventListener('scroll', this.handleScroll);
-    let body = document.querySelector('body');
     window.addEventListener('scroll', this.handleScroll);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
   }
   handleScroll = () => {
     clearTimeout(this.scrollTimer);
@@ -231,9 +235,6 @@ class songDetail extends React.Component {
     let songId = this.songs.id;
     let singerName = this.songs.ar[0].name;
     let dt = this.songs.dt;
-
-    // return;
-    // event.emit('addNewSong', { singerName, songId, songName, dt });
 
     playNewSong({ singerName, songId, songName, dt });
   };

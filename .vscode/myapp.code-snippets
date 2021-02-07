@@ -56,7 +56,8 @@
 		"body": [
 			"import React from 'react'",
 			"import styles from './${1:$TM_FILENAME_BASE}.less';\n",
-			"export default () =>{\n",
+			"export default (props) =>{\n",
+			"\tlet  {$TM_FILENAME_BASE} = props\n",
 			"\treturn(",
 			"\t\t<div>",
 			"\t\t\t$TM_FILENAME_BASE",
@@ -93,5 +94,19 @@
 		],
 		"description": "导入工具函数"
 	},
+	"impload": {
+		// "scope": "javascript,typescript,jsx",
+		"prefix": "impload",
+		"body": [
+			"import Loading from '@/components/loading/Loading2';",
+			"const loadContent = (",
+			"\t<div style={{height:'400px'}}>",
+			"\t\t<Loading />",
+			"\t</div>",
+			")",
+		],
+		"description": "impload"
+	},
+
 
 }

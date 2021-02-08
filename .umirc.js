@@ -24,6 +24,6 @@ export default defineConfig({
 
     { component: '@/pages/404' },
   ],
-  outputPath: '../static-music',
+  outputPath: '../static-music2',
   // publicPath:'/src/assets/'
 });

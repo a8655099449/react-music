@@ -14,6 +14,7 @@ const defaultState = {
   },
   userData: null,
   isLogin: false,
+  isH5: window.innerWidth > 900,
 };
 
 export default (state = defaultState, action) => {
@@ -32,8 +33,8 @@ export default (state = defaultState, action) => {
       state.userData = null;
       state.isLogin = false;
       break;
-
-    default:
+    case 'setDevice':
+      state.isH5 = action.data;
       break;
   }
 

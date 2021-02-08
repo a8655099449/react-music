@@ -4,6 +4,8 @@ import MiniSearchBar from './MiniSearchBar';
 import SideBar from './SideBar';
 import { userList } from './data';
 
+import WebSerachBar from './WebSerachBar';
+
 export default props => {
   let {
     handelNavChange,
@@ -106,15 +108,10 @@ export default props => {
           <div className={styles['nav-list']}>{navlistContent}</div>
           <div className={`${styles['right-box']}`}>
             {/* 搜索框 */}
-            <div className={`${styles['search-box']}`}>
-              <i className={`iconfont icon-sousuo`}></i>
-              <input
-                type="input"
-                placeholder="搜索框"
-                value={searchKeywords}
-                onChange={handleChangeKeywords}
-              />
-            </div>
+            <WebSerachBar
+              handleChangeKeywords={handleChangeKeywords}
+              searchKeywords={searchKeywords}
+            />
             {/* 创作者中心 */}
             <div className={`${styles['create-box']}`}>创作者中心</div>
             {/* 用户信息  */}

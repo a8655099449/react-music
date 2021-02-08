@@ -2,7 +2,8 @@ import React from 'react';
 import styles from './navBar.less';
 import { history } from 'umi';
 import { connect } from 'react-redux';
-import event from '@/assets/js/event';
+
+import { mapStateToProps, mapDispatchToProps } from '@/store/public-map';
 
 import { showModal } from '@/assets/js/tool';
 
@@ -11,7 +12,9 @@ import NavBarUi from './navBarUi';
 
 import { navList, userList } from './data';
 
-import { showLogin } from '@/assets/js/tool';
+import { showLogin, debounce } from '@/assets/js/tool';
+
+import { getSeachMultimatch } from '@/api/api-seach';
 
 import {
   userLogout,
@@ -37,7 +40,28 @@ class NavBar extends React.Component {
         activeIndex: 1,
       });
     }
+
+    window.addEventListener('resize', this.listenResize);
+    this.listenResize();
   }
+  listenResize = debounce(() => {
+    let width = window.innerWidth;
+    if (width > 900) {
+      this.props.setDevice(false);
+    } else {
+      this.props.setDevice(true);
+    }
+  }, 500);
+
+  _getSeachMultimatch = debounce(async keywords => {
+    keywords = keywords.trim();
+    if (keywords.length <= 0) {
+      return;
+    }
+    let res = await getSeachMultimatch({ keywords });
+    console.log(res);
+  }, 500);
+
   handelNavChange = (item, activeIndex) => {
     if (item.name == '退出登录') {
       this.handleUserLogout();
@@ -69,7 +93,9 @@ class NavBar extends React.Component {
   handleChangeKeywords = e => {
     let searchKeywords = e.target.value;
     this.setState({ searchKeywords });
+    this._getSeachMultimatch(searchKeywords);
   };
+
   // ^ m端展示侧边栏
   handleShowSideBar = () => {
     let sideBarShow = !this.state.sideBarShow;
@@ -122,29 +148,6 @@ class NavBar extends React.Component {
       />
     );
   }
-}
-
-function mapStateToProps(state) {
-  return {
-    userInfo: state.userData,
-    isLogin: state.isLogin,
-  };
-}
-
-function mapDispatchToProps(dispacth) {
-  return {
-    setUserData: data => {
-      dispacth({
-        type: 'setUserInfo',
-        data,
-      });
-    },
-    logout: () => {
-      dispacth({
-        type: 'logout',
-      });
-    },
-  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

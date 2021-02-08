@@ -13,7 +13,9 @@ export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
-  dynamicImport: {},
+  dynamicImport: {
+    loading: '@/components/loading/Loading3.jsx',
+  },
   routes: [
     {
       exact: false,

@@ -1,0 +1,37 @@
+.calendars-item {
+  display: flex;
+  // background-color: #eee;
+  margin: 0 20px;
+  margin-bottom: 20px;
+  .rigth-content {
+    margin-left: 10px;
+    width: 60px;
+    height: 60px;
+    img {
+      border-radius: 4px;
+    }
+  }
+  .left-content {
+    width: calc(100% - 70px);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 5px 0;
+    div {
+      &:nth-child(1) {
+        color: #999;
+        font-size: 12px;
+        margin-bottom: 5px;
+        span {
+          color: #f2c259;
+          background-color: #fefcf4;
+          border-radius: 6px;
+          padding: 4px 8px;
+        }
+      }
+      &:nth-child(2) {
+        font-weight: 600;
+      }
+    }
+  }
+}

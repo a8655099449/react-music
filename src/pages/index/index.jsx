@@ -1,15 +1,18 @@
 import React from 'react';
+
+import { getHomeData } from '@/api/api-home';
+import { getNewDVD } from '@/api/api-music';
+import { NEW_DVDS, HOME_DATA } from '@/config/localKey';
+import { setLocalData, getLocalData } from '@/assets/js/tool';
+
 import styles from './index.less';
 import TopNav from './components/topNav';
 import Banner from './components/banner';
 import Customize from './components/customize';
-import { getHomeData } from '@/api/api-home';
-import { getNewDVD } from '@/api/api-music';
 import ItemTitle from './components/itemTitle';
 import LoginBar from './components/login-bar/loginBar';
 import NewDVD from './components/newDVD/newDVD';
-import { NEW_DVDS, HOME_DATA } from '@/config/localKey';
-import { setLocalData, getLocalData } from '@/assets/js/tool';
+import MusicCalendar from './components/musicCaledar/MusicCalendar';
 
 // console.log(loginBar);
 // 推荐歌单
@@ -26,6 +29,7 @@ class Index extends React.Component {
     contentList: [],
     recListData: null,
     newDVDs: [],
+    calendars: null,
     // recListData: [],
     // customizeData: [],
     // sceneListData: [],
@@ -71,6 +75,9 @@ class Index extends React.Component {
     );
 
     let contentList = homeData.filter(i => i.uiElement);
+    let calendars = homeData.find(
+      i => i.blockCode === 'HOMEPAGE_MUSIC_CALENDAR',
+    );
 
     this.setState({
       banners,
@@ -78,6 +85,7 @@ class Index extends React.Component {
       recListData,
       customizeData,
       sceneListData,
+      calendars,
     });
   }
 
@@ -108,6 +116,7 @@ class Index extends React.Component {
           <div className={`${styles['right-content']}`}>
             <LoginBar userInfo={userInfo} isLogin={isLogin} />
             <Customize baseData={this.state.customizeData} />
+            <MusicCalendar calendars={this.state.calendars} />
           </div>
         </div>
       </div>

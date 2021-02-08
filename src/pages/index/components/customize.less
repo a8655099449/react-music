@@ -38,7 +38,7 @@
       }
     }
     &:hover {
-      background-color: #fafafa;
+      // background-color: #fafafa;
     }
     .song-title {
       span {
@@ -47,6 +47,14 @@
         margin-left: 10px;
         text-decoration: none;
       }
+      .songname {
+        color: #000;
+        font-size: 14px;
+        &:hover {
+          color: var(--main-color);
+          text-decoration: underline;
+        }
+      }
     }
   }
 
@@ -54,5 +62,19 @@
     // width: calc(400% - (40px * 4));
     width: 360%;
     display: flex;
+  }
+}
+.customize .play-btn {
+  font-size: 12px;
+  // display: flex;
+  color: #999;
+  border: 1px solid #eee;
+  padding: 3px 5px;
+  display: inline;
+  border-radius: 10px;
+  i {
+    color: #999;
+    font-size: 12px;
+    margin-right: 3px;
   }
 }

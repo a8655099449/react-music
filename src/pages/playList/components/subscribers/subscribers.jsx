@@ -4,6 +4,9 @@ import BaseTitle from '@/components/baseTitle/baseTitle';
 
 export default props => {
   let { subscribers } = props;
+  if (subscribers.length == 0) {
+    return null;
+  }
   return (
     <div>
       <BaseTitle title="喜欢这个歌单的人" />

@@ -1,0 +1,44 @@
+.dj-item {
+  cursor: pointer;
+  &:hover .name {
+    // text-decoration: ;
+  }
+  .name {
+    padding: 5px 0;
+    // font-weight: 600;
+  }
+  .gander1 {
+    background: url('https://s2.music.126.net/style/web2/img/icon.png?1f73f289d8e007c4013112f187bf555a')
+      no-repeat 0 9999px;
+    display: block;
+    background-position: -70px -20px;
+    width: 14px;
+    height: 15px;
+    margin-left: 5px;
+  }
+  .gander2 {
+    background: url('https://s2.music.126.net/style/web2/img/icon.png?1f73f289d8e007c4013112f187bf555a')
+      no-repeat 0 9999px;
+    display: block;
+    background-position: -70px 0;
+    width: 14px;
+    height: 15px;
+    margin-left: 5px;
+  }
+  .dj-name {
+    display: flex;
+    align-items: center;
+    padding-right: 5px;
+    span {
+      &:nth-child(2) {
+        margin: 0 5px;
+
+        width: calc(100% - 60px);
+      }
+      &:nth-child(1) {
+        // margin: 0 5px;
+        color: #9999b3;
+      }
+    }
+  }
+}

@@ -55,6 +55,7 @@ textarea {
 ul,
 li {
   list-style: none;
+  margin-bottom: 0;
 }
 
 .underline {
@@ -73,4 +74,17 @@ li {
 .turn {
   display: block;
   transform: rotate(-180deg);
+}
+b{
+  color: var(--link-color);
+}
+
+.iconfont.icon-nan{
+  color: #26a6e4;
+}
+.iconfont.icon-nv{
+  color: #ffbed8;
+}
+.iconfont.icon-siglyphalien{
+  color: #c987f9;
 }

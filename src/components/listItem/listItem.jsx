@@ -5,54 +5,52 @@ import { history } from 'umi';
 import { parsePlayCount } from '@/assets/js/tool';
 import Image from '@/components/Image/Image';
 
-class ListItem extends React.Component {
-  goPage = id => {
-    history.push({
-      pathname: '/playlist',
-      query: {
-        id,
-      },
-    });
-  };
+const goPage = id => {
+  history.push({
+    pathname: '/playlist',
+    query: {
+      id,
+    },
+  });
+};
 
-  render() {
-    let {
-      listId = 3124642208,
-      imgWidth,
-      imgSrc,
-      titleName = 'loading',
-      className,
-      playCount = 0,
-    } = this.props;
+/**
+ *  coverImgUrl: item.uiElement.image.imageUrl,
+ *  name: item.uiElement.mainTitle.title,
+ *  playCount: item.resources[0].resourceExtInfo.playCount,
+ *  id: item.creativeId,
+ *
+ */
+export default props => {
+  let { item } = props;
 
-    playCount = parsePlayCount(this.props.playCount);
+  item.playCount = parsePlayCount(item.playCount);
 
-    return (
-      <div
-        className={`${styles['list-item']} ${className}`}
-        onClick={() => {
-          this.goPage(listId);
-        }}
-      >
-        <div className={`${styles['img-warp']}`}>
-          {/* <img src={imgSrc} alt="" /> */}
-          <Image src={imgSrc + '?param=140y140'} />
-          <div className={`${styles['img-buttom-bar']}`}>
-            <div>
-              <i className={`iconfont icon-erji`}>
-                {' '}
-                <span>{playCount}</span>
-              </i>
-            </div>
-            <div>
-              <i className={`iconfont icon-ziyuan`}></i>
-            </div>
+  return (
+    <div
+      className={`${styles['list-item']}`}
+      onClick={() => {
+        goPage(item.id);
+      }}
+    >
+      <div className={`${styles['img-warp']}`}>
+        <Image src={item.coverImgUrl + '?param=140y140'} />
+        <div className={`${styles['img-buttom-bar']}`}>
+          <div>
+            <i className={`iconfont icon-erji`}>
+              {' '}
+              <span>{item.playCount}</span>
+            </i>
+          </div>
+          <div>
+            <i className={`iconfont icon-ziyuan`}></i>
           </div>
         </div>
-        <p className={`${styles['name-text']} text-row-2`}>{titleName}</p>
       </div>
-    );
-  }
-}
-
-export default ListItem;
+      <p
+        className={`${styles['name-text']} text-row-2`}
+        dangerouslySetInnerHTML={{ __html: item.name }}
+      ></p>
+    </div>
+  );
+};

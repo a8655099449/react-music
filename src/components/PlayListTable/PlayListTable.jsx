@@ -5,24 +5,36 @@ import { parseSongTime } from '@/assets/js/tool';
 import { history } from 'umi';
 
 export default props => {
-  let { tracks = [] } = props;
+  let { tracks = [], showHead = true } = props;
+  // console.log(tracks);
+
+  let headStyle = {
+    display: showHead ? 'block' : 'none',
+  };
 
   return (
     <div className={`${styles['song-list']}`}>
-      <div className={`${styles['list-head']} ${styles['warp']}`}>
-        {listHead.map((item, index) => {
-          return (
-            <div
-              className={`${styles['head-item']} ${styles['item']}`}
-              key={index}
-            >
-              {item}
-            </div>
-          );
-        })}
+      <div style={headStyle}>
+        <div className={`${styles['list-head']} ${styles['warp']}`}>
+          {listHead.map((item, index) => {
+            return (
+              <div
+                className={`${styles['head-item']} ${styles['item']}`}
+                key={index}
+              >
+                {item}
+              </div>
+            );
+          })}
+        </div>
       </div>
 
-      <ul className={`${styles['list-warp']}`}>
+      <ul
+        className={`${styles['list-warp']}`}
+        style={{
+          borderTop: showHead ? 'none' : '1px solid #d9d9d9',
+        }}
+      >
         {tracks.map((item, index) => {
           let zj = '';
           // console.log(item.dt);

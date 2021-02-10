@@ -38,6 +38,18 @@ const routers = [
     component: '@/pages/songDetail/songDetail',
     title: '歌曲详情',
   },
+  {
+    exact: true,
+    path: '/search',
+    component: '@/pages/search/search',
+    title: '搜索',
+  },
+  {
+    exact: true,
+    path: '/userDatail',
+    component: '@/pages/userDatail/userDatail',
+    title: '用户详情',
+  },
 ];
 
 export default routers;

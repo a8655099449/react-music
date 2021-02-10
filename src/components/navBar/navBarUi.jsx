@@ -20,6 +20,7 @@ export default props => {
     handleChangeKeywords,
     sideBarShow,
     searchKeywords,
+    searchContent,
   } = props;
 
   let navlistContent = navList.map((item, index) => {
@@ -111,6 +112,7 @@ export default props => {
             <WebSerachBar
               handleChangeKeywords={handleChangeKeywords}
               searchKeywords={searchKeywords}
+              searchContent={searchContent}
             />
             {/* 创作者中心 */}
             <div className={`${styles['create-box']}`}>创作者中心</div>

@@ -3,7 +3,16 @@ import styles from './Pagination.less';
 import { createArr } from '@/assets/js/tool';
 
 export default props => {
-  let { changePage, seletPage, pageSize } = props;
+  let {
+    changePage = () => {
+      console.log('默认函数');
+    },
+    seletPage,
+    pageSize = 10,
+  } = props;
+  if (!pageSize || pageSize <= 1) {
+    return null;
+  }
 
   // ^ 最大页数是 9
   // let pageSize = 20;
@@ -47,6 +56,7 @@ export default props => {
       <div
         className={`${styles['prov']} ${styles['btn-item']} ${provclass} btn`}
         onClick={() => {
+          if (seletPage == 1) return;
           changePage(seletPage - 1);
         }}
       >
@@ -107,6 +117,8 @@ export default props => {
       <div
         className={`${styles['next']} ${styles['btn-item']} ${nextclass} btn`}
         onClick={() => {
+          if (seletPage == pageSize) return;
+
           changePage(seletPage + 1);
         }}
       >

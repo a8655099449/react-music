@@ -1,5 +1,6 @@
 import { Modal } from 'antd';
 const { confirm } = Modal;
+import { history } from 'umi';
 
 import event from './event';
 
@@ -44,8 +45,8 @@ export function showModal(params) {
     });
   });
 }
-// ^ 隐藏页面滚动条函数
 
+// ^ 隐藏页面滚动条函数
 export function disbledBodyScroll() {
   document.documentElement.style.overflow = 'hidden';
   document.body.style.position = 'fixed';
@@ -210,4 +211,24 @@ export const scrollTopTo = top => {
     behavior: 'smooth',
     top: top,
   });
+};
+
+// ^ 给关键字加上b标签
+
+export const blodKeyword = (keyword, str) => {
+  let rex = new RegExp(keyword, 'is');
+  return str.replace(rex, `<b>$&</b>`);
+};
+
+export const GenderIcon = props => {
+  let { type } = props;
+
+  if (type == 1) {
+    return <i className="iconfont icon-nan"></i>;
+  }
+  if (type == 0) {
+    return <i className="iconfont icon-nv"></i>;
+  }
+
+  return <i className="iconfont icon-siglyphalien"></i>;
 };

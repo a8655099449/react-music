@@ -33,6 +33,7 @@ class NavBar extends React.Component {
     activeIndex: 0,
     sideBarShow: false,
     searchKeywords: '',
+    searchContent: null,
   };
   componentDidMount() {
     if (history.location.pathname == '/profile') {
@@ -56,9 +57,14 @@ class NavBar extends React.Component {
   _getSeachMultimatch = debounce(async keywords => {
     keywords = keywords.trim();
     if (keywords.length <= 0) {
+      this.setState({ searchContent: null });
       return;
     }
     let res = await getSeachMultimatch({ keywords });
+
+    if (res.code == 200) {
+      this.setState({ searchContent: res.result });
+    }
     console.log(res);
   }, 500);
 
@@ -110,7 +116,7 @@ class NavBar extends React.Component {
       return history.push('/profile');
     }
   };
-  // ^ 瑞出登录
+  // ^ 退出登录
   handleUserLogout = () => {
     showModal({
       title: '退出提示',
@@ -145,6 +151,7 @@ class NavBar extends React.Component {
         isLogin={isLogin}
         userInfo={userInfo}
         searchKeywords={this.state.searchKeywords}
+        searchContent={this.state.searchContent}
       />
     );
   }

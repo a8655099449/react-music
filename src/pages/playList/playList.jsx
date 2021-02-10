@@ -60,11 +60,13 @@ class playList extends React.Component {
       // console.log(res);
 
       let playListData = res.playlist;
-      let tracks = playListData.tracks;
+      console.log(playListData);
+      let { tracks = [], subscribers = [] } = playListData;
       this.setState({
         tracks,
         playListData,
         isrequest: true,
+        subscribers,
       });
     }
   };
@@ -78,6 +80,18 @@ class playList extends React.Component {
       this.setState({ recommentList });
     }
   };
+  // ! 监听路由变换切换歌单
+  onlisten = history.listen((location, action) => {
+    if (
+      location.pathname === '/playlist' &&
+      location.query.id &&
+      this.listId != location.query.id
+    ) {
+      this.listId = location.query.id;
+      this.init();
+    }
+  });
+
   // ^ 播放整个列表
   playList = () => {
     let list = this.state.tracks.map(item => {
@@ -94,8 +108,7 @@ class playList extends React.Component {
 
   changeList = item => {
     // console.log(item);
-    this.listId = item.id;
-    this.init();
+    // this.listId = item.id;
     history.push({
       pathname: '/playlist',
       query: {

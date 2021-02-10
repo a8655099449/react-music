@@ -22,7 +22,7 @@ import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '@/store/public-map';
 
 class Index extends React.Component {
-  saveTime = 60 * 24 * 60;
+  saveTime = 60 * 3 * 60;
   // saveTime = 1
   state = {
     banners: [],

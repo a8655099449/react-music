@@ -54,10 +54,13 @@
 		// "scope": "javascript,typescript,jsx",
 		"prefix": "jsxCode2",
 		"body": [
-			"import React from 'react'",
-			"import styles from './${1:$TM_FILENAME_BASE}.less';\n",
-			"export default (props) =>{\n",
-			"\tlet  {$TM_FILENAME_BASE} = props\n",
+			"import React, { useContext } from 'react'",
+			"import styles from './${1:$TM_FILENAME_BASE}.less';",
+			"import Context from '@/context';\n",
+
+			"export default (props) =>{",
+			"\tlet  {$TM_FILENAME_BASE} = props",
+			"\tconst { id } = useContext(Context);",
 			"\treturn(",
 			"\t\t<div>",
 			"\t\t\t$TM_FILENAME_BASE",
@@ -108,5 +111,44 @@
 		"description": "impload"
 	},
 
-
+	"fco": {
+		// "scope": "javascript,typescript,jsx",
+		"prefix": "fco",
+		"body": [
+			"const ${ComponentName} = props => { ",
+			"\tlet { item } = props;",
+			"\treturn (",
+			"\t\t<div>",
+			"\t\t\t${ComponentName}",
+			"\t\t</div>",
+			"\t)",
+			"",
+			"}",
+		],
+		"description": "函数是组件"
+	},
+	"useState": {
+		// "scope": "javascript,typescript,jsx",
+		"prefix": "useState",
+		"body": [
+			"const [${value},set${value}] = useState(${value});",
+		],
+		"description": "useState"
+	},
+	"map": {
+		// "scope": "javascript,typescript,jsx",
+		"prefix": "map",
+		"body": [
+			"${arr}.map((item,index) =>(<Item item={item} key={index} />))",
+		],
+		"description": "map"
+	},
+	"html": {
+		// "scope": "javascript,typescript,jsx",
+		"prefix": "html",
+		"body": [
+			"dangerouslySetInnerHTML={{ __html: ${item} }}",
+		],
+		"description": "html"
+	},
 }

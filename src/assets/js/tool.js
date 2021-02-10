@@ -226,7 +226,7 @@ export const GenderIcon = props => {
   if (type == 1) {
     return <i className="iconfont icon-nan"></i>;
   }
-  if (type == 0) {
+  if (type == 2) {
     return <i className="iconfont icon-nv"></i>;
   }
 

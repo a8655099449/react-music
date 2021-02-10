@@ -56,7 +56,7 @@ export function getUserBindData(data) {
 // }
 
 // ^ 获取用户登录状态
-
+// ! uid => 用户id
 export function getUserLoginStatus() {
   // console.log(data);
   return request({
@@ -92,6 +92,21 @@ export function getUserSubcount() {
 export function getUserPlaylist(data) {
   return request({
     url: `/user/playlist`,
+    iscookie: true,
+    params: data,
+  });
+}
+
+/**
+ * ^ 获取用户的听歌记录
+ * @param
+ * ? uid => 用户id
+ * ? type  => 0 全部  1 最近一周 ; 默认0
+ */
+
+export function getUserListenHistory(data) {
+  return request({
+    url: `/user/record`,
     iscookie: true,
     params: data,
   });

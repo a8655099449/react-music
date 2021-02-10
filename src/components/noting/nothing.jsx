@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import styles from '../search.less';
-import Context from '@/context';
+import styles from './nothing.less';
+// import Context from '@/context';
 import Image from '@/components/Image/Image';
 
-export default () => {
-  let { hintText } = useContext(Context);
+export default props => {
+  let { hintText } = props;
 
   return (
     <div className={`${styles['nothing']}`}>

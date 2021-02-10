@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { history } from 'umi';
 
 import styles from './search.less';
-import Nothing from './searchContent/nothing';
+import Nothing from '../../components/noting/nothing';
 import { nav } from './data';
 import Context from '@/context';
 
@@ -18,7 +18,7 @@ import { scrollTopTo } from '@/assets/js/tool';
 const loadContent = () => {
   return (
     <div style={{ height: '600px' }}>
-      <Loading text="搜索中..." />
+      <Loading text="努力搜索中..." />
     </div>
   );
 };
@@ -60,6 +60,7 @@ export default props => {
     if (keyword.length == 0) {
       setResult(null);
       sethintText(`请输入搜索关键字`);
+      setpageSize(0);
       setTimeout(() => {
         setisLoading(false);
       }, 500);
@@ -141,7 +142,7 @@ export default props => {
         <SearchInp />
         <NavBar />
 
-        <SearchContent />
+        <SearchContent hintText={hintText} />
         <Pagination
           seletPage={offset + 1}
           pageSize={pageSize}

@@ -23,8 +23,6 @@ const loadContent = () => {
   );
 };
 
-const checkType = type => {};
-
 export default props => {
   let params = props.location.query;
   let type = parseInt(params.type) || 0;
@@ -53,8 +51,10 @@ export default props => {
   };
 
   // ^ 点击了搜索按钮
-  const hanleBtnClick = async () => {
-    let keyword = keywords.trim();
+  const hanleBtnClick = async (key = null) => {
+    if (!key) key = keywords;
+
+    let keyword = key.trim();
     let type = nav[navActiveIndex].type;
     setisLoading(true);
     if (keyword.length == 0) {
@@ -83,7 +83,6 @@ export default props => {
     } else {
       return setpageSize(0);
     }
-    // console.log(nav[navActiveIndex].countKey);
     if (count === 0 || !count) {
       sethintText(
         `没有搜索到与 【 <b>${keyword}</b> 】 相关的的${nav[navActiveIndex].name}`,
@@ -91,7 +90,6 @@ export default props => {
       return setResult(null);
     }
 
-    console.log(res.result);
     setResult(res.result);
   };
 
@@ -122,9 +120,24 @@ export default props => {
   // ^ 监听路由变化
   const routerChange = (location, action) => {
     if (location.pathname === '/search') {
-      let type = parseInt(location.query.type);
-      if (typeof type != 'number' || isNaN(type) || type >= nav.length) return;
-      setnavActiveIndex(type);
+      // let nowtype = type
+
+      let selectType = parseInt(location.query.type);
+      if (selectType === navActiveIndex) {
+        setkeywords(location.query.keyword);
+        hanleBtnClick(location.query.keyword);
+        return;
+      }
+
+      if (
+        typeof selectType != 'number' ||
+        isNaN(selectType) ||
+        selectType >= nav.length
+      ) {
+        return;
+      }
+
+      setnavActiveIndex(selectType);
       setOffset(0);
     }
   };

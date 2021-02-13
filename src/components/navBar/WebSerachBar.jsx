@@ -59,9 +59,19 @@ export default props => {
             setContentShow(false);
           }, 500);
         }}
+        onKeyDown={e => {
+          if (e.key === 'Enter') {
+            goSerachPage(searchKeywords, 0);
+          }
+        }}
       />
 
-      <i className={`iconfont icon-sousuo click`}></i>
+      <i
+        className={`iconfont icon-sousuo click`}
+        onClick={() => {
+          goSerachPage(searchKeywords, 0);
+        }}
+      ></i>
       <div className={`${styles['serach-content']}`} style={contentShowStyle}>
         <header
           className={` click`}

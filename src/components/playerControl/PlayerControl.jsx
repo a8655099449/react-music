@@ -1,5 +1,5 @@
 import React from 'react';
-
+import styles from './PlayerControl.less';
 import PlayerControlUi from './PlayerControlUi';
 
 import { getMusicDatail, getMusicUrl, getMusicLyric } from '@/api/api-music';
@@ -260,8 +260,14 @@ class PlayerControl extends React.Component {
   handlePlayEnd = () => {
     this.handleChangeNextSong();
   };
-
-  // handleCirclemouseout = () => {};
+  // ^ bar1的点击事件
+  handleClickBar1 = e => {
+    console.log(e.screenX);
+    console.log(this.state.bar3Right, e.screenX, this.progData.screenX);
+    console.log(this.state.bar3Right - (e.screenX - this.progData.screenX));
+    // console.log(e,movementX);
+    // console.log(e,clientX);
+  };
   // ^ 播放进度发生变化
   handleMusicChangeTimer = () => {
     // &
@@ -282,15 +288,26 @@ class PlayerControl extends React.Component {
     let index = lrcArr.findIndex(item => item.time == songTime.nowTime);
     if (index !== -1) {
       lrcArr.forEach(item => (item.select = false));
+      /*   if (lrcArr[index] && lrcArr[index].select !== undefined) {
+      } */
       lrcArr[index].select = true;
-      let count = index - 4;
 
-      if (count > 0) {
-        let scrollTop = this.lyicsWarp.scrollTop;
-        if (scrollTop < 58 * count) {
-          this.lyicsWarp.scrollTop = 58 * count + 30;
-        }
+      // let count = index - 4;
+      this.setState({ lrcArr });
+      let selectIndex = document.querySelector(`.${styles['select']}`);
+      if (selectIndex) {
+        this.lyicsWarp.scrollTo({
+          behavior: 'smooth',
+          top: selectIndex.offsetTop - 150 - selectIndex.offsetHeight,
+        });
       }
+
+      // if (count > 0) {
+      //   let scrollTop = this.lyicsWarp.scrollTop;
+      //   if (scrollTop < 58 * count) {
+      //     this.lyicsWarp.scrollTop = 58 * count ;
+      //   }
+      // }
     }
 
     this.setState({ songTime, bar3Right, lrcArr });
@@ -303,9 +320,11 @@ class PlayerControl extends React.Component {
     body.removeEventListener('mousemove', this.handleBodyMousemove);
     body.removeEventListener('mouseup', this.handleCirclemouseup);
     body.removeEventListener('mouseout', this.handleCirclemouseout);
-    // & 设置音乐的播放位置呢
+    // & 设置音乐的播放位置
     let bar3Right = this.state.bar3Right;
     let proportion = 1 - bar3Right / this.progData.barWidth;
+    console.log(proportion * this.palyer.duration);
+    console.log(proportion, this.palyer.duration, bar3Right);
     this.palyer.currentTime = proportion * this.palyer.duration;
   };
   // ^ 点击圆环后的鼠标移动事件
@@ -325,6 +344,8 @@ class PlayerControl extends React.Component {
     let songTime = this.state.songTime;
     // & 设置播放的时间
     songTime.nowTime = parseSongTime(proportion * this.palyer.duration);
+    console.log(bar3Right);
+    if (isNaN(bar3Right)) bar3Right = 494;
 
     this.setState({
       bar3Right,
@@ -389,7 +410,8 @@ class PlayerControl extends React.Component {
   // ^ 播放列表加入一个歌单
   addPlayList = list => {
     if (!list) return;
-
+    list[0].isPlay = true;
+    console.log(list);
     this.clearSongList();
     this.setState({ songList: list });
     this.getSongDataById(list[0].songId, true);
@@ -406,10 +428,6 @@ class PlayerControl extends React.Component {
     let isLock = !this.state.isLock;
     window.localStorage.setItem('lockState', isLock);
     this.setState({ isLock });
-  };
-  defaultWarpClick = e => {
-    // // e.stopPropagation()
-    // e.nativeEvent.stopImmediatePropagation()
   };
 
   handleListShow = () => {
@@ -437,6 +455,7 @@ class PlayerControl extends React.Component {
   // ^ 点击下一首
   handleChangeNextSong = () => {
     let songList = this.state.songList;
+    if (!songList || songList.length == 0) return;
     let index = songList.findIndex(i => i.isPlay);
     index++;
     if (index === songList.length) {
@@ -447,6 +466,8 @@ class PlayerControl extends React.Component {
   // ^ 点击上一首
   handleChangeProvSong = () => {
     let songList = this.state.songList;
+    if (!songList || songList.length == 0) return;
+
     let index = songList.findIndex(i => i.isPlay);
     index--;
     if (index < 0) {
@@ -583,6 +604,7 @@ class PlayerControl extends React.Component {
         palyListSong={this.palyListSong}
         deleteOneSongForList={this.deleteOneSongForList}
         deleteAllSongForList={this.deleteAllSongForList}
+        handleClickBar1={this.handleClickBar1}
       />
     );
   }

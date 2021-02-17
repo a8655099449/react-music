@@ -3,6 +3,7 @@ import styles from './LyricsItem.less';
 
 import { parseSongTime, playNewSong } from '@/assets/js/tool';
 import { goSongPage } from '@/assets/js/linkto';
+import { goAlbum, goSinger } from '../../assets/js/linkto';
 
 export default props => {
   const l = 4;
@@ -59,16 +60,21 @@ export default props => {
         <div
           className={` ${styles['header-name']} underline text-row-1`}
           onClick={() => {
-            console.log(item.id);
             goSongPage(item.id);
           }}
         >
           {item.name}
         </div>
-        <div className={`${styles['header-name']} underline text-row-1`}>
+        <div
+          className={`${styles['header-name']} underline text-row-1`}
+          onClick={() => goSinger(item.ar[0].id)}
+        >
           {item.ar[0].name}
         </div>
-        <div className={`${styles['header-name']} underline text-row-1`}>
+        <div
+          className={`${styles['header-name']} underline text-row-1`}
+          onClick={() => goAlbum(item.al.id)}
+        >
           《{item.al.name}》
         </div>
         <div className={`${styles['header-name']} text-row-1`}>{dt}</div>

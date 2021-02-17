@@ -16,13 +16,10 @@ const playList = params => {
 };
 
 export default props => {
-  // console.log(props);
   let { data } = props;
   if (!data) {
     return <div>加载中....</div>;
   }
-  // console.log(data);
-  // return <div>加载中....</div>;
 
   let {
     description,
@@ -35,9 +32,7 @@ export default props => {
     createTime,
     // playList = [],
   } = data;
-  // console.log(creator);
   if (!creator) {
-    console.log(creator, data);
     return null;
   }
 

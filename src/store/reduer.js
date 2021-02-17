@@ -18,7 +18,6 @@ const defaultState = {
 };
 
 export default (state = defaultState, action) => {
-  // console.log(action);
   // ^ 设置用户信息
 
   // ^ 退出登录

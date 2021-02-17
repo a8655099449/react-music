@@ -34,7 +34,7 @@ export default props => {
   const [keywords, setkeywords] = useState(
     params.keyword || localStorage.getItem(SEARCH_KEYWORDS) || '',
   );
-  const [navActiveIndex, setnavActiveIndex] = useState(type);
+  let [navActiveIndex, setnavActiveIndex] = useState(type);
   const [offset, setOffset] = useState(0);
   const limit = 30;
   const [result, setResult] = useState(null);
@@ -52,9 +52,11 @@ export default props => {
 
   // ^ 点击了搜索按钮
   const hanleBtnClick = async (key = null) => {
-    if (!key) key = keywords;
+    if (!key) key = keywords || '';
 
-    let keyword = key.trim();
+    let keyword = key;
+    console.log(keyword);
+    // let keyword = key.trim();
     let type = nav[navActiveIndex].type;
     setisLoading(true);
     if (keyword.length == 0) {
@@ -123,12 +125,11 @@ export default props => {
       // let nowtype = type
 
       let selectType = parseInt(location.query.type);
-      if (selectType === navActiveIndex) {
+      /*  if (selectType === navActiveIndex && location.query.keyword) {
         setkeywords(location.query.keyword);
         hanleBtnClick(location.query.keyword);
-        return;
       }
-
+ */
       if (
         typeof selectType != 'number' ||
         isNaN(selectType) ||
@@ -136,7 +137,6 @@ export default props => {
       ) {
         return;
       }
-
       setnavActiveIndex(selectType);
       setOffset(0);
     }
@@ -182,7 +182,7 @@ const SearchInp = () => {
         />
         <div
           className={`${styles['btn']} btn btn-gray iconfont  icon-sousuo1 click`}
-          onClick={hanleBtnClick}
+          onClick={() => hanleBtnClick()}
         ></div>
       </div>
     </div>

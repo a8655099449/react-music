@@ -30,7 +30,6 @@ class Event {
     let index2 = this.subscribers[index].events.findIndex(item => {
       return event === item;
     });
-    // console.log(index2);
     if (index2 === -1) {
       this.subscribers[index].events.push(event);
     }

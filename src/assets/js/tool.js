@@ -79,7 +79,6 @@ export function parsePlayCount(num) {
 
 export function setLocalData(key, data) {
   let time = Date.parse(new Date()) / 1000;
-  // console.log(key, data);
   let localdata = {
     data,
     time,

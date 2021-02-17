@@ -3,12 +3,9 @@ import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '@/store/public-map';
 import styles from './CommentInp.less';
 import event from '@/assets/js/event';
+import { showLogin } from '@/assets/js/tool';
 
 class CommentInp extends React.Component {
-  showLogin = () => {
-    event.emit('showLogin');
-  };
-
   render() {
     let { userInfo, isLogin, commentCount = 0 } = this.props;
 
@@ -40,7 +37,7 @@ class CommentInp extends React.Component {
             <div
               className={`${styles['mask']} `}
               style={maskStyle}
-              onClick={this.showLogin}
+              onClick={showLogin}
             >
               登录后才可以发表评论
             </div>

@@ -8,6 +8,8 @@ import Image from '@/components/Image/Image';
 
 import { addPlayList } from '@/assets/js/tool';
 
+import { goSongPage, goAlbum } from '@/assets/js/linkto';
+
 import Loading from '@/components/loading/Loading2';
 const loadContent = (
   <div style={{ height: '400px' }}>
@@ -92,7 +94,6 @@ const SwiperContent = props => {
   let { list } = props;
 
   return list.map((item, index) => {
-    // console.log(item);
     return (
       <div className={`${styles['content']} swiper-slide`} key={index}>
         {item.resources.map((item2, index2) => {
@@ -105,7 +106,10 @@ const SwiperContent = props => {
 
           return (
             <div className={`${styles['list-item']}`} key={index2}>
-              <div className={`${styles['img-warp']}`}>
+              <div
+                className={`${styles['img-warp']}`}
+                onClick={() => goSongPage(item2.resourceExtInfo.songData.id)}
+              >
                 <Image
                   src={item2.uiElement.image.imageUrl + '?param=50y50'}
                   alt={songName}
@@ -115,13 +119,19 @@ const SwiperContent = props => {
                 <div className={`${styles['song-title']} text-row-2 `}>
                   <span
                     className={`underline ${styles['songname']}`}
-                    onClick={() => {
-                      handleItemClick(item2);
-                    }}
+                    onClick={() =>
+                      goSongPage(item2.resourceExtInfo.songData.id)
+                    }
                   >
                     {songName}
                   </span>{' '}
-                  <span>- {artists}</span>
+                  -
+                  <span
+                    className={`${styles['album-name']}`}
+                    onClick={() => goAlbum(item2.resourceExtInfo.artists[0].id)}
+                  >
+                    {artists}
+                  </span>
                 </div>
                 <div className={`${styles['desc-bottom']} text-row-1`}>
                   {desc}
@@ -134,5 +144,3 @@ const SwiperContent = props => {
     );
   });
 };
-
-// export default Customize;

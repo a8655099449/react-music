@@ -40,15 +40,33 @@ const routers = [
   },
   {
     exact: true,
+    path: '/userDetail',
+    component: '@/pages/userDetail/userDetail',
+    title: '用户详情',
+  },
+  {
+    exact: true,
     path: '/search',
     component: '@/pages/search/search',
     title: '搜索',
   },
   {
     exact: true,
-    path: '/userDatail',
-    component: '@/pages/userDatail/userDatail',
-    title: '用户详情',
+    path: '/mv',
+    component: '@/pages/mv/mv',
+    title: 'mv',
+  },
+  {
+    exact: true,
+    path: '/album',
+    component: '@/pages/album/album',
+    title: '专辑',
+  },
+  {
+    exact: true,
+    path: '/singer',
+    component: '@/pages/singer/singer',
+    title: '歌手',
   },
 ];
 

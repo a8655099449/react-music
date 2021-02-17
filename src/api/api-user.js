@@ -37,28 +37,16 @@ export function userLogout() {
 // ^ 获取用户绑定信息
 
 export function getUserBindData(data) {
-  // console.log(data);
   return request({
     url: `/user/binding`,
     params: data,
     iscookie: true,
   });
 }
-// ^ 获取用户详情信息
-
-// export function getUserBindData(data) {
-//   // console.log(data);
-//   return request({
-//     url: `/user/binding`,
-//     params: data,
-//     iscookie: true,
-//   });
-// }
 
 // ^ 获取用户登录状态
 // ! uid => 用户id
 export function getUserLoginStatus() {
-  // console.log(data);
   return request({
     url: `/login/status`,
     iscookie: true,
@@ -86,7 +74,8 @@ export function getUserSubcount() {
 
 /**
  * ^ 获取用户歌单
- * @param {*} data uid 用户id
+ * @params
+ * ? uid => 用户id
  */
 
 export function getUserPlaylist(data) {

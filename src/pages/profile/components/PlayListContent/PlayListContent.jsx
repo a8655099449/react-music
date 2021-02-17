@@ -11,7 +11,6 @@ export default props => {
     return <Loading />;
   }
 
-  // console.log(playListDetail);
   return (
     <div className={`${styles['playlist-content']}`}>
       <Detail data={playListDetail} />

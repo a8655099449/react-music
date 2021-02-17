@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './MvItem.less';
 import Image from '@/components/Image/Image';
 import { parseSongTime, parsePlayCount } from '@/assets/js/tool';
+import { goMv } from '../../assets/js/linkto';
 
 export default props => {
   let { item } = props;
@@ -10,7 +11,7 @@ export default props => {
   let duration = parseSongTime(item.duration / 1000);
 
   return (
-    <div className={`${styles['mv-item']}`}>
+    <div className={`${styles['mv-item']}`} onClick={() => goMv(item.id)}>
       <div className={`${styles['cover']}`}>
         <Image src={item.cover} />
         <div className={`${styles['play-count']}`}>

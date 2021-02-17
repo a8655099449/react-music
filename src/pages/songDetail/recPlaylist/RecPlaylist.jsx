@@ -2,9 +2,10 @@ import React from 'react';
 import styles from './RecPlaylist.less';
 import BaseTitle from '@/components/baseTitle/baseTitle';
 
+import { goUserDatail } from '@/assets/js/linkto';
+
 export default props => {
   let { recPlayList, goPlayList } = props;
-  // console.log(recPlayList);
   return (
     <div className={`${styles['rec-playlist']}`}>
       <BaseTitle title="包含这首歌的歌单" />
@@ -26,7 +27,12 @@ export default props => {
                 </p>
                 <div className="text-row-1">
                   by{' '}
-                  <span className={`underline`}>{item.creator.nickname}</span>
+                  <span
+                    className={`underline`}
+                    onClick={() => goUserDatail(item.userId)}
+                  >
+                    {item.creator.nickname}
+                  </span>
                 </div>
               </div>
             </div>

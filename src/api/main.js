@@ -31,7 +31,8 @@ function request(config) {
       return res.data;
     },
     err => {
-      throw err;
+      console.log(err);
+      return err;
     },
   );
   // axios.interceptors.response.use((response) => {

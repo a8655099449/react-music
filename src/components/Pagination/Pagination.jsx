@@ -3,13 +3,7 @@ import styles from './Pagination.less';
 import { createArr } from '@/assets/js/tool';
 
 export default props => {
-  let {
-    changePage = () => {
-      console.log('默认函数');
-    },
-    seletPage,
-    pageSize = 10,
-  } = props;
+  let { changePage = () => {}, seletPage, pageSize = 10 } = props;
   if (!pageSize || pageSize <= 1) {
     return null;
   }

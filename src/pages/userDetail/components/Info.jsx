@@ -8,7 +8,6 @@ import { GenderIcon } from '@/assets/js/tool';
 
 export default props => {
   const { id, userInfo } = useContext(Context);
-  console.log(userInfo);
 
   return (
     <div className={`${styles['user-info']}`}>

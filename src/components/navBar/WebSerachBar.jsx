@@ -87,7 +87,6 @@ export default props => {
 
 // ^ 点击搜索列表中的选项
 const handleItemClick = (category, item) => {
-  console.log(category, item);
   switch (category.title) {
     case '单曲':
       history.push({

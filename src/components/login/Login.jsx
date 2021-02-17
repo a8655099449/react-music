@@ -22,7 +22,6 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     event.on(SHOW_LOGIN, this.showLogin);
-    // console.log(event);
   }
   showLogin = () => {
     disbledBodyScroll();
@@ -31,7 +30,6 @@ class Login extends React.Component {
     });
   };
   changeInp = e => {
-    // console.log(e.target.id);
     if (e.target.id === 'login-acc') {
       this.setState({
         acc: e.target.value,
@@ -44,7 +42,6 @@ class Login extends React.Component {
   };
   handleLogin = async () => {
     event.emit(SHOW_LOADING);
-    // console.log();
     let { acc, pwd } = this.state;
     let time = Date.parse(new Date()) / 1000;
     try {
@@ -55,14 +52,10 @@ class Login extends React.Component {
       });
 
       if (res && res.code === 200) {
-        // let level = await getUserLevel()
-        // console.log(level);
-        // return
         let userData = res.profile;
 
         localStorage.setItem(COOKIE, res.cookie);
         let level = await getUserLevel();
-        // console.log(level);
         if (level.code === 200) {
           userData.level = level.data;
         }
@@ -84,7 +77,6 @@ class Login extends React.Component {
       event.emit(HIDE_LOADING);
       message.error('账号或密码错误');
     } catch (error) {
-      // console.log(error, '错误信息');
       event.emit(HIDE_LOADING);
       message.error('账号或密码错误');
       return;
@@ -98,7 +90,6 @@ class Login extends React.Component {
   };
 
   render() {
-    // console.log(this.props);
     if (!this.state.isSHow) {
       return null;
     }

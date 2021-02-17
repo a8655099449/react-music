@@ -6,11 +6,24 @@ import { getUserListenHistory } from '@/api/api-user';
 import Nothing from '@/components/noting/nothing.jsx';
 import Loading from '@/components/loading/Loading2';
 
+import { goSongPage, goAlbum, goSinger } from '@/assets/js/linkto';
+import { playNewSong } from '@/assets/js/tool';
+
 const loadContent = (
   <div style={{ height: '400px' }}>
     <Loading />
   </div>
 );
+
+const playSong = item => {
+  let songData = {
+    singerName: item.song.ar[0].name,
+    songId: item.song.id,
+    songName: item.song.name,
+    dt: item.song.dt,
+  };
+  playNewSong(songData);
+};
 
 export default props => {
   // let  {listenTop} = props
@@ -27,13 +40,18 @@ export default props => {
   // const
   const _getUserListenHistory = async type => {
     setloading(true);
-    const res = await getUserListenHistory({ type, uid: id });
-    clearLoading();
-    if (res.code != 200) return;
-    if (type == 1) {
-      return setlist(res.weekData);
+    try {
+      const res = await getUserListenHistory({ type, uid: id });
+      clearLoading();
+      if (res.code != 200) return;
+      if (type == 1) {
+        return setlist(res.weekData);
+      }
+      setlist(res.allData);
+    } catch (error) {
+      console.log('错误信息');
+      console.dir(error.response.data.code);
     }
-    setlist(res.allData);
   };
 
   useEffect(() => {
@@ -93,10 +111,23 @@ const TopItem = props => {
   return (
     <div className={`${styles['top-item']}`}>
       <div>{index}.</div>
-      <div className={`iconfont icon-ziyuan`}></div>
+      <div
+        className={`iconfont icon-ziyuan`}
+        onClick={() => {
+          playSong(item);
+        }}
+      ></div>
       <div>
-        <span className="underline">{item.song.name}</span> -{' '}
-        <span className="underline">{item.song.ar[0].name}</span>
+        <span className="underline" onClick={() => goSongPage(item.song.id)}>
+          {item.song.name}
+        </span>{' '}
+        -{' '}
+        <span
+          className="underline"
+          onClick={() => goSinger(item.song.ar[0].id)}
+        >
+          {item.song.ar[0].name}
+        </span>
       </div>
 
       <div className={`${styles['progress']}`}>

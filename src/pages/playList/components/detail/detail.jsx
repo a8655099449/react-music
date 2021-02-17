@@ -3,7 +3,6 @@ import styles from './detail.less';
 import { parsePlayCount } from '@/assets/js/tool';
 
 export default props => {
-  // console.log(props);
   let {
     isrequest,
     name,

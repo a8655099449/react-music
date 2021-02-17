@@ -1,11 +1,16 @@
 import React from 'react';
 import styles from './AlbumItem.less';
 import Image from '@/components/Image/Image';
+import { goAlbum } from '../../assets/js/linkto';
 export default props => {
   let { item, width = 100 } = props;
 
   return (
-    <div className={`${styles['dvd-item']} `} title={item.name}>
+    <div
+      className={`${styles['dvd-item']} `}
+      title={item.name}
+      onClick={() => goAlbum(item.id)}
+    >
       <div className={`${styles['bg']}`}>
         <Image src={`${item.picUrl}?param=${width}y${width}`} alt={item.name} />
       </div>

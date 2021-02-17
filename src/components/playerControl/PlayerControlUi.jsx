@@ -33,11 +33,9 @@ export default props => {
     palyListSong,
     deleteOneSongForList,
     handleClickBar1,
+    bar2Rigth,
   } = props;
-  // console.log(showSetVolume);
-  // console.log(handleSetVolumeEvent.mousedownCircle);
 
-  // let songDom = ()
   let bar3Style = {
     right: bar3Right + 'px',
   };
@@ -99,7 +97,6 @@ export default props => {
     );
   }
 
-  // console.log(palyBtn.props.className);
   return (
     <div
       className={`${styles['player-control']} ${warpClass} `}
@@ -154,7 +151,10 @@ export default props => {
               onClick={handleClickBar1}
             >
               <div className={`${styles['bar-1']} ${styles['bar-item']}`}></div>
-              <div className={`${styles['bar-2']} ${styles['bar-item']}`}></div>
+              <div
+                className={`${styles['bar-2']} ${styles['bar-item']}`}
+                style={{ right: `${bar2Rigth}px` }}
+              ></div>
               <div
                 className={`${styles['bar-3']} ${styles['bar-item']}`}
                 style={bar3Style}

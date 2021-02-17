@@ -12,10 +12,6 @@ export default () => {
       document.body.scrollTop;
     let BackTopDom = document.querySelector('#back-top');
 
-    // console.log(window.pageYOffset, '1');
-    // console.log(document.documentElement.scrollTop, '2');
-    // console.log(document.body.scrollTop,'3');
-
     if (scrolltop > clientHeight && BackTopDom) {
       BackTopDom.style.bottom = '100px';
     }
@@ -24,10 +20,8 @@ export default () => {
     }
 
     // document.body.scrollTo;
-    // console.log(scrolltop, clientHeight);
   }
   function handleScrollto(e) {
-    // console.log('click');
     e.target.classList.add(styles['mov']);
     setTimeout(() => {
       let BackTopDom = document.querySelector('#back-top');

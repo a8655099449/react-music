@@ -65,7 +65,6 @@ class NavBar extends React.Component {
     if (res.code == 200) {
       this.setState({ searchContent: res.result });
     }
-    console.log(res);
   }, 500);
 
   handelNavChange = (item, activeIndex) => {
@@ -88,7 +87,6 @@ class NavBar extends React.Component {
     let res = await getUserLoginStatus();
     if (res.code == 200) {
       let tokenJsonStr = JSON.parse(res.bindings[1].tokenJsonStr);
-      // console.log(tokenJsonStr);
     }
 
     this.props.setUserData(userData.userData);
@@ -127,10 +125,7 @@ class NavBar extends React.Component {
       userLogout();
     });
   };
-  // ^ 监听理由变化
-  // unlisten = history.listen((location, action) => {
-  //   console.log(location,action);
-  // });
+
   goHome = () => {
     history.push('/');
   };

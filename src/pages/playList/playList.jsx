@@ -6,6 +6,7 @@ import styles from './playList.less';
 import {
   getSongListDetail,
   getSongListRecommentByListId,
+  getCommentNew,
 } from '@/api/api-music';
 import Detail from '@/components/playListDetail/Detail';
 import Subscribers from './components/subscribers/subscribers';
@@ -13,6 +14,7 @@ import Recomment from './components/recomment/recomment';
 import Download from './components/download/download';
 import SongList from './components/songList/songList';
 import BtnWarp from './components/BtnWarp/BtnWarp';
+import CommentList from './components/commentList/commentList';
 import { history } from 'umi';
 import CommentInp from '@/components/CommentInp/CommentInp';
 
@@ -21,9 +23,7 @@ import { addPlayList, scrollTopTo } from '@/assets/js/tool';
 class playList extends React.Component {
   constructor(props) {
     super(props);
-
     let params = props.location.query;
-    // console.log(params);
     this.listId = params.id || 3124642208;
     this.init();
   }
@@ -33,6 +33,7 @@ class playList extends React.Component {
     scrollTopTo(0);
     this._getSongListDetail();
     this._getSongListRecommentByListId();
+    this._getComment();
   }
   state = {
     tags: [],
@@ -49,6 +50,14 @@ class playList extends React.Component {
     commentCount: 0,
     recommentList: [],
     playListData: null,
+    comments: [],
+  };
+
+  commentRequestParms = {
+    pageNo: 1,
+    pageSize: 30,
+    type: 2,
+    sortType: 2,
   };
 
   // ^ 获取歌单详情
@@ -57,10 +66,7 @@ class playList extends React.Component {
       id: this.listId,
     });
     if (res.code === 200) {
-      // console.log(res);
-
       let playListData = res.playlist;
-      console.log(playListData);
       let { tracks = [], subscribers = [] } = playListData;
       this.setState({
         tracks,
@@ -74,13 +80,26 @@ class playList extends React.Component {
     let res = await getSongListRecommentByListId({
       id: this.listId,
     });
-    // console.log(res);
     let recommentList = res.playlists;
     if (res.code === 200) {
       this.setState({ recommentList });
     }
   };
-  // ! 监听路由变换切换歌单
+
+  // ^ 获得歌单评价
+  _getComment = async () => {
+    let res = await getCommentNew({
+      id: this.listId,
+      ...this.commentRequestParms,
+    });
+    if (res.code !== 200) return;
+    let { comments } = this.state;
+    comments.push(...res.data.comments);
+    let commentCount = res.data.totalCount;
+    this.setState({ comments, commentCount });
+  };
+
+  // ^ 监听路由变换切换歌单
   onlisten = history.listen((location, action) => {
     if (
       location.pathname === '/playlist' &&
@@ -88,6 +107,7 @@ class playList extends React.Component {
       this.listId != location.query.id
     ) {
       this.listId = location.query.id;
+      this.state.comments = [];
       this.init();
     }
   });
@@ -105,9 +125,7 @@ class playList extends React.Component {
     addPlayList(list);
   };
   // ^ 更换歌单
-
   changeList = item => {
-    // console.log(item);
     // this.listId = item.id;
     history.push({
       pathname: '/playlist',
@@ -116,6 +134,7 @@ class playList extends React.Component {
       },
     });
   };
+
   render() {
     return (
       <div className={`${styles['content']} content-box page-content`}>
@@ -137,7 +156,9 @@ class playList extends React.Component {
             />
           </div>
 
-          <CommentInp />
+          <CommentInp commentCount={this.state.commentCount} />
+
+          <CommentList list={this.state.comments} />
         </div>
 
         <div className={`${styles['right-content']}`}>

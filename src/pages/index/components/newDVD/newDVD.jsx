@@ -3,6 +3,7 @@ import ItemTitle from '../itemTitle';
 import swiper from 'swiper';
 import styles from './newDVD.less';
 import Image from '@/components/Image/Image';
+import { goAlbum } from '../../../../assets/js/linkto';
 export default props => {
   let { newDVDs } = props;
 
@@ -23,6 +24,7 @@ export default props => {
                 <div
                   className={`${styles['dvd-item']} swiper-slide`}
                   key={index}
+                  onClick={() => goAlbum(item.id)}
                 >
                   <div className={`${styles['bg']}`}>
                     <Image

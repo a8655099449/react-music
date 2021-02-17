@@ -2,9 +2,12 @@ import React from 'react';
 import styles from './recomment.less';
 import BaseTitle from '@/components/baseTitle/baseTitle';
 
+import Image from '@/components/Image/Image';
+
+import { goUserDatail } from '@/assets/js/linkto';
+
 export default props => {
   let { recommentList = [], changeList } = props;
-  // console.log(recommentList);
   return (
     <div>
       <BaseTitle title="相关推荐" />
@@ -17,11 +20,13 @@ export default props => {
               title={item.name}
             >
               <div className={`${styles['img']}`}>
-                <img
+                <Image
                   className="auto-img"
-                  src={item.coverImgUrl}
+                  src={`${item.coverImgUrl}?param=40y40`}
                   alt={item.name}
-                  title={item.name}
+                  onClick={() => {
+                    changeList(item);
+                  }}
                 />
               </div>
               <div className={`${styles['desc']}`}>
@@ -34,7 +39,13 @@ export default props => {
                   {item.name}
                 </div>
                 <div className={`${styles['creater']}  text-row-1`}>
-                  by <span className="underline">{item.creator.nickname}</span>
+                  by{' '}
+                  <span
+                    className="underline"
+                    onClick={() => goUserDatail(item.creator.userId)}
+                  >
+                    {item.creator.nickname}
+                  </span>
                 </div>
               </div>
             </div>

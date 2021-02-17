@@ -16,7 +16,6 @@ export default props => {
     return loadContent;
   }
   let { creatives } = calendars;
-  console.log();
   return (
     <div>
       <ItemTitle
@@ -33,7 +32,6 @@ export default props => {
 
 const CalendarsItem = props => {
   let { item } = props;
-  // console.log(item);
   let labeText = item.resources[0].uiElement.labelTexts ? (
     <span>{item.resources[0].uiElement.labelTexts[0]}</span>
   ) : null;

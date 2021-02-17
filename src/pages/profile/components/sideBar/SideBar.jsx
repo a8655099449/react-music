@@ -24,7 +24,6 @@ export default props => {
     selectId,
   } = props;
   if (!subcountData) subcountData = defaultsubcountData;
-  // console.log(selectId);
   let createStyle = {
     display: isShowCreate ? 'block' : 'none',
   };

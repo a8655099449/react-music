@@ -36,7 +36,6 @@ const SelectType = [
 const Profile = props => {
   let { userInfo, isLogin, isH5 } = props;
 
-  // console.log(userInfo);
   if (!isLogin) {
     return (
       <div className={`page-content content-box`}>
@@ -71,7 +70,6 @@ const Profile = props => {
   // ^ 请求歌单
   const _getUserPlaylist = async () => {
     let res = await getUserPlaylist({ uid });
-    // console.log(res);
     if (res.code != 200) return;
 
     let userCreatePlaylist = res.playlist.filter(i => i.userId == uid);

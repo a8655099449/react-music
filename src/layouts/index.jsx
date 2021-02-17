@@ -15,8 +15,6 @@ import { Provider } from 'react-redux';
 import store from '../store';
 
 function BasicLayout(props) {
-  // console.log(props,NavBar);
-  // console.log(props);
   return (
     <>
       <Provider store={store}>

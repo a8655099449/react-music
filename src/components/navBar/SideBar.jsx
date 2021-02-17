@@ -16,10 +16,7 @@ export default props => {
     display: sideBarShow ? 'block' : 'none',
   };
   let userDom;
-  console.log();
 
-  // let level = userInfo.level.level ?? 3;
-  // let level = userInfo.level.level || 3;
   if (isLogin) {
     userDom = (
       <div className={`${styles['login-box']}`}>

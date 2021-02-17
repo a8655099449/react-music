@@ -25,7 +25,6 @@ export default props => {
   }
 
   const handleScroll = debounce(() => {
-    // console.log('--', offsetTops);
     let scrolltop =
       window.pageYOffset ||
       document.documentElement.scrollTop ||
@@ -85,7 +84,6 @@ const CreateList = props => {
 const Navbar = props => {
   let { scrolltop, offsetTops } = props;
   //  style={{left:navBarLeft}}
-  console.log(scrolltop, offsetTops[1]);
 
   let [left, setLeft] = useState(16);
   useEffect(() => {

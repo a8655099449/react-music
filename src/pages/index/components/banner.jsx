@@ -14,7 +14,6 @@ class Banner extends React.Component {
     this.refs.banner.prev();
   };
   beforeChange = (from, to) => {
-    // console.log(from,to);
     this.setState({
       activeIndex: to,
     });
@@ -38,7 +37,6 @@ class Banner extends React.Component {
   };
   render() {
     let banners = this.props.banners;
-    // console.log(banners);
 
     let bannerList = banners.map((item, index) => (
       <div

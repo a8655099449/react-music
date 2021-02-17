@@ -6,7 +6,6 @@ import Image from '@/components/Image/Image';
 export default props => {
   let { userInfo } = props;
   let lv = userInfo.level ? userInfo.level.level : 1;
-  // console.log(userInfo);
 
   return (
     <div className={`${styles['user-info']}`}>

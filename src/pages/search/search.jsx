@@ -55,7 +55,6 @@ export default props => {
     if (!key) key = keywords || '';
 
     let keyword = key;
-    console.log(keyword);
     // let keyword = key.trim();
     let type = nav[navActiveIndex].type;
     setisLoading(true);

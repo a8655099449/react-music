@@ -49,3 +49,13 @@ export const goMv = id => {
     query: { id },
   });
 };
+/**
+ * ^ 前往歌单页面
+ * @param {*} id  歌单id
+ */
+export const goPlayList = id => {
+  history.push({
+    pathname: '/playlist',
+    query: { id },
+  });
+};

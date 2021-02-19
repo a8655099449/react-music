@@ -5,7 +5,7 @@ import { parseSongTime, playNewSong } from '@/assets/js/tool';
 import { goAlbum, goSinger, goSongPage } from '../../assets/js/linkto';
 
 export default props => {
-  let { tracks = [], showHead = true } = props;
+  let { tracks = [], showHead = true, showSinger = true } = props;
 
   let headStyle = {
     display: showHead ? 'block' : 'none',
@@ -46,7 +46,6 @@ export default props => {
               <div
                 className={`${styles['item']}`}
                 onClick={() => {
-                  console.log(item);
                   playNewSong({
                     singerName: item.ar[0].name,
                     songId: item.id,
@@ -61,6 +60,7 @@ export default props => {
               <div
                 className={`${styles['item']} text-row-1 underline`}
                 onClick={() => goSongPage(item.id)}
+                title={`${item.name}${zj} `}
               >
                 {item.name} <span>{zj}</span>
               </div>
@@ -68,12 +68,16 @@ export default props => {
               <div
                 className={`${styles['item']} text-row-1 underline`}
                 onClick={() => goSinger(item.ar[0].id)}
+                style={{
+                  display: showSinger ? 'block' : 'none',
+                }}
               >
                 {item.ar[0].name}
               </div>
               <div
                 className={`${styles['item']} text-row-1 underline`}
                 onClick={() => goAlbum(item.al.id)}
+                title={item.al.name}
               >
                 {item.al.name}
               </div>

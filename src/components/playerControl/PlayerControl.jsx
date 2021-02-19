@@ -163,14 +163,14 @@ class PlayerControl extends React.Component {
     // & 监听音乐的播放结束事件
     this.player.addEventListener('ended', this.handlePlayEnd);
     this.player.addEventListener('timeupdate', this.handleMusicChangeTimer);
+    document
+      .querySelector('#progrss-bar')
+      .addEventListener('click', this.handleClickBar1);
+
     window.addEventListener('resize', this.handleClictWidthChang);
 
     // & 监听音乐的暂停事件
-    this.player.addEventListener('pause', () => {
-      this.setState({
-        isplay: false,
-      });
-    });
+    this.player.addEventListener('pause', this.handlePlayPause);
 
     if (songId) {
       let songList = this.state.songList;
@@ -201,6 +201,7 @@ class PlayerControl extends React.Component {
 
     this.setState({ songData });
   }
+
   // ^ 获取歌曲的url
   async _getMusicUrl() {
     let res = await getMusicUrl({
@@ -251,8 +252,19 @@ class PlayerControl extends React.Component {
     this.setState({
       isplay: true,
     });
+    this.titleName = `🎵 ${this.state.songData.songName}`;
+    document.title = `${this.titleName}${document.title}`;
+
     // & 开始监听音乐播放进度变化
     // this.player.addEventListener('timeupdate',this.handleMusicChangeTimer)
+  };
+  // ^ 音乐暂停
+  handlePlayPause = () => {
+    this.setState({
+      isplay: false,
+    });
+
+    document.title = document.title.replace(this.titleName, '');
   };
 
   // ^ 音乐播放结束
@@ -261,16 +273,12 @@ class PlayerControl extends React.Component {
   };
   // ^ bar1的点击事件
   handleClickBar1 = e => {
-    // & 起点是 2200 终点 2694
-    console.dir(e);
-    let clickleft =
-      e.clientX - document.querySelector('#progrss-bar').offsetLeft - 55;
-
-    let bar3Right = 494 - clickleft;
+    if (e.target.matches(`.${styles['circle-bar']}`)) return;
+    let clickleft = this.progData.barWidth - e.offsetX;
     this.setState({
-      bar3Right,
+      bar3Right: clickleft,
     });
-    let proportion = 1 - bar3Right / this.progData.barWidth;
+    let proportion = 1 - clickleft / this.progData.barWidth;
     this.player.currentTime = proportion * this.player.duration;
   };
   // ^ 播放进度发生变化
@@ -318,7 +326,7 @@ class PlayerControl extends React.Component {
     this.setState({ songTime, bar3Right, lrcArr });
   };
   // ^ 圆环鼠标松开事件
-  handleCirclemouseup = () => {
+  handleCirclemouseup = e => {
     // 把移动的事件删除了
     this.isCircleMove = false;
     // 把事件删除了
@@ -327,6 +335,9 @@ class PlayerControl extends React.Component {
     body.removeEventListener('mouseout', this.handleCirclemouseout);
     // & 设置音乐的播放位置
     let bar3Right = this.state.bar3Right;
+
+    if (isNaN(bar3Right)) bar3Right = this.progData.barWidth;
+
     let proportion = 1 - bar3Right / this.progData.barWidth;
 
     this.player.currentTime = proportion * this.player.duration;

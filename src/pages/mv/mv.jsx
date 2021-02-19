@@ -8,7 +8,6 @@ import Context from '@/context';
 
 const mv = props => {
   // let { userInfo, isLogin } = props;
-  // console.log(userInfo, isLogin );
   let query = props.location.query;
   let id = 488910132;
   if (query.id && !isNaN(query.id)) id = parseInt(query.id);

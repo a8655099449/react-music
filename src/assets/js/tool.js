@@ -1,6 +1,5 @@
-import { Modal } from 'antd';
+import { Modal, message } from 'antd';
 const { confirm } = Modal;
-import { history } from 'umi';
 
 import event from './event';
 
@@ -118,7 +117,7 @@ export function parseLaric(str) {
 }
 
 // ^ 时间转换函数
-export function formatTime(date, fmt) {
+export const formatTime = (date, fmt) => {
   if (!date) return 'is not time';
   // 判断date是不是时间戳
   if (typeof date == 'number') {
@@ -150,7 +149,7 @@ export function formatTime(date, fmt) {
     }
   }
   return fmt;
-}
+};
 
 // ^ 生成数组
 
@@ -230,4 +229,12 @@ export const GenderIcon = props => {
   }
 
   return <i className="iconfont icon-siglyphalien"></i>;
+};
+
+export const successMsg = msg => {
+  message.success(msg);
+};
+
+export const warningMsg = msg => {
+  message.warning(msg);
 };

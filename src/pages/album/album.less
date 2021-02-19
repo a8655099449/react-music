@@ -1,0 +1,75 @@
+.album-info {
+  display: flex;
+  flex-wrap: wrap;
+  color: var(--text-color-3);
+  .pic {
+    width: 210px;
+    background: url('//s2.music.126.net/style/web2/img/coverall.png?0e581bbff2aa587838e4a8324237b468')
+      no-repeat 0 9999px;
+    background-position: calc(2% - 2px) calc(75% + 3px);
+    background-size: 188%;
+    // padding-right: calc(17% - 1px);
+    padding-right: 34px;
+    margin-right: 20px;
+  }
+  .desc {
+    width: calc(100% - 230px);
+    header {
+      display: flex;
+      align-items: center;
+      .tag {
+        background: url(https://s2.music.126.net/style/web2/img/icon.png?1f73f289d8e007c4013112f187bf555a)
+          no-repeat 0 9999px;
+        width: 54px;
+        height: 24px;
+        background-position: 0 -186px;
+        margin-right: 6px;
+      }
+      .name {
+        width: calc(100% - 60px);
+        font-size: 20px;
+        color: var(--text-color-3);
+      }
+    }
+
+    .desclist {
+      font-size: 12px;
+      margin: 10px 0;
+      line-height: 24px;
+      color: var(--text-color-6);
+      span {
+        color: var(--link-color);
+      }
+    }
+    .btn-wrap {
+      display: flex;
+      div {
+        padding: 0 10px;
+        height: 31px;
+        line-height: 31px;
+        i {
+          margin-right: 5px;
+        }
+        margin-right: 10px;
+      }
+    }
+  }
+  .desc-text {
+    width: 100%;
+    margin-top: 20px;
+    div {
+      font-weight: bold;
+    }
+    p {
+      color: var(--text-color-6);
+      padding-left: 30px;
+      font-size: 12px;
+    }
+  }
+}
+
+.album-page {
+  padding-left: 40px;
+  padding-right: 30px;
+  padding-top: 45px;
+}

@@ -58,7 +58,7 @@
 			"import styles from './${1:$TM_FILENAME_BASE}.less';",
 			"import Context from '@/context';\n",
 
-			"export default (props) =>{",
+			"const ${1:$TM_FILENAME_BASE} = (props) =>{",
 			"\tlet  {$TM_FILENAME_BASE} = props",
 			"\tconst { id } = useContext(Context);",
 			"\treturn(",
@@ -67,6 +67,7 @@
 			"\t\t</div>",
 			"\t)",
 			"}\n\n",
+			"export default ${1:$TM_FILENAME_BASE}"
 
 		],
 		"description": "react的组件代码片段"
@@ -151,4 +152,28 @@
 		],
 		"description": "html"
 	},
+	"useEffect": {
+		// "scope": "javascript,typescript,jsx",
+		"prefix": "useEffect",
+		"body": [
+			"useEffect(() => {",
+			"",
+			"}, []);"
+		],
+		"description": "useEffect"
+	},
+	"getFunction": {
+		// "scope": "javascript,typescript,jsx",
+		"prefix": "getFunction",
+		"body": [
+			"// ^ 获取${name}",
+			"const _${name} = async () => {",
+			"\tconst res = await ${name}();",
+			"\tif (res.code !== 200) return;",
+			"\tconsole.log(res);",
+			"};"
+		],
+		"description": "getFunction"
+	},
+
 }

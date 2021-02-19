@@ -48,10 +48,7 @@ export default props => {
         return setlist(res.weekData);
       }
       setlist(res.allData);
-    } catch (error) {
-      console.log('错误信息');
-      console.dir(error.response.data.code);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {

@@ -145,11 +145,8 @@ export default props => {
               <span>{songData.singerName}</span>
             </p>
 
-            <div
-              className={`${styles['progrss-bar']}`}
-              id="progrss-bar"
-              onClick={handleClickBar1}
-            >
+            <div className={`${styles['progrss-bar']}`} id="progrss-bar">
+              {/*  onClick={handleClickBar1} */}
               <div className={`${styles['bar-1']} ${styles['bar-item']}`}></div>
               <div
                 className={`${styles['bar-2']} ${styles['bar-item']}`}

@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Detail.less';
 import { parsePlayCount, formatTime, addPlayList } from '@/assets/js/tool';
 import Image from '@/components/Image/Image';
+import { goUserDatail } from '../../assets/js/linkto';
 
 const playList = params => {
   let list = params.map(item => {
@@ -56,7 +57,10 @@ export default props => {
           <div className={`${styles['avatar']}`}>
             <img src={creator.avatarUrl} alt="" title={creator.nickname} />
           </div>
-          <span className={`${styles['creator-name']}`}>
+          <span
+            className={`${styles['creator-name']} underline`}
+            onClick={() => goUserDatail(creator.userId)}
+          >
             {creator.nickname}
           </span>
           <span className={`${styles['creator-time']}`}>{createTime} 创建</span>

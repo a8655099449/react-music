@@ -6,7 +6,6 @@ import styles from './playList.less';
 import {
   getSongListDetail,
   getSongListRecommentByListId,
-  getCommentNew,
 } from '@/api/api-music';
 import Detail from '@/components/playListDetail/Detail';
 import Subscribers from './components/subscribers/subscribers';
@@ -19,6 +18,8 @@ import { history } from 'umi';
 import CommentInp from '@/components/CommentInp/CommentInp';
 
 import { addPlayList, scrollTopTo } from '@/assets/js/tool';
+
+import { getCommentNew } from '../../api/api-comment';
 
 class playList extends React.Component {
   constructor(props) {
@@ -67,12 +68,14 @@ class playList extends React.Component {
     });
     if (res.code === 200) {
       let playListData = res.playlist;
-      let { tracks = [], subscribers = [] } = playListData;
+      document.title = `${res.playlist.name} - 歌单`;
+      let { tracks = [], subscribers = [], playCount } = playListData;
       this.setState({
         tracks,
         playListData,
         isrequest: true,
         subscribers,
+        playCount,
       });
     }
   };
@@ -158,7 +161,7 @@ class playList extends React.Component {
 
           <CommentInp commentCount={this.state.commentCount} />
 
-          <CommentList list={this.state.comments} />
+          <CommentList list={this.state.comments} id={this.listId} />
         </div>
 
         <div className={`${styles['right-content']}`}>

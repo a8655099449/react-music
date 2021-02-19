@@ -8,7 +8,7 @@ import Image from '@/components/Image/Image';
 
 import { addPlayList } from '@/assets/js/tool';
 
-import { goSongPage, goAlbum } from '@/assets/js/linkto';
+import { goSongPage, goSinger } from '@/assets/js/linkto';
 
 import Loading from '@/components/loading/Loading2';
 const loadContent = (
@@ -128,7 +128,9 @@ const SwiperContent = props => {
                   -
                   <span
                     className={`${styles['album-name']}`}
-                    onClick={() => goAlbum(item2.resourceExtInfo.artists[0].id)}
+                    onClick={() =>
+                      goSinger(item2.resourceExtInfo.artists[0].id)
+                    }
                   >
                     {artists}
                   </span>

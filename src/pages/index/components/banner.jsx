@@ -2,6 +2,7 @@ import React from 'react';
 import { Carousel } from 'antd';
 import styles from './banner.less';
 import { history } from 'umi';
+import { goPlayList } from '../../../assets/js/linkto';
 
 class Banner extends React.Component {
   state = {
@@ -32,6 +33,9 @@ class Banner extends React.Component {
         break;
       case 3000:
         window.open(item.url, 'block');
+        break;
+      case 1000:
+        goPlayList(item.targetId);
         break;
     }
   };

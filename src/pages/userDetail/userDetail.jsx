@@ -12,6 +12,7 @@ import { getUserDetailData, getUserPlaylist } from '@/api/api-user';
 import Info from './components/Info';
 import ListenTop from './components/listenTop';
 import UserplayList from './components/userplayList';
+import { scrollTopTo } from '../../assets/js/tool';
 
 const loadContent = (
   <div style={{ height: '400px' }}>
@@ -35,14 +36,15 @@ const userDatail = props => {
   const _getUserDetailData = async uid => {
     const res = await getUserDetailData({ uid });
     if (res.code != 200) return;
+
+    document.title = `${res.profile.nickname} - 用户`;
+
     setUserInfo(res);
   };
 
   // ^ 获得用户的歌单
   const _getUserPlayList = async () => {
     let res = await getUserPlaylist({ uid: id });
-
-    console.log();
 
     if (res.code !== 200) return;
     let crl = [];
@@ -62,6 +64,7 @@ const userDatail = props => {
   useEffect(() => {
     _getUserDetailData(id);
     _getUserPlayList();
+    scrollTopTo(0);
   }, []);
 
   const value = {

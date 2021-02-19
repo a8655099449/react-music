@@ -5,7 +5,7 @@ import BaseTitle from '@/components/baseTitle/baseTitle';
 import CommentInp from '@/components/CommentInp/CommentInp';
 
 export default props => {
-  let { hotComments, commentCount, newComments } = props;
+  let { hotComments, commentCount, newComments, id } = props;
 
   return (
     <div>
@@ -14,12 +14,12 @@ export default props => {
       {/* newComments */}
       <BaseTitle title="精彩评论" />
       {hotComments.map((item, index) => {
-        return <CommentItem item={item} key={index} />;
+        return <CommentItem item={item} key={index} type={0} id={id} />;
       })}
       <div style={{ height: '10px' }}></div>
       <BaseTitle title="最新评论" />
       {newComments.map((item, index) => {
-        return <CommentItem item={item} key={index} />;
+        return <CommentItem item={item} key={index} type={0} id={id} />;
       })}
     </div>
   );

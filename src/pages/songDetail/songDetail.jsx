@@ -11,6 +11,8 @@ import { mapStateToProps, mapDispatchToProps } from '@/store/public-map';
 
 import { scrollTopTo } from '@/assets/js/tool';
 
+import { getCommentNew } from '../../api/api-comment';
+
 // import Pagination from '@/components/Pagination/Pagination';
 
 import {
@@ -18,7 +20,6 @@ import {
   getMusicLyric,
   getPlayListForSongID,
   getSimiSong,
-  getCommentNew,
 } from '@/api/api-music';
 import { parseLaric, playNewSong } from '@/assets/js/tool';
 
@@ -72,7 +73,7 @@ class songDetail extends React.Component {
       let al = songs.al;
       let singer = songs.ar[0];
       // let picUrl = al
-
+      document.title = `${name} - 单曲`;
       this.setState({
         songData: { singer, name, al },
       });
@@ -283,6 +284,7 @@ class songDetail extends React.Component {
             isLogin={isLogin}
             userInfo={userInfo}
             showLogin={this.showLogin}
+            id={this.songId}
           />
           {/* <div className="isweb">
             <Pagination

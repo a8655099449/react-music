@@ -1,0 +1,4 @@
+.new-song .swiper-slide{
+  width: calc(100% - 7px);
+  /* margin-left: 20px; */
+}

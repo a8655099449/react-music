@@ -19,6 +19,7 @@ import RecList from './components/recList';
 
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '@/store/public-map';
+import NewSong from './components/NewSong';
 
 class Index extends React.Component {
   saveTime = 60 * 3 * 60;
@@ -29,6 +30,7 @@ class Index extends React.Component {
     recListData: null,
     newDVDs: [],
     calendars: null,
+    newSong: null,
     // recListData: [],
     // customizeData: [],
     // sceneListData: [],
@@ -75,6 +77,10 @@ class Index extends React.Component {
       i => i.blockCode === 'HOMEPAGE_MUSIC_CALENDAR',
     );
 
+    let newSong = homeData.find(
+      i => i.blockCode === 'HOMEPAGE_BLOCK_NEW_ALBUM_NEW_SONG',
+    );
+
     this.setState({
       banners,
       contentList,
@@ -82,6 +88,7 @@ class Index extends React.Component {
       customizeData,
       sceneListData,
       calendars,
+      newSong,
     });
   }
 
@@ -112,6 +119,7 @@ class Index extends React.Component {
             <LoginBar userInfo={userInfo} isLogin={isLogin} />
             <Customize baseData={this.state.customizeData} />
             <MusicCalendar calendars={this.state.calendars} />
+            <NewSong newSong={this.state.newSong} />
           </div>
         </div>
       </div>

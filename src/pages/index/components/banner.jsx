@@ -2,7 +2,7 @@ import React from 'react';
 import { Carousel } from 'antd';
 import styles from './banner.less';
 import { history } from 'umi';
-import { goPlayList } from '../../../assets/js/linkto';
+import { goPlayList, goAlbum } from '../../../assets/js/linkto';
 
 class Banner extends React.Component {
   state = {
@@ -21,15 +21,13 @@ class Banner extends React.Component {
   };
   bannerClick = item => {
     let type = item.targetType;
+    console.log(item);
     switch (type) {
       case 1:
         history.push(`/songdetail?songId=${item.song.id}`);
         break;
       case 10:
-        window.open(
-          `https://music.163.com/store/newalbum/detail?id=${item.targetId}`,
-          'block',
-        );
+        goAlbum(item.targetId);
         break;
       case 3000:
         window.open(item.url, 'block');

@@ -1,4 +1,5 @@
 import React from 'react';
+import { goAlbum, goSinger, goUserDatail } from '../../../assets/js/linkto';
 import styles from './Detail.less';
 
 export default props => {
@@ -40,7 +41,10 @@ export default props => {
   } else {
     lrcMenDom = (
       <div className={`${styles['gx-men']} `}>
-        贡献歌词: <span className="underline">{lrcMen.nickname}</span>
+        贡献歌词:{' '}
+        <span className="underline" onClick={() => goUserDatail(lrcMen.userid)}>
+          {lrcMen.nickname}
+        </span>
       </div>
     );
   }
@@ -60,10 +64,19 @@ export default props => {
           <div className={`${styles['name-text']}`}>{songData.name}</div>
         </div>
         <div className={`${styles['singer']}`}>
-          歌手 : <span className={`underline`}>{songData.singer.name}</span>
+          歌手 :{' '}
+          <span
+            className={`underline`}
+            onClick={() => goSinger(songData.singer.id)}
+          >
+            {songData.singer.name}
+          </span>
         </div>
         <div className={`${styles['singer']}`}>
-          所属专辑 : <span className={`underline`}>{songData.al.name}</span>
+          所属专辑 :{' '}
+          <span className={`underline`} onClick={() => goAlbum(songData.al.id)}>
+            {songData.al.name}
+          </span>
         </div>
 
         <div className={`${styles['btn-box']}`}>

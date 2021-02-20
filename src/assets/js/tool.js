@@ -235,6 +235,6 @@ export const successMsg = msg => {
   message.success(msg);
 };
 
-export const warningMsg = msg => {
+export const warningMsg = (msg = '敬请期待！') => {
   message.warning(msg);
 };

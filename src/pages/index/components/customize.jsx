@@ -42,11 +42,16 @@ export default props => {
     });
   };
   useEffect(renderSwiper, [baseData]);
-
-  let title =
-    baseData.uiElement.mainTitle.title +
-    ' / ' +
-    baseData.uiElement.subTitle.title;
+  console.log(baseData.uiElement);
+  let title;
+  if (baseData.uiElement?.mainTitle?.title) {
+    title =
+      baseData.uiElement?.mainTitle?.title +
+      ' / ' +
+      baseData.uiElement.subTitle.title;
+  } else {
+    title = baseData.uiElement.subTitle.title;
+  }
 
   let bigList = baseData.creatives;
 

@@ -32,6 +32,7 @@
     "redux": "^4.0.5",
     "swiper": "^6.4.1",
     "umi": "^3.3.2",
+    "url-search-params-polyfill": "^8.1.0",
     "yorkie": "^2.0.0"
   }
 }

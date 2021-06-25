@@ -7,7 +7,7 @@
  * @FilePath: \react-umi\src\api\main.js
  */
 import axios from 'axios';
-const baseURL = 'http://121.37.195.155:3000';
+const baseURL = 'http://47.107.81.99:3000';
 import { COOKIE } from '@/config/localKey';
 
 function request(config) {

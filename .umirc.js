@@ -27,5 +27,9 @@ export default defineConfig({
     { component: '@/pages/404' },
   ],
   outputPath: '../static-music2',
+  history: {
+    type: 'browser',
+  },
+
   // publicPath:'/src/assets/'
 });

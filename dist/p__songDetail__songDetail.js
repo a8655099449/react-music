@@ -1322,7 +1322,7 @@
       var a = n('vDqi'),
         c = n.n(a),
         i = n('aiZx'),
-        s = 'http://121.37.195.155:3000';
+        s = 'http://47.107.81.99:3000';
       function r(e) {
         if (e.iscookie && localStorage.getItem(i['a'])) {
           var t = 'cookie='.concat(localStorage.getItem(i['a'])),

@@ -23,7 +23,7 @@ const routers = [
   {
     exact: true,
     path: '/profile',
-    component: '@/pages/profile/Profile',
+    component: '@/pages/profile/profile',
     title: '我的音乐',
   },
   {

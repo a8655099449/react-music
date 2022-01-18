@@ -8,7 +8,7 @@ import BackTop from '../components/BackTop/BackTop';
 import Loading from '@/components/loading/Loading';
 
 import styles from './index.less';
-import 'url-search-params-polyfill';
+// import 'url-search-params-polyfill';
 // 引入redux相关的内容
 
 import { Provider } from 'react-redux';

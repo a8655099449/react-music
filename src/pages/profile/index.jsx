@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import styles from './profile.less';
+import styles from './index.less';
 
 import { mapStateToProps, mapDispatchToProps } from '@/store/public-map';
 import { getUserSubcount, getUserPlaylist } from '@/api/api-user';

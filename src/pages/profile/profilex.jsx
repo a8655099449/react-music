@@ -33,7 +33,7 @@ const SelectType = [
   },
 ];
 
-const Profile = props => {
+const profile = props => {
   let { userInfo, isLogin, isH5 } = props;
 
   if (!isLogin) {
@@ -133,4 +133,4 @@ const Profile = props => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(profile);

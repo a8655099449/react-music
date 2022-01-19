@@ -21,7 +21,7 @@ import { addPlayList, scrollTopTo } from '@/assets/js/tool';
 
 import { getCommentNew } from '../../api/api-comment';
 
-class playList extends React.Component {
+class PlayList extends React.Component {
   constructor(props) {
     super(props);
     let params = props.location.query;
@@ -179,4 +179,4 @@ class playList extends React.Component {
   }
 }
 
-export default playList;
+export default PlayList;

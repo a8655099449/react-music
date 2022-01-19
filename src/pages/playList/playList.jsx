@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import styles from './playList.less';
+import styles from './index.less';
 import {
   getSongListDetail,
   getSongListRecommentByListId,
